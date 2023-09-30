@@ -120,39 +120,42 @@ const changePassword = async (user: any, payload: any) => {
   };
 };
 
-// const forgotPassword = async (payload: { email: string }) => {
+const forgotPassword = async (payload: { email: string }) => {
 
-//   const userData = await prisma.user.findUniqueOrThrow({
-//     where: {
-//       email: payload.email,
-//       status: UserStatus.ACTIVE,
-//     },
-//   });
-//   const resetPassToken = jwtHelpers.generateToken(
-//     { email: userData.email, role: userData.role },
-//     config.jwt.reset_pass_secret as Secret,
-//     config.jwt.reset_pass_token_expires_in as string
-//   );
-//   const resetPassLink =
-//   config.reset_pass_link + `?userId=${userData.id}&token=${resetPassToken}`;
+  const userData = await Users.findOne({
+    where: {
+      email: payload.email,
+      status: USER_STATUS.ACTIVE,
+    },
+  });
+  if(!userData){
+    throw new CustomError(httpStatus.NOT_FOUND,"user Not found")
+  }
+  const resetPassToken = jwtHelpers.generateToken(
+    { email: userData.email, role: userData.role },
+    config.jwt.reset_pass_secret as Secret,
+    config.jwt.reset_pass_token_expires_in as string
+  );
+  const resetPassLink =
+  config.reset_pass_link + `?userId=${userData.id}&token=${resetPassToken}`;
   
-//   await emailSender(
-//     userData.email,
-//     `
-//         <div>
-//             <p>Dear User,</p>
-//             <p>Your password reset link 
-//                 <a href=${resetPassLink}>
-//                     <button>
-//                         Reset Password
-//                     </button>
-//                 </a>
-//             </p>
+  await emailSender(
+    userData.email,
+    `
+        <div>
+            <p>Dear User,</p>
+            <p>Your password reset link 
+                <a href=${resetPassLink}>
+                    <button>
+                        Reset Password
+                    </button>
+                </a>
+            </p>
 
-//         </div>
-//         `
-//   );
-// };
+        </div>
+        `
+  );
+};
 
 
 const resetPassword = async (
