@@ -9,8 +9,12 @@ const getSingleProductFromDB=async(id:string)=>{
     const result= await Products.findById(id)
     return result
 }
-
+const postProductIntoDB=async(payload:Iproduct)=>{
+    const result= await Products.create(payload)
+    return result
+}
 export const productServices={
     getProductsFromDB,
-    getSingleProductFromDB
+    getSingleProductFromDB,
+    postProductIntoDB
 }

@@ -11,22 +11,34 @@ const getAllProducts=catchAsync(async(req,res)=>{
     sendResponse(res, {
         statusCode: httpStatus.OK,
         success: true,
-        message: "FLat Retrieved successfully!",
+        message: "Products Retrieved successfully!",
         data: result
     })
 })
 const getSingleProducts=catchAsync(async(req,res)=>{
-    const productId=req.params
-    const result= await productServices.getSingleProductFromDB(productId)
+    const {id}=req.params
+    const result= await productServices.getSingleProductFromDB(id)
     sendResponse(res, {
         statusCode: httpStatus.OK,
         success: true,
-        message: "FLat Retrieved successfully!",
+        message: "The Product Retrieved successfully!",
+        data: result
+    })
+})
+
+const postProduct=catchAsync(async(req,res)=>{
+    const payload=req.body
+    const result=productServices.postProductIntoDB(payload)
+    sendResponse(res, {
+        statusCode: httpStatus.CREATED,
+        success: true,
+        message: "The Product created successfully!",
         data: result
     })
 })
 
 export const productController={
     getAllProducts,
-    getSingleProducts
+    getSingleProducts,
+    postProduct
 }
