@@ -2,6 +2,7 @@ import httpStatus from "http-status"
 import catchAsync from "../../../shared/catchAsync"
 import sendResponse from "../../../shared/sendResponse"
 import { productServices } from "./product.services"
+import { Request, Response } from "express"
 
 
 
@@ -36,7 +37,12 @@ const postProduct=catchAsync(async(req,res)=>{
         data: result
     })
 })
+const updateProductIntoDB=catchAsync(async(req:Request,res:Response)=>{
+    const id=req.params 
+    const payload=req.body
+    const result= await productServices.updateProduct(id,payload)
 
+})
 export const productController={
     getAllProducts,
     getSingleProducts,

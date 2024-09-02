@@ -4,6 +4,11 @@ import { productController } from "./product.controller";
 const router = express.Router();
 
 router.get('/products',  productController.getAllProducts)
+
 router.get('/product/:id',  productController.getSingleProducts)
-router.post('product',productController.postProduct)
+
+router.post('/product',productController.postProduct)
+
+router.put('/product/:id',productController.updateProductIntoDB)
+
 export const productRoutes=router

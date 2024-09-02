@@ -13,8 +13,16 @@ const postProductIntoDB=async(payload:Iproduct)=>{
     const result= await Products.create(payload)
     return result
 }
+const updateProduct=async(id:string,payload:any)=>{
+    const result = await Products.updateOne(
+        { _id: id },  
+        { $set: payload } 
+      );
+    return result
+}
 export const productServices={
     getProductsFromDB,
     getSingleProductFromDB,
-    postProductIntoDB
+    postProductIntoDB,
+    updateProduct
 }
