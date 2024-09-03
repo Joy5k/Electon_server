@@ -20,9 +20,16 @@ const updateProduct=async(id:string,payload:any)=>{
       );
     return result
 }
+const deleteProductFromDB=async(id:string)=>{
+    const result=await Products.deleteOne({_id:id})
+    return result
+}
+
+
 export const productServices={
     getProductsFromDB,
     getSingleProductFromDB,
     postProductIntoDB,
-    updateProduct
+    updateProduct,
+    deleteProductFromDB
 }

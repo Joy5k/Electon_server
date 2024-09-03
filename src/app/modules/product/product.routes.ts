@@ -11,4 +11,5 @@ router.post('/product',productController.postProduct)
 
 router.put('/product/:id',productController.updateProductIntoDB)
 
+router.delete('/product/:id',productController)
 export const productRoutes=router
