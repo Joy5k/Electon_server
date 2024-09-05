@@ -13,7 +13,9 @@ const getAllUsers=catchAsync(async(req,res)=>{
         data:result
     })
 })
-
+const getMe=catchAsync(async(req,res)=>{
+    const user=req.user
+})
 export const userController={
     getAllUsers
 }
