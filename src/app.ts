@@ -43,6 +43,7 @@ app.get('/', (req: Request, res: Response) => {
     Message: 'Electon is server..',
   });
 });
+app.use('/', router);
 
 
 app.use((req: Request, res: Response, next: NextFunction) => {

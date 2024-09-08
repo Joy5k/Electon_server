@@ -11,6 +11,7 @@ const getSingleProductFromDB=async(id:string)=>{
 }
 const postProductIntoDB=async(payload:Iproduct)=>{
     const result= await Products.create(payload)
+    console.log(result)
     return result
 }
 const updateProduct=async(id:string,payload:any)=>{
