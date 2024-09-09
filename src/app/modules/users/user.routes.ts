@@ -4,7 +4,8 @@ import { userController } from "./user.controller";
 const router = express.Router();
 
 router.get('/users',userController.getAllUsers)
-router.get('/user/getMe',userController.getMe)
-router.get('/user/login',userController.loginUserIntoDB)
-router.get('/user/register',userController.registerUserIntoDB)
+router.get('/getMe',userController.getMe)
+router.get('/login',userController.loginUserIntoDB)
+router.get('/register',userController.registerUserIntoDB)
+
 export const userRoutes=router
