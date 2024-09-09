@@ -14,6 +14,17 @@ const registerUserIntoDB=catchAsync(async(req,res)=>{
     
     })
 })
+const loginUserIntoDB=catchAsync(async(req,res)=>{
+    const payload=req.body
+    const result=await userServices.loginUser(payload)
+    sendResponse(res,{
+        statusCode:httpStatus.OK,
+        success:true,
+        message:"user login successfully",
+        data:result
+    })
+})
+
 const getAllUsers=catchAsync(async(req,res)=>{
     const result=await userServices.getAllUsersFromDB()
     sendResponse(res,{
@@ -36,5 +47,6 @@ const getMe=catchAsync(async(req,res)=>{
 export const userController={
     getAllUsers,
     getMe,
-    registerUserIntoDB
+    registerUserIntoDB,
+    loginUserIntoDB
 }
