@@ -1,3 +1,4 @@
+import { Iuser } from "./user.interface"
 import { Users } from "./user.model"
 
 const registerUser=async(payload:Iuser)=>{
@@ -20,10 +21,15 @@ const getMeFromDB=async(email:string)=>{
     return result
 
 }
+const deleteUserFromDB=async(id:string)=>{
+    const result=await Users.findByIdAndDelete(id)
+    return result
+}
 export const userServices={
     getAllUsersFromDB,
     getMeFromDB,
     registerUser,
-    loginUser
+    loginUser,
+    deleteUserFromDB
 }
 

@@ -3,3 +3,9 @@ export const USER_ROLE={
     SUPER_ADMIN:"super_admin",
     USER:"user"
 }
+
+export type USER_STATUS={
+    ACTIVE:"active",
+    BLOCKED:"blocked",
+    MUTED:"muted"
+}

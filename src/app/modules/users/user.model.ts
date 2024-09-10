@@ -1,4 +1,5 @@
 import { model, Schema } from "mongoose";
+import { Iaddress, Iuser } from "./user.interface";
 
 const addressSchema=new Schema<Iaddress>({
     district:{
@@ -31,9 +32,12 @@ const userSchema=new Schema<Iuser>({
         required:[true,"last Name is Required"],
         trim:true
     },
+    password:{
+        type:String,
+        required:[true,"password is required"]
+    },
     age:{
         type:Number,
-        
         trim:true
     },
      email:{
@@ -43,6 +47,11 @@ const userSchema=new Schema<Iuser>({
         trim:true
      },
      phoneNumber:{
+        type:String,
+        default: "user",
+        trim:true
+     },
+     role:{
         type:String,
         trim:true
      },

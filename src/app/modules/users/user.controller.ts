@@ -44,9 +44,21 @@ const getMe=catchAsync(async(req,res)=>{
         data:result
     })
 })
+const deleteUser=catchAsync(async(req,res)=>{
+    const id=req.params.id;
+    const result=await userServices.deleteUserFromDB(id)
+    sendResponse(res,{
+        statusCode:httpStatus.OK,
+        success:true,
+        message:"user deleted for permanently",
+        data:result
+    })
+})
+
 export const userController={
     getAllUsers,
     getMe,
     registerUserIntoDB,
-    loginUserIntoDB
+    loginUserIntoDB,
+    deleteUser
 }

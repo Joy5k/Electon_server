@@ -1,17 +1,22 @@
+import { USER_STATUS } from './../../../shared/type';
 
-type Iaddress={
+export  type Iaddress={
     roadNo?:string,
     district:string,
     division:string,
-    postCode:number
+    postCode:number,
+    
 }
 
-interface Iuser{
+export type Iuser={
     firstName:string,
     lastName:string,
+    password:string,
     age?:number,
     email:string,
     phoneNumber?:string,
     image:string,
-    address?:Iaddress
+    role:string,
+    address?:Iaddress,
+    status:USER_STATUS|"active"
 }
