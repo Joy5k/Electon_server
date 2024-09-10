@@ -5,7 +5,7 @@ import { userServices } from "./user.services";
 
 const registerUserIntoDB=catchAsync(async(req,res)=>{
     const payload=req.body;
-    const result =userServices.registerUser(payload)
+    const result = await userServices.registerUser(payload)
     sendResponse(res,{
         statusCode:httpStatus.CREATED,
         success:true,

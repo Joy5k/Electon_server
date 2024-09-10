@@ -38,6 +38,7 @@ const userSchema=new Schema<Iuser>({
     },
      email:{
         type:String,
+        unique:true,
         required:[true,"email is required"],
         trim:true
      },

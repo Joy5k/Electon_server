@@ -2,7 +2,6 @@ import { Users } from "./user.model"
 
 const registerUser=async(payload:Iuser)=>{
     const result=await Users.create(payload)
-    console.log(result)
     return result
 
 }

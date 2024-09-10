@@ -6,6 +6,6 @@ const router = express.Router();
 router.get('/users',userController.getAllUsers)
 router.get('/getMe',userController.getMe)
 router.get('/login',userController.loginUserIntoDB)
-router.get('/register',userController.registerUserIntoDB)
+router.post("/register",userController.registerUserIntoDB)
 
 export const userRoutes=router
