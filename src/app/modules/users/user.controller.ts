@@ -44,6 +44,19 @@ const getMe=catchAsync(async(req,res)=>{
         data:result
     })
 })
+
+const blockUser=catchAsync(async(req,res)=>{
+    const {id}=req.params;
+    const userStatus=req.body
+    const result=await userServices.blockUserIntoDB(userStatus,id)
+    sendResponse(res,{
+        statusCode:httpStatus.OK,
+        success:true,
+        message:"user status has been changed",
+        data:result
+    })
+})
+
 const deleteUser=catchAsync(async(req,res)=>{
     const id=req.params.id;
     const result=await userServices.deleteUserFromDB(id)
@@ -60,5 +73,6 @@ export const userController={
     getMe,
     registerUserIntoDB,
     loginUserIntoDB,
-    deleteUser
+    deleteUser,
+    blockUser
 }

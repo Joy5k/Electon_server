@@ -48,11 +48,11 @@ const userSchema=new Schema<Iuser>({
      },
      phoneNumber:{
         type:String,
-        default: "user",
         trim:true
      },
      role:{
         type:String,
+        default:"user",
         trim:true
      },
      address:addressSchema
