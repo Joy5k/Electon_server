@@ -1,16 +1,19 @@
-import { model, Schema } from "mongoose";
+import { model, Schema, Types } from "mongoose";
 import { TBooking } from "./booking.interface";
 
-const bookingSchema=new Schema<TBooking>({
-    userId:{
-        type:String,
-        require:[true,"User is required"],
-        trim:true
+// Define the schema
+const bookingSchema = new Schema<TBooking>({
+    userId: {
+        type: Schema.Types.ObjectId,  
+        ref: 'Users', // Refers to User model
+        required: [true, "User is required"]
     },
-    productId:{
-        type:String,
-        require:[true,"product id is required"],
-        trim:true
+    productId: {
+        type: Schema.Types.ObjectId, 
+        ref: 'Products', // Refers to Product model
+        required: [true, "Product ID is required"]
     }
-})
+});
+
+// Export the model
 export const Booking = model<TBooking>('Booking', bookingSchema);

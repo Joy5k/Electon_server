@@ -16,7 +16,7 @@ const moduleRoutes = [
     },
     {
         path:'/booking',
-        router:bookingRoutes
+        route:bookingRoutes
     }
   
 ];

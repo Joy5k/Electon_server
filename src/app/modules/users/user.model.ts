@@ -56,5 +56,10 @@ const userSchema=new Schema<Iuser>({
         trim:true
      },
      address:addressSchema
-})
+},
+{
+    timestamps: true,
+  },
+
+)
 export const Users = model<Iuser>('Users', userSchema);
