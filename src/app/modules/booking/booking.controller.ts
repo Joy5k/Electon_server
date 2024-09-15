@@ -24,7 +24,21 @@ const postBooking=catchAsync(async(req,res)=>{
     })
     
 })
+
+const deleteBooking=catchAsync(async(req,res)=>{
+    const {id}=req.params;
+    const result=await bookingServices.deleteBookingFromDB(id)
+    sendResponse(res,{
+        statusCode:httpStatus.OK,
+        success:true,
+        message:"Deleted the Product From the booking List successfully",
+        data:result
+    })
+})
+
+
 export const bookingController={
     getAllMybookingList,
-    postBooking    
+    postBooking    ,
+    deleteBooking
 }
