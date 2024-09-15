@@ -4,6 +4,6 @@ import { bookingController } from "./booking.controller";
 const router = express.Router();
 
 router.get('/booking-list',bookingController.getAllMybookingList)
-router.post('/booking',)
+router.post('/booking',bookingController.postBooking)
 
 export const bookingRoutes=router
