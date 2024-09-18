@@ -1,20 +1,21 @@
-import { UserStatus } from "@prisma/client";
-import { jwtHelpers } from "../../../helpers/jwtHelpers";
-import prisma from "../../../shared/prisma";
+
 import * as bcrypt from "bcrypt";
-import config from "../../../config";
+
 import { Secret } from "jsonwebtoken";
-import emailSender from "./emailSender";
+
 import ApiError from "../../error/customError";
 import httpStatus from "http-status";
+import { jwtHelpers } from "../../helpers/jwtHelpers";
+import config from "../../config";
 
 const loginUser = async (payload: { email: string; password: string }) => {
-  const userData = await prisma.user.findUniqueOrThrow({
-    where: {
-      email: payload.email,
-      status: UserStatus.ACTIVE,
-    },
-  });
+  const userData ={password:'1234',email:"joy@gmail.com",role:"admin",id:"003",needPasswordChange:true}
+//  await prisma.user.findUniqueOrThrow({
+//     where: {
+//       email: payload.email,
+//       status: UserStatus.ACTIVE,
+//     },
+//   });
 
   const isCorrectPassword: boolean = await bcrypt.compare(
     payload.password,
@@ -30,7 +31,7 @@ console.log(isCorrectPassword);
       role: userData.role,
       userId: userData?.id,
     },
-    config.jwt.jwt_secret as Secret,
+    config.jwt_hex as Secret,
     config.jwt.expires_in as string
   );
 
