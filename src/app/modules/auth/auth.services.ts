@@ -31,7 +31,7 @@ console.log(isCorrectPassword);
       role: userData.role,
       userId: userData?.id,
     },
-    config.jwt_hex as Secret,
+    config.jwt.jwt_secret as Secret,
     config.jwt.expires_in as string
   );
 
@@ -52,39 +52,39 @@ console.log(refreshToken);
   };
 };
 
-const refreshToken = async (token: string) => {
-  let decodedData;
-  try {
-    decodedData = jwtHelpers.verifyToken(
-      token,
-      config.jwt.refresh_token_secret as Secret
-    );
-  } catch (err) {
-    throw new Error("You are not authorized!");
-  }
+// const refreshToken = async (token: string) => {
+//   let decodedData;
+//   try {
+//     decodedData = jwtHelpers.verifyToken(
+//       token,
+//       config.jwt.refresh_token_secret as Secret
+//     );
+//   } catch (err) {
+//     throw new Error("You are not authorized!");
+//   }
 
-  const userData = await prisma.user.findUniqueOrThrow({
-    where: {
-      email: decodedData.email,
-      status: UserStatus.ACTIVE,
-    },
-  });
+//   const userData = await prisma.user.findUniqueOrThrow({
+//     where: {
+//       email: decodedData.email,
+//       status: UserStatus.ACTIVE,
+//     },
+//   });
 
-  const accessToken = jwtHelpers.generateToken(
-    {
-      email: userData.email,
-      role: userData.role,
-      userId:userData.id
-    },
-    config.jwt.jwt_secret as Secret,
-    config.jwt.expires_in as string
-  );
+//   const accessToken = jwtHelpers.generateToken(
+//     {
+//       email: userData.email,
+//       role: userData.role,
+//       userId:userData.id
+//     },
+//     config.jwt.jwt_secret as Secret,
+//     config.jwt.expires_in as string
+//   );
 
-  return {
-    accessToken,
-    needPasswordChange: userData.needPasswordChange,
-  };
-};
+//   return {
+//     accessToken,
+//     needPasswordChange: userData.needPasswordChange,
+//   };
+// };
 
 // const changePassword = async (user: any, payload: any) => {
 //   const userData = await prisma.user.findUniqueOrThrow({
@@ -189,7 +189,7 @@ const refreshToken = async (token: string) => {
 
 export const AuthServices = {
   loginUser,
-  refreshToken,
+//   refreshToken,
 //   changePassword,
 //   forgotPassword,
 //   resetPassword,
