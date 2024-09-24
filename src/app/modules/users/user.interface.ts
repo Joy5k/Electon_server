@@ -18,5 +18,6 @@ export type Iuser={
     image:string,
     role:string,
     address?:Iaddress,
-    status:USER_STATUS|"active"
+    status:USER_STATUS|"active",
+    needPasswordChange:boolean
 }

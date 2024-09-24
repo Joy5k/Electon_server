@@ -55,6 +55,9 @@ const userSchema=new Schema<Iuser>({
         default:"user",
         trim:true
      },
+     needPasswordChange:{
+        type:Boolean,
+     },
      address:addressSchema
 },
 {
