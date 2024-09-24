@@ -9,3 +9,8 @@ export type USER_STATUS={
     BLOCKED:"blocked",
     MUTED:"muted"
 }
+export const USER_STATUS={
+    ACTIVE:"active",
+    BLOCKED:"blocked",
+    MUTED:"muted"
+}

@@ -8,7 +8,7 @@ export  type Iaddress={
     
 }
 
-export type Iuser={
+export type TUser={
     firstName:string,
     lastName:string,
     password:string,

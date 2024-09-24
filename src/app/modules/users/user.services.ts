@@ -1,10 +1,10 @@
 import httpStatus from "http-status"
 import CustomError from "../../error/customError"
-import { Iuser } from "./user.interface"
+import { TUser } from "./user.interface"
 import { Users } from "./user.model"
 import { USER_STATUS } from "../../../shared/type"
 
-const registerUser=async(payload:Iuser)=>{
+const registerUser=async(payload:TUser)=>{
     const result=await Users.create(payload)
     return result
 }

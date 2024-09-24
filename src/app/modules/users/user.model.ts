@@ -1,5 +1,5 @@
 import { model, Schema } from "mongoose";
-import { Iaddress, Iuser } from "./user.interface";
+import { Iaddress, TUser } from "./user.interface";
 
 const addressSchema=new Schema<Iaddress>({
     district:{
@@ -21,7 +21,7 @@ const addressSchema=new Schema<Iaddress>({
 })
 
 
-const userSchema=new Schema<Iuser>({
+const userSchema=new Schema<TUser>({
     firstName:{
         type:String,
         required: [true, 'First Name is required'],
@@ -65,4 +65,4 @@ const userSchema=new Schema<Iuser>({
   },
 
 )
-export const Users = model<Iuser>('Users', userSchema);
+export const Users = model<TUser>('Users', userSchema);
