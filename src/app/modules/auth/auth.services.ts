@@ -85,37 +85,40 @@ if(!userData){
   };
 };
 
-// const changePassword = async (user: any, payload: any) => {
-//   const userData = await prisma.user.findUniqueOrThrow({
-//     where: {
-//       email: user.email,
-//       status: UserStatus.ACTIVE,
-//     },
-//   });
-//   const isCorrectPassword: boolean = await bcrypt.compare(
-//     payload.oldPassword,
-//     userData.password,
-//   );
-//   if (!isCorrectPassword) {
-//     throw new Error("Password incorrect!");
-//   }
+const changePassword = async (user: any, payload: any) => {
+  const userData = await Users.findOne({
+    where: {
+      email: user.email,
+      status: USER_STATUS.ACTIVE,
+    },
+  });
+  if(!userData){
+    throw new CustomError(httpStatus.NOT_FOUND,"user not found")
+  }
+  const isCorrectPassword: boolean = await bcrypt.compare(
+    payload.oldPassword,
+    userData.password,
+  );
+  if (!isCorrectPassword) {
+    throw new Error("Password incorrect!");
+  }
 
-//   const hashedPassword: string = await bcrypt.hash(payload.newPassword, 12);
+  const hashedPassword: string = await bcrypt.hash(payload.newPassword, 12);
 
-//   await prisma.user.update({
-//     where: {
-//       id: userData.id,
-//     },
-//     data: {
-//       password: hashedPassword,
-//       // needPasswordChange: false,
-//     },
-//   });
+  await Users.findByIdAndUpdate({
+    where: {
+      id: userData.id,
+    },
+    data: {
+      password: hashedPassword,
+      needPasswordChange: false,
+    },
+  });
 
-//   return {
-//     message: "Password changed successfully!",
-//   };
-// };
+  return {
+    message: "Password changed successfully!",
+  };
+};
 
 // const forgotPassword = async (payload: { email: string }) => {
 
@@ -188,8 +191,8 @@ if(!userData){
 
 export const AuthServices = {
   loginUser,
-//   refreshToken,
-//   changePassword,
+  refreshToken,
+  changePassword,
 //   forgotPassword,
 //   resetPassword,
 };
