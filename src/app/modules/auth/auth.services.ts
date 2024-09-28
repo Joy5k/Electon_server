@@ -155,44 +155,45 @@ const changePassword = async (user: any, payload: any) => {
 // };
 
 
-// const resetPassword = async (
-//   token: string,
-//   payload: { id: string; password: string }
-// ) => {
-//   const userData = await prisma.user.findUniqueOrThrow({
-//     where: {
-//       id: payload.id,
-//       status: UserStatus.ACTIVE,
-//     },
-//   });
+const resetPassword = async (
+  token: string,
+  payload: { id: string; password: string }
+) => {
 
-//   const isValidToken = jwtHelpers.verifyToken(
-//     token,
-//     config.jwt.reset_pass_secret as Secret
-//   );
+const userData=await Users.findOne({
+  _id:payload.id,
+  status:USER_STATUS.ACTIVE
+})
+if(!userData){
+throw new CustomError(httpStatus.NOT_FOUND,"User is not valid")
+}
+  const isValidToken = jwtHelpers.verifyToken(
+    token,
+    config.jwt.reset_pass_secret as Secret
+  );
 
-//   if (!isValidToken) {
-//     throw new ApiError(httpStatus.FORBIDDEN, "Forbidden!");
-//   }
+  if (!isValidToken) {
+    throw new ApiError(httpStatus.FORBIDDEN, "Forbidden!");
+  }
 
-//   // hash password
-//   const password = await bcrypt.hash(payload.password, 12);
+  // hash password
+  const password = await bcrypt.hash(payload.password, 12);
 
-//   // update into database
-//   await prisma.user.update({
-//     where: {
-//       id: payload.id,
-//     },
-//     data: {
-//       password,
-//     },
-//   });
-// };
+  // update into database
+  await Users.findByIdAndUpdate({
+    where: {
+      id: payload.id,
+    },
+    data: {
+      password,
+    },
+  });
+};
 
 export const AuthServices = {
   loginUser,
   refreshToken,
   changePassword,
 //   forgotPassword,
-//   resetPassword,
+  resetPassword,
 };
