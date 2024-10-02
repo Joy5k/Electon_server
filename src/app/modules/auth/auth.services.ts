@@ -10,6 +10,7 @@ import { jwtHelpers } from "../../helpers/jwtHelpers";
 import config from "../../config";
 import { Users } from "../users/user.model";
 import CustomError from "../../error/customError";
+import { sendEmail } from '../../utils/emailSender';
 
 const loginUser = async (payload: { email: string; password: string }) => {
   const userData=await Users.findOne({email:payload.email})
@@ -139,7 +140,7 @@ const forgotPassword = async (payload: { email: string }) => {
   const resetPassLink =
   config.jwt.reset_pass_link + `?userId=${userData.id}&token=${resetPassToken}`;
   
-  await emailSender(
+  await sendEmail(
     userData.email,
     `
         <div>
@@ -197,6 +198,6 @@ export const AuthServices = {
   loginUser,
   refreshToken,
   changePassword,
-//   forgotPassword,
+  forgotPassword,
   resetPassword,
 };
