@@ -4,6 +4,12 @@ export const USER_ROLE={
     USER:"user",
     SELLER:"seller"
 }
+export type TUser_Role={
+    ADMIN:'admin',
+    SUPER_ADMIN:"super_admin",
+    USER:"user",
+    SELLER:"seller"
+}
 
 export type USER_STATUS={
     ACTIVE:"active",

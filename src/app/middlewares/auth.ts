@@ -1,14 +1,13 @@
+import { TUser_Role } from './../../shared/type';
 import { NextFunction, Request, Response } from 'express';
 import httpStatus from 'http-status';
 import jwt, { JwtPayload } from 'jsonwebtoken';
 import config from '../config';
 import AppError from '../error/customError';
-import { TUserRole } from '../modules/user/user.interface';
-import { User } from '../modules/user/user.model';
-import catchAsync from '../utils/catchAsync';
 import { Users } from '../modules/users/user.model';
+import catchAsync from '../../shared/catchAsync';
 
-const auth = (...requiredRoles: TUserRole[]) => {
+const auth = (...requiredRoles: TUser_Role[]) => {
   return catchAsync(async (req: Request, res: Response, next: NextFunction) => {
     const token = req.headers.authorization;
 
@@ -21,7 +20,7 @@ const auth = (...requiredRoles: TUserRole[]) => {
      // checking if the given token is valid
       decoded = jwt.verify(
       token,
-      config.jwt_access_secret as string,
+      config.jwt.jwt_access_secret as string,
     ) as JwtPayload;
 
   } catch (error) {
@@ -52,7 +51,7 @@ const auth = (...requiredRoles: TUserRole[]) => {
 
     if (
       user.passwordChangedAt &&
-      User.isJWTIssuedBeforePasswordChanged(
+      Users.isJWTIssuedBeforePasswordChanged(
         user.passwordChangedAt,
         iat as number,
       )
