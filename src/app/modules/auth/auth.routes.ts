@@ -1,7 +1,7 @@
 import express from 'express';
 import { AuthController } from './auth.controller';
-import { USER_ROLE } from '../../../shared/type';
 import auth from '../../middlewares/auth';
+import { USER_ROLE } from '../../../shared/type';
 
 
 const router = express.Router();
