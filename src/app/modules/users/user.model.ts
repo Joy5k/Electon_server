@@ -1,5 +1,5 @@
 import { model, Schema } from "mongoose";
-import { Iaddress, TUser } from "./user.interface";
+import { Iaddress, TUser, UserModel } from "./user.interface";
 import config from "../../config";
 import bcrypt from 'bcrypt';
 
@@ -23,7 +23,7 @@ const addressSchema=new Schema<Iaddress>({
 })
 
 
-const userSchema=new Schema<TUser>({
+const userSchema=new Schema<TUser, UserModel>({
     firstName:{
         type:String,
         required: [true, 'First Name is required'],
@@ -99,7 +99,7 @@ userSchema.pre('save', async function (next) {
     return await bcrypt.compare(plainTextPassword, hashedPassword);
   };
   
-  userSchema.statics.isJWTIssuedBeforePasswordChanged = function (
+   userSchema.statics.isJWTIssuedBeforePasswordChanged = function (
     passwordChangedTimestamp: Date,
     jwtIssuedTimestamp: number,
   ) {
@@ -113,4 +113,4 @@ userSchema.pre('save', async function (next) {
 
 
 
-export const Users = model<TUser>('Users', userSchema);
+export const Users = model<TUser,UserModel>('Users', userSchema);
