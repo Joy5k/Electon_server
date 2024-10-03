@@ -31,7 +31,7 @@ if(!userData){
       role: userData.role,
       userId: userData?.id,
     },
-    config.jwt.jwt_secret as Secret,
+    config.jwt.jwt_access_secret as Secret,
     config.jwt.expires_in as string
   );
 
@@ -76,7 +76,7 @@ if(!userData){
       role: userData.role,
       userId:userData.id
     },
-    config.jwt.jwt_secret as Secret,
+    config.jwt.jwt_access_secret as Secret,
     config.jwt.expires_in as string
   );
 
