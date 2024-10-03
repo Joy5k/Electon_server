@@ -1,7 +1,8 @@
 export const USER_ROLE={
     ADMIN:'admin',
     SUPER_ADMIN:"super_admin",
-    USER:"user"
+    USER:"user",
+    SELLER:"seller"
 }
 
 export type USER_STATUS={
