@@ -2,9 +2,11 @@ import express from 'express';
 import { AuthController } from './auth.controller';
 import auth from '../../middlewares/auth';
 import { USER_ROLE } from '../../../shared/type';
+import { userController } from '../users/user.controller';
 
 
 const router = express.Router();
+router.post("/register",userController.registerUserIntoDB)
 
 router.post(
     '/login',

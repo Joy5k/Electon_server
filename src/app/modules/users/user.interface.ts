@@ -1,4 +1,4 @@
-import { Model } from 'mongoose';
+import { Model, Types } from 'mongoose';
 import { USER_ROLE, USER_STATUS } from './../../../shared/type';
 
 export  type Iaddress={
@@ -19,6 +19,7 @@ export type TUser={
     image:string,
     role:string,
     address?:Iaddress,
+    friends?: Types.ObjectId[]; // Array of ObjectId references for friends
     status:USER_STATUS|'active',
     isDeleted:true|false,
     passwordChangedAt?: Date;

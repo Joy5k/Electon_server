@@ -1,13 +1,17 @@
 import express, { NextFunction, Request, Response } from "express";
 import { userController } from "./user.controller";
+import auth from "../../middlewares/auth";
+import { USER_ROLE } from "../../../shared/type";
 
 const router = express.Router();
 
-router.get('/all-users',userController.getAllUsers)
+router.get('/all-users',auth(USER_ROLE.ADMIN,USER_ROLE.SUPER_ADMIN),userController.getAllUsers)
 router.get('/getMe',userController.getMe)
-router.get('/login',userController.loginUserIntoDB)
-router.put('/block/:id',userController.blockUser)
-router.delete('/delete/:id',userController.deleteUser)
-router.post("/register",userController.registerUserIntoDB)
+router.put('/block/:id',
+    auth(USER_ROLE.ADMIN,USER_ROLE.SUPER_ADMIN),
+    userController.blockUser
+)
+router.delete('/delete/:id',
+    auth(USER_ROLE.ADMIN,USER_ROLE.SUPER_ADMIN),userController.deleteUser)
 
 export const userRoutes=router;

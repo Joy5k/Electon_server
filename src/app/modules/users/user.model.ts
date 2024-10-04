@@ -1,4 +1,4 @@
-import { model, Schema } from "mongoose";
+import { model, Schema, Types } from "mongoose";
 import { Iaddress, TUser, UserModel } from "./user.interface";
 import config from "../../config";
 import bcrypt from 'bcrypt';
@@ -60,8 +60,13 @@ const userSchema=new Schema<TUser, UserModel>({
      needPasswordChange:{
         type:Boolean,
      },
-     address:addressSchema
+     address:addressSchema,
+
+     friends: [{ type: Types.ObjectId, ref: 'User' }], // Reference to other User documents
+
+
 },
+
 {
     timestamps: true,
   },
