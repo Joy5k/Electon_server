@@ -62,7 +62,8 @@ const userSchema=new Schema<TUser, UserModel>({
      },
      address:addressSchema,
 
-     friends: [{ type: Types.ObjectId, ref: 'User' }], // Reference to other User documents
+     friends: [{ type: Types.ObjectId, ref: 'Users' }], // Correct reference to 'Users' model
+     status: { type: String, enum: ['active', 'inactive'], default: 'active' },
 
 
 },
