@@ -1,9 +1,9 @@
 import { model, Schema, Types } from "mongoose";
-import { Iaddress, TUser, UserModel } from "./user.interface";
+import { IAddress, TUser, UserModel } from "./user.interface";
 import config from "../../config";
 import bcrypt from 'bcrypt';
 
-const addressSchema=new Schema<Iaddress>({
+const addressSchema=new Schema<IAddress>({
     district:{
         type:String,
         required:[true,"email is required"],

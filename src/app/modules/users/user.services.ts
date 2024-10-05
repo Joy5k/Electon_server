@@ -4,15 +4,12 @@ import { TUser } from "./user.interface"
 import { Users } from "./user.model"
 import { USER_STATUS } from "../../../shared/type"
 
-const registerUser=async(payload:TUser)=>{
-    const result=await Users.create(payload)
-    return result
+
+const createAdminIntoDB=async(payload:{role:string})=>{
+    
+    console.log(payload)
 }
 
-const loginUser=async (payload:any)=>{
-     const result=await Users.find()
-     return result
-}
 
 const getAllUsersFromDB=async()=>{
     const result=await Users.find()
@@ -43,8 +40,7 @@ const deleteUserFromDB=async(id:string)=>{
 export const userServices={
     getAllUsersFromDB,
     getMeFromDB,
-    registerUser,
-    loginUser,
+    createAdminIntoDB,
     deleteUserFromDB,
     blockUserIntoDB
 }

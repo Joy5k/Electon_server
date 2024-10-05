@@ -3,6 +3,7 @@ import cors from 'cors';
 import router from './app/routes';
 import httpStatus from 'http-status';
 import cookieParser from 'cookie-parser';
+import globalErrorHandler from './app/middlewares/globalError';
 
 const app: Application = express();
 
@@ -44,6 +45,7 @@ app.get('/', (req: Request, res: Response) => {
   });
 });
 app.use('/', router);
+app.use(globalErrorHandler);
 
 
 app.use((req: Request, res: Response, next: NextFunction) => {

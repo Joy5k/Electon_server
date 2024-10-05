@@ -5,13 +5,15 @@ const getProductsFromDB=async()=>{
     const result= await Products.find()
     return result
 }
+const getAllMyProducts=async()=>{
 
+}
 const getSingleProductFromDB=async(id:string)=>{
     const result= await Products.findById(id)
     return result
 }
 
-const postProductIntoDB=async(payload:Iproduct)=>{
+const postProductIntoDB=async(payload:IProduct)=>{
     const result= await Products.create(payload)
     console.log(result)
     return result
@@ -34,6 +36,7 @@ const deleteProductFromDB=async(id:string)=>{
 export const productServices={
     getProductsFromDB,
     getSingleProductFromDB,
+    getAllMyProducts,
     postProductIntoDB,
     updateProduct,
     deleteProductFromDB

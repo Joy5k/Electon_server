@@ -7,6 +7,7 @@ export default {
     database_url: process.env.DATABASE_URL,
     bcrypt_salt_rounds: process.env.BCRYPT_SALT_ROUNDS,
     super_admin_password:process.env.SUPER_ADMIN_PASSWORD,
+    NODE_ENV: process.env.NODE_ENV,
     jwt: {
       jwt_access_secret: process.env.JWT_SECRET,
       expires_in: process.env.EXPIRES_IN,

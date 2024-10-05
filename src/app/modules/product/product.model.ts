@@ -2,7 +2,7 @@
 import { Schema, model } from 'mongoose';
 
 
-const productSchema = new Schema<Iproduct>({
+const productSchema = new Schema<IProduct>({
   title: {
     type: String,
     required: [true, 'Title is required'],
@@ -18,7 +18,7 @@ const productSchema = new Schema<Iproduct>({
     required: [true, 'Image is required'],
   },
   color: {
-    type: String,
+    type: [String],
     trim: true,
     required: [true, 'Choose a color'],
   },
@@ -40,4 +40,4 @@ const productSchema = new Schema<Iproduct>({
 
 
 
-export const Products = model<Iproduct>('Products', productSchema);
+export const Products = model<IProduct>('Products', productSchema);

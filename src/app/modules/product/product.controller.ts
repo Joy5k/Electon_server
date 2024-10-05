@@ -16,6 +16,9 @@ const getAllProducts=catchAsync(async(req,res)=>{
         data: result
     })
 })
+const getAllMyProducts=catchAsync(async(req,res)=>{
+
+})
 const getSingleProducts=catchAsync(async(req,res)=>{
     const {id}=req.params
     const result= await productServices.getSingleProductFromDB(id)
@@ -64,6 +67,7 @@ const deleteProduct=catchAsync(async(req,res)=>{
 export const productController={
     getAllProducts,
     getSingleProducts,
+    getAllMyProducts,
     postProduct,
     updateProductIntoDB,
     deleteProduct

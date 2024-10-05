@@ -6,12 +6,9 @@ import { userController } from '../users/user.controller';
 
 
 const router = express.Router();
-router.post("/register",userController.registerUserIntoDB)
+router.post("/register",AuthController.loginUser)
 
-router.post(
-    '/login',
-    AuthController.loginUser
-);
+router.get( '/login',  AuthController.loginUser);
 
 router.post(
     '/refresh-token',
@@ -23,7 +20,8 @@ router.post(
     auth(
     USER_ROLE.SUPER_ADMIN,
        USER_ROLE.ADMIN,
-       USER_ROLE.USER
+       USER_ROLE.USER,
+       USER_ROLE.SELLER
     ),
     AuthController.changePassword
 );
