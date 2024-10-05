@@ -4,11 +4,13 @@ import { Users } from "../modules/users/user.model";
 
 const superUser = {
     id: "0001",
+    firstName:"Mehedi Hasan",
+    lastName:"Joy",
     email: "mmehedihasanjoyv@gmail.com",
     password: config.super_admin_password,
     needsPasswordChange: false,
     role:USER_ROLE.SUPER_ADMIN,
-    status: 'in-progress',
+    status: 'active',
     isDeleted: false,
 }
 const seedSuperAdmin = async () => {
