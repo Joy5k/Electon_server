@@ -4,11 +4,7 @@ import { IProduct } from './product.interface';
 
 
 const productSchema = new Schema<IProduct>({
-  sellerId:{
-    type: Schema.Types.ObjectId,
-    required: [true,"sellerId missing"],
-    trim:true
-  },
+
   title: {
     type: String,
     required: [true, 'Title is required'],
@@ -42,6 +38,12 @@ const productSchema = new Schema<IProduct>({
     type: Number,
     trim: true,
   },
+  sellerId:{
+    type: Schema.Types.ObjectId,
+    ref: 'Users',
+    required: [true,"sellerId missing"],
+    trim:true
+  }
 });
 
 

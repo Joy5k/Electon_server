@@ -3,7 +3,7 @@ import { Products } from "./product.model"
 
 
 const getProductsFromDB=async()=>{
-    const result= await Products.find()
+    const result= await Products.find().populate("sellerId")
     return result
 }
 const getAllMyProducts=async()=>{
@@ -16,7 +16,7 @@ const getSingleProductFromDB=async(id:string)=>{
 
 const postProductIntoDB=async(payload:IProduct)=>{
     console.log({payload})
-    const result= await Products.create(payload)
+    const result= (await Products.create(payload))
     return result
 }
 
