@@ -1,8 +1,14 @@
 
-import { Schema, model } from 'mongoose';
+import { Schema, Types, model } from 'mongoose';
+import { IProduct } from './product.interface';
 
 
 const productSchema = new Schema<IProduct>({
+  sellerId:{
+    type: Schema.Types.ObjectId,
+    required: [true,"sellerId missing"],
+    trim:true
+  },
   title: {
     type: String,
     required: [true, 'Title is required'],

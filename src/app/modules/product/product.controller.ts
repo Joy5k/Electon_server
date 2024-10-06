@@ -3,6 +3,8 @@ import catchAsync from "../../../shared/catchAsync"
 import sendResponse from "../../../shared/sendResponse"
 import { productServices } from "./product.services"
 import { Request, Response } from "express"
+import { tokenDecoded } from "../../../shared/userAuth"
+import CustomError from "../../error/customError"
 
 
 
@@ -17,7 +19,12 @@ const getAllProducts=catchAsync(async(req,res)=>{
     })
 })
 const getAllMyProducts=catchAsync(async(req,res)=>{
-
+    const token=req.headers.authorization
+    if(!token){
+        throw new CustomError(httpStatus.UNAUTHORIZED,"You are not authorized")
+    }
+    const decoded=tokenDecoded(token)
+    console.log(decoded)
 })
 const getSingleProducts=catchAsync(async(req,res)=>{
     const {id}=req.params

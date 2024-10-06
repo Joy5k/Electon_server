@@ -105,7 +105,7 @@ userSchema.pre('save', async function (next) {
   ) {
     return await bcrypt.compare(plainTextPassword, hashedPassword);
   };
-  
+   
    userSchema.statics.isJWTIssuedBeforePasswordChanged = function (
     passwordChangedTimestamp: Date,
     jwtIssuedTimestamp: number,
@@ -121,4 +121,5 @@ userSchema.pre('save', async function (next) {
 
 
 export const Users = model<TUser,UserModel>('Users', userSchema);
+
 Users.syncIndexes();

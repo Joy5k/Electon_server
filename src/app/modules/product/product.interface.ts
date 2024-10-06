@@ -1,5 +1,6 @@
+import { Types } from "mongoose";
 
-interface IProduct{
+export  interface IProduct{
     title:string;
     description:string;
     image:string;
@@ -7,5 +8,5 @@ interface IProduct{
     quantity:number;
     color:string[];
     rating?:number;
-    
+    sellerId:Types.ObjectId;
 }

@@ -9,7 +9,7 @@ router.put('/create-admin',auth(USER_ROLE.SUPER_ADMIN),userController.createAdmi
 
 router.get('/all-users',auth(USER_ROLE.ADMIN,USER_ROLE.SUPER_ADMIN),userController.getAllUsers)
 
-router.get('/getMe',userController.getMe)
+router.get('/getMe',auth(USER_ROLE.USER,USER_ROLE.SELLER,USER_ROLE.ADMIN,USER_ROLE.SUPER_ADMIN),  userController.getMe)
 
 router.put('/block/:id', auth(USER_ROLE.ADMIN,USER_ROLE.SUPER_ADMIN), userController.blockUser)
 

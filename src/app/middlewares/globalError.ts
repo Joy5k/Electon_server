@@ -9,8 +9,11 @@ import handleDuplicateError from '../error/handleDuplicateError';
 import handleValidationError from '../error/handleValidationError';
 // import handleZodError from '../error/handleZodError';
 import { TErrorSources } from '../interface/error';
+import { ZodError } from 'zod';
+import handleZodError from '../error/handleZodError';
 
 const globalErrorHandler: ErrorRequestHandler = (err, req, res, next) => {
+
   //setting default values
   let statusCode = 500;
   let message = 'Something went wrong!';
@@ -21,12 +24,12 @@ const globalErrorHandler: ErrorRequestHandler = (err, req, res, next) => {
     },
   ];
 
-//   if (err instanceof ZodError) {
-//     const simplifiedError = handleZodError(err);
-//     statusCode = simplifiedError?.statusCode;
-//     message = simplifiedError?.message;
-//     errorSources = simplifiedError?.errorSources;
-//   } else
+  if (err instanceof ZodError) {
+    const simplifiedError = handleZodError(err);
+    statusCode = simplifiedError?.statusCode;
+    message = simplifiedError?.message;
+    errorSources = simplifiedError?.errorSources;
+  } else
    if (err?.name === 'ValidationError') {
     const simplifiedError = handleValidationError(err);
     statusCode = simplifiedError?.statusCode;

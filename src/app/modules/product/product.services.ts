@@ -1,3 +1,4 @@
+import { IProduct } from "./product.interface"
 import { Products } from "./product.model"
 
 
@@ -14,8 +15,8 @@ const getSingleProductFromDB=async(id:string)=>{
 }
 
 const postProductIntoDB=async(payload:IProduct)=>{
+    console.log({payload})
     const result= await Products.create(payload)
-    console.log(result)
     return result
 }
 
