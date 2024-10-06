@@ -5,6 +5,7 @@ import { productServices } from "./product.services"
 import { Request, Response } from "express"
 import { tokenDecoded } from "../../../shared/userAuth"
 import CustomError from "../../error/customError"
+import { JwtPayload } from "jsonwebtoken"
 
 
 
@@ -23,8 +24,17 @@ const getAllMyProducts=catchAsync(async(req,res)=>{
     if(!token){
         throw new CustomError(httpStatus.UNAUTHORIZED,"You are not authorized")
     }
-    const decoded=tokenDecoded(token)
-    console.log(decoded)
+    const decoded=tokenDecoded(token)as JwtPayload
+    if(!decoded){
+        throw new CustomError(httpStatus.UNAUTHORIZED,"Your not Authorized")
+    }
+    const result=await productServices.getAllMyProducts(decoded.userId) 
+    sendResponse(res, {
+        statusCode: httpStatus.OK,
+        success: true,
+        message: "The Product Retrieved successfully!",
+        data: result
+    })
 })
 const getSingleProducts=catchAsync(async(req,res)=>{
     const {id}=req.params
@@ -39,7 +49,9 @@ const getSingleProducts=catchAsync(async(req,res)=>{
 
 const postProduct=catchAsync(async(req,res)=>{
     const payload=req.body
-    const result=productServices.postProductIntoDB(payload)
+    const result=await productServices.postProductIntoDB(payload)
+    console.log({result})
+
     sendResponse(res, {
         statusCode: httpStatus.CREATED,
         success: true,

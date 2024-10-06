@@ -30,6 +30,7 @@ router.post('/create-product',
 
 router.put('/update-product/:id',
     auth(USER_ROLE.SELLER,USER_ROLE.ADMIN,USER_ROLE.SUPER_ADMIN), 
+    validateRequest(productValidationSchema.updateProductValidationSchema),
     productController.updateProductIntoDB
 )
 

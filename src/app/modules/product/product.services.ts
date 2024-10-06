@@ -6,8 +6,9 @@ const getProductsFromDB=async()=>{
     const result= await Products.find().populate("sellerId")
     return result
 }
-const getAllMyProducts=async()=>{
-
+const getAllMyProducts=async(userId:string)=>{
+const result=await Products.find({sellerId:userId})
+return result
 }
 const getSingleProductFromDB=async(id:string)=>{
     const result= await Products.findById(id)
@@ -15,8 +16,7 @@ const getSingleProductFromDB=async(id:string)=>{
 }
 
 const postProductIntoDB=async(payload:IProduct)=>{
-    console.log({payload})
-    const result= (await Products.create(payload))
+    const result= await Products.create(payload)
     return result
 }
 
