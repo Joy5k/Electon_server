@@ -44,7 +44,6 @@ if(!userData){
     config.jwt.refresh_token_secret as Secret,
     config.jwt.refresh_token_expires_in as string
   );
-console.log(refreshToken);
   return {
     accessToken,
     refreshToken,
@@ -122,13 +121,11 @@ const changePassword = async (user: any, payload: any) => {
 };
 
 const forgotPassword = async (payload: { email: string }) => {
-
   const userData = await Users.findOne({
-    where: {
       email: payload.email,
       status: USER_STATUS.ACTIVE,
-    },
   });
+
   if(!userData){
     throw new CustomError(httpStatus.NOT_FOUND,"user Not found")
   }
