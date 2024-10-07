@@ -6,9 +6,20 @@ const getAllMyBookingListFromDB=async()=>{
     return result
 }
 const postBookingIntoDB=async(productId:TBooking,userId:string)=>{
-    console.log(productId,userId)
-    const result=await Booking.create({productId,userId})
-    return result
+    const isExistProduct=await Booking.findOne({productId})
+  
+    if (isExistProduct) {
+        // If the booking exists, increment the quantity by 1
+        return await Booking.findOneAndUpdate(
+            { productId, userId },
+            { $inc: { quantity: 1 } }, // Increment quantity
+            { new: true } 
+        );
+    } else {
+        // If the booking doesn't exist, create a new booking
+        const result = await Booking.create({ productId, userId, quantity: 1 });
+        return result;
+    }
 }
 
 const deleteBookingFromDB=async(id:string)=>{
