@@ -12,6 +12,10 @@ const bookingSchema = new Schema<TBooking>({
         type: Schema.Types.ObjectId, 
         ref: 'Products', // Refers to Product model
         required: [true, "Product ID is required"]
+    },
+    quantity:{
+        type:Number,
+        default:1
     }
 });
 

@@ -1,4 +1,5 @@
  import nodemailer from 'nodemailer';
+import config from '../config';
 
 export const sendEmail = async(to:string,html:string) => {
     const transporter = nodemailer.createTransport({
@@ -8,7 +9,7 @@ export const sendEmail = async(to:string,html:string) => {
         auth: {
           // TODO: replace `user` and `pass` values from <https://forwardemail.net>
           user: "mmehedihasanjoyv@gmail.com",
-          pass: "yoqd xskp cqep tyqi",
+          pass: config.app_password,
         },
     });
     await transporter.sendMail({
