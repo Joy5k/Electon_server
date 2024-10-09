@@ -44,7 +44,10 @@ const productSchema = new Schema<IProduct>({
     required: [true,"sellerId missing"],
     trim:true
   }
-});
+},{
+  timestamps: true,
+},
+);
 
 
 

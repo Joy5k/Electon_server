@@ -17,7 +17,10 @@ const bookingSchema = new Schema<TBooking>({
         type:Number,
         default:1
     }
-});
+},
+{
+    timestamps: true,
+  });
 
 // Export the model
 export const Booking = model<TBooking>('Booking', bookingSchema);
