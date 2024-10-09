@@ -22,7 +22,11 @@ const moduleRoutes = [
     {
         path:'/booking',
         route:bookingRoutes
-    }
+    },
+    {
+        path:'/chat',
+        route:bookingRoutes
+    },
   
 ];
 
