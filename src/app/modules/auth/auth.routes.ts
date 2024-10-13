@@ -8,7 +8,7 @@ import { userController } from '../users/user.controller';
 const router = express.Router();
 router.post("/register",AuthController.loginUser)
 
-router.get( '/login',  AuthController.loginUser);
+router.post( '/login',  AuthController.loginUser);
 
 router.post(
     '/refresh-token',
