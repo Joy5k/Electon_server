@@ -34,6 +34,8 @@ const userSchema=new Schema<TUser, UserModel>({
         required:[true,"last Name is Required"],
         trim:true
     },
+    gender: { type: String, enum: ['male', 'female','other'], default: 'male' },
+
     password:{
         type:String,
         required:[true,"password is required"]

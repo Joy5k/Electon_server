@@ -3,7 +3,7 @@ import { USER_STATUS } from './../../../shared/type';
 import * as bcrypt from "bcrypt";
 
 import { Secret } from "jsonwebtoken";
-
+import mongoose from 'mongoose';
 import ApiError from "../../error/customError";
 import httpStatus from "http-status";
 import { jwtHelpers } from "../../helpers/jwtHelpers";
@@ -11,6 +11,7 @@ import config from "../../config";
 import { Users } from "../users/user.model";
 import CustomError from "../../error/customError";
 import { sendEmail } from '../../utils/emailSender';
+import { TRegister } from './auth.interface';
 
 const loginUser = async (payload: { email: string; password: string }) => {
   const userData=await Users.findOne({email:payload.email})
@@ -50,6 +51,54 @@ if(!userData){
     needPasswordChange: userData.needPasswordChange,
   };
 };
+
+const registerUser=async(payload:TRegister)=>{
+  const userData=await Users.findOne({email:payload.email})
+if(userData){
+  throw new CustomError(httpStatus.BAD_REQUEST,`User already created by ${payload.email}` )
+}
+  const session = await mongoose.startSession();
+
+  session.startTransaction(); 
+  try {
+
+const createUser=await Users.create(payload)
+if(!createUser){
+  throw new CustomError(httpStatus.BAD_REQUEST,"Failed the create User")
+}
+const accessToken = jwtHelpers.generateToken(
+  {
+    email: createUser.email,
+    role: createUser.role,
+    userId: createUser?.id,
+  },
+  config.jwt.jwt_access_secret as Secret,
+  config.jwt.expires_in as string
+);
+
+const refreshToken = jwtHelpers.generateToken(
+  {
+    email: createUser.email,
+    role: createUser.role,
+    userId:createUser.id
+  },
+  config.jwt.refresh_token_secret as Secret,
+  config.jwt.refresh_token_expires_in as string
+
+
+);
+await session.commitTransaction();
+await session.endSession();
+
+return {data:createUser,accessToken,refreshToken}
+  } catch (error) {
+    console.log(error);
+    await session.abortTransaction();
+    await session.endSession();
+    throw new CustomError(httpStatus.BAD_REQUEST, 'Failed to update course');
+  }
+ 
+}
 
 const refreshToken = async (token: string) => {
   let decodedData;
@@ -193,6 +242,7 @@ throw new CustomError(httpStatus.NOT_FOUND,"User is not valid")
 
 export const AuthServices = {
   loginUser,
+  registerUser,
   refreshToken,
   changePassword,
   forgotPassword,

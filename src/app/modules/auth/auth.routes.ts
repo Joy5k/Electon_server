@@ -6,7 +6,7 @@ import { userController } from '../users/user.controller';
 
 
 const router = express.Router();
-router.post("/register",AuthController.loginUser)
+router.post("/register",AuthController.registerUser)
 
 router.post( '/login',  AuthController.loginUser);
 

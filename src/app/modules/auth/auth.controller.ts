@@ -23,7 +23,17 @@ const loginUser = catchAsync(async (req: Request, res: Response) => {
         }
     })
 });
-
+const registerUser=catchAsync(async(req:Request,res:Response)=>{
+    const payload=req.body;
+    const result=await AuthServices.registerUser(payload)
+    sendResponse(res, {
+        statusCode: httpStatus.OK,
+        success: true,
+        message: "User Registered successfully!",
+        data: result
+     
+    })
+})
 const refreshToken = catchAsync(async (req: Request, res: Response) => {
     const { refreshToken } = req.cookies;
 
@@ -80,6 +90,7 @@ const resetPassword = catchAsync(async (req: Request, res: Response) => {
 
 export const AuthController = {
     loginUser,
+    registerUser,
     refreshToken,
     changePassword,
     forgotPassword,

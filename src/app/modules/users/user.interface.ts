@@ -16,6 +16,7 @@ export type TUser={
     age?:number,
     email:string,
     phoneNumber?:string,
+    gender:'male'|"female"|"other";
     image?:string,
     role:string,
     address?:IAddress,
