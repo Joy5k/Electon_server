@@ -8,6 +8,7 @@ export type TRegister={
     lastName:string;
     gender:'male'|"female"|"other";
     phoneNumber?:string,
+    address?:string;
     email:string;
     password:string;
 }

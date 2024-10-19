@@ -53,8 +53,9 @@ if(!userData){
 };
 
 const registerUser=async(payload:TRegister)=>{
-  const userData=await Users.findOne({email:payload.email})
-if(userData){
+
+  const isExistUser=await Users.findOne({email:payload.email})
+if(isExistUser){
   throw new CustomError(httpStatus.BAD_REQUEST,`User already created by ${payload.email}` )
 }
   const session = await mongoose.startSession();
@@ -95,7 +96,7 @@ return {data:createUser,accessToken,refreshToken}
     console.log(error);
     await session.abortTransaction();
     await session.endSession();
-    throw new CustomError(httpStatus.BAD_REQUEST, 'Failed to update course');
+    throw new CustomError(httpStatus.BAD_REQUEST, 'Failed to Register');
   }
  
 }
