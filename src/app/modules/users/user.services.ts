@@ -37,11 +37,14 @@ const deleteUserFromDB=async(id:string)=>{
     return result
 }
 
+
+
 export const userServices={
     getAllUsersFromDB,
     getMeFromDB,
     createAdminIntoDB,
     deleteUserFromDB,
-    blockUserIntoDB
+    blockUserIntoDB,
+   
 }
 

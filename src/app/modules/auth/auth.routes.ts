@@ -36,4 +36,6 @@ router.post(
     AuthController.resetPassword
 )
 
+//two factor authentication routes below
+router.post('/2fa/setup',AuthController.setup2FA)
 export const AuthRoutes = router;

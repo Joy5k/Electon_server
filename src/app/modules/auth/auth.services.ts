@@ -12,6 +12,8 @@ import { Users } from "../users/user.model";
 import CustomError from "../../error/customError";
 import { sendEmail } from '../../utils/emailSender';
 import { TRegister } from './auth.interface';
+import speakeasy from 'speakeasy';
+import qrcode from 'qrcode';
 
 const loginUser = async (payload: { email: string; password: string }) => {
   const userData=await Users.findOne({email:payload.email})
@@ -240,7 +242,42 @@ throw new CustomError(httpStatus.NOT_FOUND,"User is not valid")
     },
   });
 };
+// Two factor authentication services codes below
 
+const setup2FA=async(userId:string)=>{
+
+// Generate a secret for the user
+const secret = speakeasy.generateSecret({
+  name: `MyApp: ${userId}`,
+  issuer:"MyApp"
+});
+const user=await Users.findOne({_id:userId})
+if(!user){
+  throw new CustomError(httpStatus.NOT_FOUND,"user not found")
+}
+const setSecretIntoDB=await Users.findByIdAndUpdate({
+  where:{
+    _id:userId
+  },
+  data:{secret}
+})
+console.log(setSecretIntoDB)
+if(!secret.otpauth_url){
+  throw new CustomError(httpStatus.NOT_FOUND,"otpauth_url is undefined")
+}
+  // Generate a QR code for the user to scan
+    qrcode.toDataURL(secret.otpauth_url, (err, data) => {
+        if (err) {
+            throw new CustomError(httpStatus.BAD_REQUEST,"Error generating QR code")
+        }
+       return {
+            message: 'Scan this QR code with your authenticator app',
+            qrCode: data, // This is the QR code in base64 format
+            secret: secret.base32, // Save the secret in case you want to show it as plain text
+        };
+    });
+    
+}
 export const AuthServices = {
   loginUser,
   registerUser,
@@ -248,4 +285,5 @@ export const AuthServices = {
   changePassword,
   forgotPassword,
   resetPassword,
+  setup2FA
 };

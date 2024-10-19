@@ -87,6 +87,18 @@ const resetPassword = catchAsync(async (req: Request, res: Response) => {
     })
 });
 
+// Two factor authentication controller codes below
+
+const setup2FA=catchAsync(async(req:Request,res:Response)=>{
+    const { userId } = req.body
+    const result=await  AuthServices.setup2FA(userId)
+    sendResponse(res, {
+        statusCode: httpStatus.OK,
+        success: true,
+        message: "Password Reset!",
+        data: null
+    })
+})
 
 export const AuthController = {
     loginUser,
@@ -94,5 +106,6 @@ export const AuthController = {
     refreshToken,
     changePassword,
     forgotPassword,
-    resetPassword
+    resetPassword,
+    setup2FA
 };

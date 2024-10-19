@@ -2,6 +2,7 @@ import httpStatus from "http-status";
 import catchAsync from "../../../shared/catchAsync";
 import sendResponse from "../../../shared/sendResponse";
 import { userServices } from "./user.services";
+import { AuthServices } from "../auth/auth.services";
 
 const createAdmin=catchAsync(async(req,res)=>{
     const role=req.body;
