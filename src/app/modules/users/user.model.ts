@@ -66,10 +66,12 @@ const userSchema=new Schema<TUser, UserModel>({
     type:Boolean,
     default:false
      },
-     secret:{
-      type:String,
-      trim:true
-     },
+     secret: {
+      ascii: String,
+      hex: String,
+      base32: String,
+      otpauth_url: String
+    },
      address:addressSchema,
 
      friends: [{ type: Types.ObjectId, ref: 'Users' }], // Correct reference to 'Users' model

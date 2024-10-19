@@ -245,38 +245,57 @@ throw new CustomError(httpStatus.NOT_FOUND,"User is not valid")
 // Two factor authentication services codes below
 
 const setup2FA=async(userId:string)=>{
-
-// Generate a secret for the user
-const secret = speakeasy.generateSecret({
-  name: `MyApp: ${userId}`,
-  issuer:"MyApp"
-});
-const user=await Users.findOne({_id:userId})
-if(!user){
-  throw new CustomError(httpStatus.NOT_FOUND,"user not found")
-}
-const setSecretIntoDB=await Users.findByIdAndUpdate({
-  where:{
-    _id:userId
-  },
-  data:{secret}
-})
-console.log(setSecretIntoDB)
-if(!secret.otpauth_url){
-  throw new CustomError(httpStatus.NOT_FOUND,"otpauth_url is undefined")
-}
-  // Generate a QR code for the user to scan
-    qrcode.toDataURL(secret.otpauth_url, (err, data) => {
+  let result;
+  // Generate a secret for the user
+  const secret = speakeasy.generateSecret({
+    name: `MyApp: ${userId}`,
+    issuer: "MyApp"
+  });
+  
+  // Find the user
+  const user = await Users.findOne({ _id: userId });
+  if (!user) {
+    throw new CustomError(httpStatus.NOT_FOUND, "User not found");
+  }
+  
+  // Set the secret into the database
+  const setSecretIntoDB = await Users.findByIdAndUpdate(
+    userId,
+    { secret }, // Update the secret field
+    { new: true } // Return the updated document
+  );
+  console.log(setSecretIntoDB);
+  
+  if (!secret.otpauth_url) {
+    throw new CustomError(httpStatus.NOT_FOUND, "otpauth_url is undefined");
+  }
+  
+  // Generate QR code in an async way using a Promise
+  const generateQRCode = (otpauthUrl:string) => {
+    return new Promise((resolve, reject) => {
+      qrcode.toDataURL(otpauthUrl, (err, data) => {
         if (err) {
-            throw new CustomError(httpStatus.BAD_REQUEST,"Error generating QR code")
+          return reject(new CustomError(httpStatus.BAD_REQUEST, "Error generating QR code"));
         }
-       return {
-            message: 'Scan this QR code with your authenticator app',
-            qrCode: data, // This is the QR code in base64 format
-            secret: secret.base32, // Save the secret in case you want to show it as plain text
-        };
+        resolve(data);
+      });
     });
-    
+  };
+  
+  // Await the QR code generation and construct the result
+  try {
+    const qrCodeData = await generateQRCode(secret.otpauth_url);
+    result = {
+      message: 'Scan this QR code with your authenticator app',
+      qrCode: qrCodeData, // The QR code in base64 format
+      secret: secret.base32, // Show the secret as plain text
+    };
+    console.log({ result });
+    return result;
+  } catch (error) {
+    throw error; // Handle any error during the QR code generation
+  }
+  
 }
 export const AuthServices = {
   loginUser,

@@ -95,8 +95,8 @@ const setup2FA=catchAsync(async(req:Request,res:Response)=>{
     sendResponse(res, {
         statusCode: httpStatus.OK,
         success: true,
-        message: "Password Reset!",
-        data: null
+        message: "Scan this QR code with your authenticator app",
+        data: result
     })
 })
 
