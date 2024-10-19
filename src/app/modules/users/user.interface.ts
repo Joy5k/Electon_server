@@ -22,8 +22,9 @@ export type TUser={
     address?:IAddress,
     friends?: Types.ObjectId[]; // Array of ObjectId references for friends
     status:USER_STATUS|'active',
-    isDeleted:true|false,
+    isDeleted:boolean,
     passwordChangedAt?: Date;
+    auth2:boolean;
     needPasswordChange:boolean
 }
 

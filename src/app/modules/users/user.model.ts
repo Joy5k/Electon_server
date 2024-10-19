@@ -62,6 +62,10 @@ const userSchema=new Schema<TUser, UserModel>({
      needPasswordChange:{
         type:Boolean,
      },
+    auth2: {
+    type:Boolean,
+    default:false
+     },
      address:addressSchema,
 
      friends: [{ type: Types.ObjectId, ref: 'Users' }], // Correct reference to 'Users' model
