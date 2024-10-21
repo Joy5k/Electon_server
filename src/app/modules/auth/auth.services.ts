@@ -244,12 +244,15 @@ throw new CustomError(httpStatus.NOT_FOUND,"User is not valid")
 };
 // Two factor authentication services codes below
 
+
+//generate qr code and text
+
 const setup2FA=async(userId:string)=>{
   let result;
   // Generate a secret for the user
   const secret = speakeasy.generateSecret({
-    name: `MyApp: ${userId}`,
-    issuer: "MyApp"
+    name: `Electon: ${userId}`,
+    issuer: "Electon"
   });
   
   // Find the user
@@ -264,7 +267,6 @@ const setup2FA=async(userId:string)=>{
     { secret }, // Update the secret field
     { new: true } // Return the updated document
   );
-  console.log(setSecretIntoDB);
   
   if (!secret.otpauth_url) {
     throw new CustomError(httpStatus.NOT_FOUND, "otpauth_url is undefined");
@@ -290,13 +292,52 @@ const setup2FA=async(userId:string)=>{
       qrCode: qrCodeData, // The QR code in base64 format
       secret: secret.base32, // Show the secret as plain text
     };
-    console.log({ result });
+  
     return result;
   } catch (error) {
     throw error; // Handle any error during the QR code generation
   }
   
 }
+
+// verify 2FA  code
+
+const verify2FA = async (userId: any, token: any) => {
+  const user = await Users.findById(userId);
+  if (!user) {
+    throw new CustomError(httpStatus.NOT_FOUND, "User not found");
+  }
+
+  console.log("User found:", user);
+  console.log("User secret base32:", user.secret.base32);
+  console.log("Provided token:", token);
+
+  // Ensure secret is in the correct format (base32)
+  const secretBase32 = user.secret.base32;
+
+  const verified = speakeasy.totp.verify({
+    secret: secretBase32,
+    encoding: 'base32',
+    token,
+  });
+
+  // Return the result based on verification
+  if (verified) {
+    return {
+      verified: true,
+      message: '2FA success',
+      statusCode: httpStatus.OK,
+    };
+  } else {
+    return {
+      verified: false,
+      message: 'Invalid token',
+      statusCode: httpStatus.BAD_REQUEST,
+    };
+  }
+};
+
+
 export const AuthServices = {
   loginUser,
   registerUser,
@@ -304,5 +345,6 @@ export const AuthServices = {
   changePassword,
   forgotPassword,
   resetPassword,
-  setup2FA
+  setup2FA,
+  verify2FA
 };

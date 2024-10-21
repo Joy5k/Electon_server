@@ -25,7 +25,12 @@ export type TUser={
     isDeleted:boolean,
     passwordChangedAt?: Date;
     auth2:boolean;
-    secret:string;
+    secret: {
+      ascii: string;
+      hex: string;
+      base32: string;
+      otpauth_url: string;
+    };
     needPasswordChange:boolean
 }
 

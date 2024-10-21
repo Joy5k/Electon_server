@@ -99,7 +99,17 @@ const setup2FA=catchAsync(async(req:Request,res:Response)=>{
         data: result
     })
 })
-
+// verify 2fa token
+const verify2FA=catchAsync(async(req:Request,res:Response)=>{
+    const {userId,token}=req.body;
+    const result=await AuthServices.verify2FA(userId,token)
+    sendResponse(res, {
+        statusCode: httpStatus.OK,
+        success: true,
+        message: "Scan successfully complete",
+        data: result
+    })
+})
 export const AuthController = {
     loginUser,
     registerUser,
@@ -107,5 +117,6 @@ export const AuthController = {
     changePassword,
     forgotPassword,
     resetPassword,
-    setup2FA
+    setup2FA,
+    verify2FA
 };

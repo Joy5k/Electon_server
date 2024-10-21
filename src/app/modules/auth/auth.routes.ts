@@ -38,4 +38,7 @@ router.post(
 
 //two factor authentication routes below
 router.post('/2fa/setup',AuthController.setup2FA)
+
+//verify 2fa
+router.post('/2fa/verify',AuthController.verify2FA)
 export const AuthRoutes = router;
