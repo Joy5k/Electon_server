@@ -308,10 +308,6 @@ const verify2FA = async (userId: any, token: any) => {
     throw new CustomError(httpStatus.NOT_FOUND, "User not found");
   }
 
-  console.log("User found:", user);
-  console.log("User secret base32:", user.secret.base32);
-  console.log("Provided token:", token);
-
   // Ensure secret is in the correct format (base32)
   const secretBase32 = user.secret.base32;
 
@@ -320,8 +316,7 @@ const verify2FA = async (userId: any, token: any) => {
     encoding: 'base32',
     token,
   });
-
-  // Return the result based on verification
+ // Return the result based on verification
   if (verified) {
     return {
       verified: true,
