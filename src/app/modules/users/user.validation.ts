@@ -55,7 +55,7 @@ const updateUserValidationSchema = z.object({
       role: z.string().optional(),
       address: addressSchema.optional(),
       friends: z.array(z.instanceof(Types.ObjectId)).optional(), // ObjectId array for friends
-      status: USER_STATUS,
+      status: USER_STATUS.optional(),
       isDeleted: z.boolean().optional(),
       passwordChangedAt: z.date().optional(),
       auth2: z.boolean().optional(),

@@ -3,6 +3,7 @@ import CustomError from "../../error/customError"
 import { TUser } from "./user.interface"
 import { Users } from "./user.model"
 import { USER_STATUS } from "../../../shared/type"
+import { ObjectId } from "mongodb"
 
 
 const createAdminIntoDB=async(payload:{role:string})=>{
@@ -21,10 +22,17 @@ const getMeFromDB=async(email:string)=>{
     return result
 }
 const updateMeFromDB=async(payload:any,_id:string)=>{
-    const result=await Users.findByIdAndUpdate({
-     _id,
-     payload
+    console.log(payload,_id)
+    const isExist=await Users.findById({_id})
+    if(!isExist){
+        throw new CustomError(httpStatus.NOT_FOUND,"user not found")
+    }
+
+    const result=await Users.findByIdAndUpdate(new ObjectId(_id),payload,{
+        new:true
     })
+    console.log(result)
+    return result
 }
 const blockUserIntoDB=async(status:USER_STATUS,_id:string)=>{
     console.log(status)

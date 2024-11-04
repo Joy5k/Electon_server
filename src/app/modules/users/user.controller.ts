@@ -33,8 +33,9 @@ const updateMe=catchAsync(async(req:Request,res:Response)=>{
         throw new CustomError(httpStatus.UNAUTHORIZED,"Unauthorize access")
     }
     const payload=req.body;
-    const id= tokenDecoded(token) as string
-    const result=await userServices.updateMeFromDB(payload,id)
+    const {userId}= tokenDecoded(token) as {userId:string}
+
+    const result=await userServices.updateMeFromDB(payload,userId)
     sendResponse(res,{
         statusCode:httpStatus.OK,
         success:true,
@@ -79,6 +80,7 @@ const deleteUser=catchAsync(async(req,res)=>{
 export const userController={
     getAllUsers,
     getMe,
+    updateMe,
     deleteUser,
     blockUser,
     createAdmin
