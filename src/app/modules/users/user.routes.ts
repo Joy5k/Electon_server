@@ -8,7 +8,8 @@ const router = express.Router();
 router.put('/create-admin',auth(USER_ROLE.SUPER_ADMIN),userController.createAdmin)
 
 router.get('/all-users',auth(USER_ROLE.ADMIN,USER_ROLE.SUPER_ADMIN),userController.getAllUsers)
-
+router.put('/update',auth(USER_ROLE.USER,USER_ROLE.SELLER,USER_ROLE.ADMIN,USER_ROLE.SUPER_ADMIN), 
+userController.)
 router.get('/getMe',auth(USER_ROLE.USER,USER_ROLE.SELLER,USER_ROLE.ADMIN,USER_ROLE.SUPER_ADMIN),  userController.getMe)
 
 router.put('/block/:id', auth(USER_ROLE.ADMIN,USER_ROLE.SUPER_ADMIN), userController.blockUser)

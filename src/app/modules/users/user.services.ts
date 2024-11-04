@@ -20,6 +20,12 @@ const getMeFromDB=async(email:string)=>{
     const result=await Users.findOne({email})
     return result
 }
+const updateMeFromDB=async(payload:any,_id:string)=>{
+    const result=await Users.findByIdAndUpdate({
+     _id,
+     payload
+    })
+}
 const blockUserIntoDB=async(status:USER_STATUS,_id:string)=>{
     console.log(status)
     const result=await Users.findByIdAndUpdate({
@@ -42,6 +48,7 @@ const deleteUserFromDB=async(id:string)=>{
 export const userServices={
     getAllUsersFromDB,
     getMeFromDB,
+    updateMeFromDB,
     createAdminIntoDB,
     deleteUserFromDB,
     blockUserIntoDB,
