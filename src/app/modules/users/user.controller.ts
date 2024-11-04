@@ -3,6 +3,10 @@ import catchAsync from "../../../shared/catchAsync";
 import sendResponse from "../../../shared/sendResponse";
 import { userServices } from "./user.services";
 import { AuthServices } from "../auth/auth.services";
+import { Request, Response } from "express";
+import { tokenDecoded } from "../../../shared/userAuth";
+import CustomError from "../../error/customError";
+import { JwtPayload } from "jsonwebtoken";
 
 const createAdmin=catchAsync(async(req,res)=>{
     const role=req.body;
@@ -20,6 +24,21 @@ const getAllUsers=catchAsync(async(req,res)=>{
         statusCode:httpStatus.OK,
         success:true,
         message:"Users Retrieved successfully",
+        data:result
+    })
+})
+const updateMe=catchAsync(async(req:Request,res:Response)=>{
+    const token=req.headers.authorization;
+    if(!token){
+        throw new CustomError(httpStatus.UNAUTHORIZED,"Unauthorize access")
+    }
+    const payload=req.body;
+    const id= tokenDecoded(token) as string
+    const result=await userServices.updateMeFromDB(payload,id)
+    sendResponse(res,{
+        statusCode:httpStatus.OK,
+        success:true,
+        message:"Users update successfully",
         data:result
     })
 })
