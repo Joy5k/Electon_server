@@ -44,8 +44,12 @@ const updateMe=catchAsync(async(req:Request,res:Response)=>{
     })
 })
 const getMe=catchAsync(async(req,res)=>{
-    const email=req.body
-    const result=await userServices.getMeFromDB(email)
+    const token=req.headers.authorization;
+    if(!token){
+        throw new CustomError(httpStatus.UNAUTHORIZED,"Unauthorize access")
+    }
+    const {userId}= tokenDecoded(token) as {userId:string}
+    const result=await userServices.getMeFromDB(userId)
     sendResponse(res,{
         statusCode:httpStatus.OK,
         success:true,

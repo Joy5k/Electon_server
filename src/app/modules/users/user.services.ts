@@ -17,12 +17,11 @@ const getAllUsersFromDB=async()=>{
     return result
 }
 
-const getMeFromDB=async(email:string)=>{
-    const result=await Users.findOne({email})
+const getMeFromDB=async(id:string)=>{
+    const result=await Users.findById(id)
     return result
 }
 const updateMeFromDB=async(payload:any,_id:string)=>{
-    console.log(payload,_id)
     const isExist=await Users.findById({_id})
     if(!isExist){
         throw new CustomError(httpStatus.NOT_FOUND,"user not found")
@@ -31,11 +30,9 @@ const updateMeFromDB=async(payload:any,_id:string)=>{
     const result=await Users.findByIdAndUpdate(new ObjectId(_id),payload,{
         new:true
     })
-    console.log(result)
     return result
 }
 const blockUserIntoDB=async(status:USER_STATUS,_id:string)=>{
-    console.log(status)
     const result=await Users.findByIdAndUpdate({
         _id,
         status

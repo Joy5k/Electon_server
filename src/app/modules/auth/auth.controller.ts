@@ -3,6 +3,8 @@ import catchAsync from "../../../shared/catchAsync";
 import sendResponse from "../../../shared/sendResponse";
 import httpStatus from "http-status";
 import { AuthServices } from "./auth.services";
+import CustomError from "../../error/customError";
+import { tokenDecoded } from "../../../shared/userAuth";
 
 const loginUser = catchAsync(async (req: Request, res: Response) => {
     const result = await AuthServices.loginUser(req.body);
@@ -90,7 +92,11 @@ const resetPassword = catchAsync(async (req: Request, res: Response) => {
 // Two factor authentication controller codes below
 
 const setup2FA=catchAsync(async(req:Request,res:Response)=>{
-    const { userId } = req.body
+    const token=req.headers.authorization;
+    if(!token){
+        throw new CustomError(httpStatus.UNAUTHORIZED,"Unauthorize access")
+    }
+    const {userId}= tokenDecoded(token) as {userId:string}
     const result=await  AuthServices.setup2FA(userId)
     sendResponse(res, {
         statusCode: httpStatus.OK,
