@@ -107,8 +107,13 @@ const setup2FA=catchAsync(async(req:Request,res:Response)=>{
 })
 // verify 2fa token
 const verify2FA=catchAsync(async(req:Request,res:Response)=>{
-    const {userId,token}=req.body;
-    const result=await AuthServices.verify2FA(userId,token)
+    const authToken=req.headers.authorization;
+    if(!authToken){
+        throw new CustomError(httpStatus.UNAUTHORIZED,"Unauthorize access")
+    }
+    const {userId}= tokenDecoded(authToken) as {userId:string}
+    const {qrCodeSecret}=req.body;
+    const result=await AuthServices.verify2FA(userId,qrCodeSecret)
  
     res.json({
         data:result
