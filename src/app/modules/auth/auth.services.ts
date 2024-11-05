@@ -324,7 +324,6 @@ const verify2FA = async (userId: any, token: any) => {
       { auth2: true },       // Update the auth2 status
       { new: true }          // Return the updated document
     );
-    console.log(res)
     return {
       verified: true,
       message: '2FA success',
