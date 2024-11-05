@@ -316,8 +316,15 @@ const verify2FA = async (userId: any, token: any) => {
     encoding: 'base32',
     token,
   });
+
  // Return the result based on verification
   if (verified) {
+    const res = await Users.findByIdAndUpdate(
+      userId,                 // Use userId directly instead of _Id
+      { auth2: true },       // Update the auth2 status
+      { new: true }          // Return the updated document
+    );
+    console.log(res)
     return {
       verified: true,
       message: '2FA success',
