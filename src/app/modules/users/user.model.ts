@@ -6,15 +6,19 @@ import bcrypt from 'bcrypt';
 const addressSchema=new Schema<IAddress>({
     district:{
         type:String,
-        required:[true,"email is required"],
+        required:[true,"district is required"],
 
         trim:true
     },
     division:{
         type:String,
-        required:[true,"email is required"],
+        required:[true,"division is required"],
 
         trim:true
+    },
+    subDistrict:{
+      type:String,
+      required:[true,"sub-district is required(Upazilla)"]
     },
     postCode:{
         type:Number,

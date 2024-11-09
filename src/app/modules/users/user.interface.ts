@@ -4,6 +4,7 @@ import { USER_ROLE, USER_STATUS } from './../../../shared/type';
 export  type IAddress={
     roadNo?:string,
     district:string,
+    subDistrict:string,
     division:string,
     postCode:number,
     

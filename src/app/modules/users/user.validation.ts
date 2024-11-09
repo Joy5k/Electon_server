@@ -8,6 +8,7 @@ const USER_STATUS = z.enum(['active', 'inactive', 'banned']); // Update based on
 const addressSchema = z.object({
   roadNo: z.string().optional(),
   district: z.string(),
+  subDistrict: z.string(),
   division: z.string(),
   postCode: z.number(),
 });
