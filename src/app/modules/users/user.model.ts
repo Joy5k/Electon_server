@@ -20,10 +20,12 @@ const addressSchema=new Schema<IAddress>({
       type:String,
       required:[true,"sub-district is required(Upazilla)"]
     },
+    roadNo:{type:String},
     postCode:{
         type:Number,
         required:[true,"postCode is required"]
-    }
+    },
+
 })
 
 
@@ -60,6 +62,10 @@ const userSchema=new Schema<TUser, UserModel>({
      phoneNumber:{
         type:String,
         trim:true
+     },
+     description:{
+      type:String,
+      default:"Describe your self..."
      },
      role:{
         type:String,

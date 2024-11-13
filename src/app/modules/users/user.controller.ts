@@ -34,7 +34,6 @@ const updateMe=catchAsync(async(req:Request,res:Response)=>{
     }
     const payload=req.body;
     const {userId}= tokenDecoded(token) as {userId:string}
-
     const result=await userServices.updateMeFromDB(payload,userId)
     sendResponse(res,{
         statusCode:httpStatus.OK,

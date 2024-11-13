@@ -19,6 +19,7 @@ export type TUser={
     phoneNumber?:string,
     gender:'male'|"female"|"other";
     image?:string,
+    description:string,
     role:string,
     address?:IAddress,
     friends?: Types.ObjectId[]; // Array of ObjectId references for friends
