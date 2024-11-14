@@ -24,7 +24,12 @@ const getAllUsers=catchAsync(async(req,res)=>{
         statusCode:httpStatus.OK,
         success:true,
         message:"Users Retrieved successfully",
-        data:result
+        data:result,
+        meta:{
+            page:Number(req.query.page)||0,
+            limit:Number(req.query.limit)|| 10,
+            total:result.length
+        }
     })
 })
 const updateMe=catchAsync(async(req:Request,res:Response)=>{
