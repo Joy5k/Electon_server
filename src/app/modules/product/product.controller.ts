@@ -16,7 +16,12 @@ const getAllProducts=catchAsync(async(req,res)=>{
         statusCode: httpStatus.OK,
         success: true,
         message: "Products Retrieved successfully!",
-        data: result
+        data: result,
+        meta:{
+            page:0,
+            limit:20,
+            total:result.length
+        }
     })
 })
 const getAllMyProducts=catchAsync(async(req,res)=>{
