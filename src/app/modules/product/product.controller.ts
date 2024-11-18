@@ -55,7 +55,6 @@ const getSingleProducts=catchAsync(async(req,res)=>{
 const postProduct=catchAsync(async(req,res)=>{
     const payload=req.body
     const result=await productServices.postProductIntoDB(payload)
-    console.log({result})
 
     sendResponse(res, {
         statusCode: httpStatus.CREATED,
