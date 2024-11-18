@@ -1,16 +1,6 @@
 import { Schema, z } from "zod";
 import { Types } from "mongoose";
 
-
-const priceValidation = z
-  .number({
-    required_error: "Price is required",
-  })
-  .positive("Price must be a positive number")
-  .refine((val) => Number.isFinite(val) && val.toFixed(2) === val.toString(), {
-    message: "Price must have at most two decimal places",
-  });
-
 // Custom validation for ObjectId
 const objectIdValidation = z.custom((val) => Types.ObjectId.isValid(val), {
   message: "Invalid ObjectId",
@@ -31,7 +21,9 @@ const createProductValidationSchema = z.object({
       required_error: "Image is missing",
     }).url("Image must be a valid URL"),
     
-    price:priceValidation,
+    price: z.number({
+      required_error: "Price is required",
+    }),
     
     quantity: z.number({
       required_error: "Quantity is required",
@@ -65,7 +57,9 @@ const updateProductValidationSchema=z.object({
           required_error: "Image is missing",
         }).url("Image must be a valid URL").optional(),
         
-        price:priceValidation,
+        price: z.number({
+          required_error: "Price is required",
+        }).optional(),
         
         quantity: z.number({
           required_error: "Quantity is required",
