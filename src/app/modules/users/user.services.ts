@@ -5,42 +5,41 @@ import { Users } from "./user.model"
 import { USER_STATUS } from "../../../shared/type"
 import { ObjectId } from "mongodb"
 
-
-const createAdminIntoDB = async (token: { email: string; role: string }, _id: string) => {
+const createAdminIntoDB = async (_id: string) => {
     try {
       // Validate _id and find the user
-      const isExistUser = await Users.findOne(
-        {
-          _id,
-          status: "active", // Querying with both _id and status
-        },
-        { new: true } // Ensures the updated document is returned
-      );
+      const isExistUser = await Users.findOne({
+        _id,
+        status: "active", // Add status filter
+      });
+  
       if (!isExistUser) {
         throw new Error("User not found or not active");
       }
-      const newStatus = isExistUser.role ==="admin";
-
-   const result = await Users.findByIdAndUpdate(
-    _id,
-    { role: newStatus },
-    { new: true } // Return the updated document
-  );
-return result
-
+  
+  
+    //   Uncomment this section if you want to update the user's role
+      const newStatus = isExistUser.role === "admin" ? "user" : "admin";
+  
+      const result = await Users.updateOne(
+        { _id, status: "active" },
+        { $set: { role: newStatus } },
+        {new:true}
+      );
+      return result;
+  
+      return isExistUser; // Return the full user document
     } catch (error) {
       if (error instanceof Error) {
         console.error("Error creating admin:", error.message);
         throw new Error(error.message);
       } else {
-        // Handle unexpected error types
         console.error("An unknown error occurred");
         throw new Error("An unknown error occurred");
       }
     }
   };
   
-
 const getAllUsersFromDB=async()=>{
     const result=await Users.find()
     return result

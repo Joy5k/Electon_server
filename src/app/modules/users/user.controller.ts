@@ -20,9 +20,7 @@ const createAdmin=catchAsync(async(req:Request,res:Response)=>{
     if(decoded.role!=="super_admin"){
         throw new CustomError(httpStatus.NOT_ACCEPTABLE,"Not acceptable your request. Must be super_admin")
     }
-    console.log(decoded)
-    const role=req.body;
-    const result=await userServices.createAdminIntoDB(decoded,id)
+    const result=await userServices.createAdminIntoDB(id)
     sendResponse(res,{
         statusCode:httpStatus.OK,
         success:true,

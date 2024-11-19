@@ -7,7 +7,7 @@ import { userValidation } from "./user.validation";
 
 const router = express.Router();
 
-router.put('/create-admin',auth(USER_ROLE.SUPER_ADMIN),validateRequest(userValidation.createAdminValidationSchema), userController.createAdmin)
+router.put('/create-admin',auth(USER_ROLE.SUPER_ADMIN), userController.createAdmin)
 
 router.get('/all-users',auth(USER_ROLE.ADMIN,USER_ROLE.SUPER_ADMIN),userController.getAllUsers)
 
