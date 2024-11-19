@@ -6,11 +6,37 @@ import { USER_STATUS } from "../../../shared/type"
 import { ObjectId } from "mongodb"
 
 
-const createAdminIntoDB=async(token:{email:string,role:string},id:string)=>{
-    
-    console.log(token ,id)
-}
-
+const createAdminIntoDB = async (token: { email: string; role: string }, _id: string) => {
+    try {
+      // Validate _id and find the user
+      const isExistUser = await Users.findOne(
+        {
+          _id,
+          status: "active", // Querying with both _id and status
+        },
+        { new: true } // Ensures the updated document is returned
+      );
+  
+      console.log(isExistUser);
+  
+      if (!isExistUser) {
+        throw new Error("User not found or not active");
+      }
+  
+      // Perform additional logic if needed
+      return isExistUser;
+    } catch (error) {
+      if (error instanceof Error) {
+        console.error("Error creating admin:", error.message);
+        throw new Error(error.message);
+      } else {
+        // Handle unexpected error types
+        console.error("An unknown error occurred");
+        throw new Error("An unknown error occurred");
+      }
+    }
+  };
+  
 
 const getAllUsersFromDB=async()=>{
     const result=await Users.find()
