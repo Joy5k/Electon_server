@@ -16,15 +16,18 @@ const createAdminIntoDB = async (token: { email: string; role: string }, _id: st
         },
         { new: true } // Ensures the updated document is returned
       );
-  
-      console.log(isExistUser);
-  
       if (!isExistUser) {
         throw new Error("User not found or not active");
       }
-  
-      // Perform additional logic if needed
-      return isExistUser;
+      const newStatus = isExistUser.role ==="admin";
+
+   const result = await Users.findByIdAndUpdate(
+    _id,
+    { role: newStatus },
+    { new: true } // Return the updated document
+  );
+return result
+
     } catch (error) {
       if (error instanceof Error) {
         console.error("Error creating admin:", error.message);

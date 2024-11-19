@@ -3,6 +3,7 @@ import { Types } from "mongoose";
 
 // Enum for user status
 const USER_STATUS = z.enum(['active', 'inactive', 'banned']); // Update based on your actual status types
+const USER_ROLE = z.enum(['admin', 'user', 'seller']); // Update based on your actual status types
 
 // Address schema
 const addressSchema = z.object({
@@ -64,8 +65,13 @@ const updateUserValidationSchema = z.object({
       needPasswordChange: z.boolean().optional(),
     }),
   });
-  
+  const createAdminValidationSchema=z.object({
+    body:z.object({
+      role:USER_ROLE
+    })
+  })
 export const userValidation= { 
     userValidationSchema,
-    updateUserValidationSchema
+    updateUserValidationSchema,
+    createAdminValidationSchema
  };
