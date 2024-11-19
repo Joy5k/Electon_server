@@ -64,8 +64,7 @@ const getMe=catchAsync(async(req,res)=>{
 
 const blockUser=catchAsync(async(req,res)=>{
     const {id}=req.params;
-    const userStatus=req.body
-    const result=await userServices.blockUserIntoDB(userStatus,id)
+    const result=await userServices.blockUserIntoDB(id)
     sendResponse(res,{
         statusCode:httpStatus.OK,
         success:true,

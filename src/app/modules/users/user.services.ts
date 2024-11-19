@@ -32,13 +32,32 @@ const updateMeFromDB=async(payload:any,_id:string)=>{
     })
     return result
 }
-const blockUserIntoDB=async(status:USER_STATUS,_id:string)=>{
-    const result=await Users.findByIdAndUpdate({
+const blockUserIntoDB = async ( _id: string) => {
+    try {
+      // Check the current status of the user
+      const user = await Users.findById(_id);
+  
+      if (!user) {
+        throw new Error("User not found");
+      }
+  
+      // Toggle the status
+      const newStatus = user.status === "active" ? "blocked" : "active";
+  
+      // Update the user with the new status
+      const result = await Users.findByIdAndUpdate(
         _id,
-        status
-    })
-    return result
-}
+        { status: newStatus },
+        { new: true } // Return the updated document
+      );
+  
+      return result;
+    } catch (error:any) {
+      console.error("Error updating user status:", error.message);
+      throw new Error(error.message);
+    }
+  };
+  
 const deleteUserFromDB=async(id:string)=>{
    const isExists=await Users.findById(id)
    if(!isExists){
