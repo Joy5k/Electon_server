@@ -7,10 +7,22 @@ import { Request, Response } from "express";
 import { tokenDecoded } from "../../../shared/userAuth";
 import CustomError from "../../error/customError";
 import { JwtPayload } from "jsonwebtoken";
+import { jwtHelpers } from "../../helpers/jwtHelpers";
+import config from "../../config";
 
-const createAdmin=catchAsync(async(req,res)=>{
+const createAdmin=catchAsync(async(req:Request,res:Response)=>{
+    const token=req.headers.authorization 
+    const id=req.body
+    if(!token){
+        throw new CustomError(httpStatus.UNAUTHORIZED,"Unauthorized access")
+    }
+    const decoded=jwtHelpers.verifyToken(token,config.jwt.jwt_access_secret as string) as {email:string,role:string}
+    if(decoded.role!=="super_admin"){
+        throw new CustomError(httpStatus.NOT_ACCEPTABLE,"Not acceptable your request. Must be super_admin")
+    }
+    console.log(decoded)
     const role=req.body;
-    const result=await userServices.createAdminIntoDB(role)
+    const result=await userServices.createAdminIntoDB(decoded,id)
     sendResponse(res,{
         statusCode:httpStatus.OK,
         success:true,
@@ -18,7 +30,8 @@ const createAdmin=catchAsync(async(req,res)=>{
         data:result
     })
 })
-const getAllUsers=catchAsync(async(req,res)=>{
+
+const getAllUsers=catchAsync(async(req:Request,res:Response)=>{
     const result=await userServices.getAllUsersFromDB()
     sendResponse(res,{
         statusCode:httpStatus.OK,
@@ -32,6 +45,7 @@ const getAllUsers=catchAsync(async(req,res)=>{
         }
     })
 })
+
 const updateMe=catchAsync(async(req:Request,res:Response)=>{
     const token=req.headers.authorization;
     if(!token){
@@ -47,7 +61,8 @@ const updateMe=catchAsync(async(req:Request,res:Response)=>{
         data:result
     })
 })
-const getMe=catchAsync(async(req,res)=>{
+
+const getMe=catchAsync(async(req:Request,res:Response)=>{
     const token=req.headers.authorization;
     if(!token){
         throw new CustomError(httpStatus.UNAUTHORIZED,"Unauthorize access")
@@ -62,7 +77,7 @@ const getMe=catchAsync(async(req,res)=>{
     })
 })
 
-const blockUser=catchAsync(async(req,res)=>{
+const blockUser=catchAsync(async(req:Request,res:Response)=>{
     const {id}=req.params;
     const result=await userServices.blockUserIntoDB(id)
     sendResponse(res,{
@@ -73,7 +88,7 @@ const blockUser=catchAsync(async(req,res)=>{
     })
 })
 
-const deleteUser=catchAsync(async(req,res)=>{
+const deleteUser=catchAsync(async(req:Request,res:Response)=>{
     const id=req.params.id;
     const result=await userServices.deleteUserFromDB(id)
     sendResponse(res,{

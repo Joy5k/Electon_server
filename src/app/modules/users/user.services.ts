@@ -6,9 +6,9 @@ import { USER_STATUS } from "../../../shared/type"
 import { ObjectId } from "mongodb"
 
 
-const createAdminIntoDB=async(payload:{role:string})=>{
+const createAdminIntoDB=async(token:{email:string,role:string},id:string)=>{
     
-    console.log(payload)
+    console.log(token ,id)
 }
 
 
