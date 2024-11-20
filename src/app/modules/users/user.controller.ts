@@ -11,6 +11,7 @@ import { jwtHelpers } from "../../helpers/jwtHelpers";
 import config from "../../config";
 
 const createAdmin=catchAsync(async(req:Request,res:Response)=>{
+    console.log(req.body)
     const token=req.headers.authorization 
     const id=req.body
     if(!token){

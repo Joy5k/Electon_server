@@ -106,7 +106,6 @@ userSchema.pre('save', async function (next) {
       user.password,
       Number(config.bcrypt_salt_rounds),
     );
-    console.log(user.password)
 
     next();
   });

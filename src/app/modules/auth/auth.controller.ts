@@ -8,7 +8,6 @@ import { tokenDecoded } from "../../../shared/userAuth";
 
 const loginUser = catchAsync(async (req: Request, res: Response) => {
     const result = await AuthServices.loginUser(req.body);
-console.log(req.body)
     const { refreshToken } = result;
 
     res.cookie('refreshToken', refreshToken, {
