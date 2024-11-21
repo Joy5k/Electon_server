@@ -6,6 +6,7 @@ import { Request, Response } from "express"
 import { tokenDecoded } from "../../../shared/userAuth"
 import CustomError from "../../error/customError"
 import { JwtPayload } from "jsonwebtoken"
+import { Users } from "../users/user.model"
 
 
 
@@ -53,15 +54,23 @@ const getSingleProducts=catchAsync(async(req,res)=>{
 })
 
 const postProduct=catchAsync(async(req,res)=>{
-    const payload=req.body
+  try {
+    const payload=req.body;
+    const isSellerExist=await Users.findById(payload.sellerId)
+    if(!isSellerExist){
+        throw new CustomError(httpStatus.NOT_FOUND,"seller not available")
+    }
     const result=await productServices.postProductIntoDB(payload)
 
     sendResponse(res, {
         statusCode: httpStatus.CREATED,
         success: true,
         message: "The Product created successfully!",
-        data: result
+        data: []
     })
+  } catch (error) {
+    throw new CustomError(httpStatus.INTERNAL_SERVER_ERROR,"Something went wrong ")
+  }
 })
 const updateProductIntoDB=catchAsync(async(req:Request,res:Response)=>{
     const {id}=req.params 
