@@ -56,17 +56,14 @@ const getSingleProducts=catchAsync(async(req,res)=>{
 const postProduct=catchAsync(async(req,res)=>{
   try {
     const payload=req.body;
-    const isSellerExist=await Users.findById(payload.sellerId)
-    if(!isSellerExist){
-        throw new CustomError(httpStatus.NOT_FOUND,"seller not available")
-    }
+  
     const result=await productServices.postProductIntoDB(payload)
 
     sendResponse(res, {
         statusCode: httpStatus.CREATED,
         success: true,
         message: "The Product created successfully!",
-        data: []
+        data: result
     })
   } catch (error) {
     throw new CustomError(httpStatus.INTERNAL_SERVER_ERROR,"Something went wrong ")

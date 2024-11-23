@@ -1,5 +1,8 @@
+import httpStatus from "http-status"
+import { Users } from "../users/user.model"
 import { IProduct } from "./product.interface"
 import { Products } from "./product.model"
+import CustomError from "../../error/customError"
 
 
 const getProductsFromDB=async()=>{
@@ -16,6 +19,10 @@ const getSingleProductFromDB=async(id:string)=>{
 }
 
 const postProductIntoDB=async(payload:IProduct)=>{
+    const isSellerExist=await Users.findById(payload.sellerId)
+    if(!isSellerExist){
+        throw new CustomError(httpStatus.NOT_FOUND,"seller not available")
+    }
     const result= await Products.create(payload)
     return result
 }
