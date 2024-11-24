@@ -9,6 +9,7 @@ const objectIdValidation = z.string().refine((val) => Types.ObjectId.isValid(val
 // Booking validation schema
 const createBookingValidationSchema = z.object({
   body:z.object({
+    userId:objectIdValidation,
     productId: objectIdValidation,      // Validate that productId is a valid ObjectId
   quantity: z.number().min(1).optional() // Optional quantity, with a minimum of 1
   })

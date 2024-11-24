@@ -16,7 +16,7 @@ router.post('/create-booking',
     validateRequest(bookingValidation.createBookingValidationSchema),
     bookingController.postBooking)
 
-router.delete('booking/:id',
+router.delete('/booking/:id',
     auth(USER_ROLE.USER,USER_ROLE.SELLER,USER_ROLE.ADMIN,USER_ROLE.SUPER_ADMIN),  
     bookingController.deleteBooking)
 
