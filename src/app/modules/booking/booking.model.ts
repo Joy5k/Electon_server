@@ -13,7 +13,7 @@ const bookingSchema = new Schema<TBooking>({
         ref: 'Products', // Refers to Product model
         required: [true, "Product ID is required"]
     },
-    quantity:{
+    userSelectedQuantity:{
         type:Number,
         default:1
     }

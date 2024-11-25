@@ -12,7 +12,7 @@ const postBookingIntoDB=async(productId:TBooking,userId:string)=>{
         // If the booking exists, increment the quantity by 1
         return await Booking.findOneAndUpdate(
             { productId, userId },
-            { $inc: { quantity: 1 } }, // Increment quantity
+            { $inc: { userSelectedQuantity: 1 } }, // Increment quantity
             { new: true } 
         );
     } else {
