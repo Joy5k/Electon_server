@@ -1,6 +1,7 @@
+import config from "../../config";
 
-const stripe = require("stripe")(process.env.STRIP_KEY);
 
+const stripe = require('stripe')(config.stripe_secret)
 const createPaymentIntent=async(payload:any,Token:any):Promise<void>=>{
 
     const booking = payload;

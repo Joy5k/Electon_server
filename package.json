@@ -38,6 +38,7 @@
     "qrcode": "^1.5.4",
     "socket.io": "^4.8.0",
     "speakeasy": "^2.0.0",
+    "stripe": "^17.4.0",
     "ts-node-dev": "^2.0.0",
     "zod": "^3.23.8"
   }
