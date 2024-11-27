@@ -1,3 +1,4 @@
+import { paymentServices } from './payment.services';
 import httpStatus from "http-status";
 import catchAsync from "../../../shared/catchAsync";
 import sendResponse from "../../../shared/sendResponse";
@@ -14,11 +15,11 @@ const createPayment=catchAsync(async(req,res)=>{
     }
     const decoded=tokenDecoded(token)as JwtPayload
   
-    const result=await (payload.productId,decoded.userId)
+    const result=await paymentServices.createPaymentIntent(payload,decoded)
     sendResponse(res,{
         statusCode:httpStatus.CREATED,
         success:true,
-        message:"booking created successfully",
+        message:"Payment Intent created successfully",
         data:result
     })
 })
