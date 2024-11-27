@@ -17,7 +17,7 @@ router.post('/create-booking',
     bookingController.postBooking)
 
 router.delete('/booking/:id',
-    auth(USER_ROLE.USER,USER_ROLE.SELLER,USER_ROLE.ADMIN,USER_ROLE.SUPER_ADMIN),  
+    
     bookingController.deleteBooking)
 
 export const bookingRoutes=router
