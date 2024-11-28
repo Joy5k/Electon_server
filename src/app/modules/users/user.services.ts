@@ -1,8 +1,6 @@
 import httpStatus from "http-status"
 import CustomError from "../../error/customError"
-import { TUser } from "./user.interface"
 import { Users } from "./user.model"
-import { USER_STATUS } from "../../../shared/type"
 import { ObjectId } from "mongodb"
 
 const createAdminIntoDB = async (_id: string) => {
@@ -28,7 +26,6 @@ const createAdminIntoDB = async (_id: string) => {
       );
       return result;
   
-      return isExistUser; // Return the full user document
     } catch (error) {
       if (error instanceof Error) {
         console.error("Error creating admin:", error.message);
@@ -60,17 +57,41 @@ const updateMeFromDB=async(payload:any,_id:string)=>{
     })
     return result
 }
-const changeRoleUserToSellerIntoDB=async(payload:any,_id:string)=>{
-    const isExist=await Users.findById({_id})
-    if(!isExist){
-        throw new CustomError(httpStatus.NOT_FOUND,"user not found")
+const changeRoleUserToSellerIntoDB=async(_id:string)=>{
+  try {
+    // Validate _id and find the user
+    const isExistUser = await Users.findOne({
+      _id,
+      status: "active", // Add status filter
+    });
+
+    if (!isExistUser) {
+      throw new Error("User not found or not active");
     }
 
-    const result=await Users.findByIdAndUpdate(new ObjectId(_id),payload,{
-        new:true
-    })
-    return result
+
+  //   Uncomment this section if you want to update the user's role
+    const newStatus = isExistUser.role === "user" ? "seller" : "user";
+
+    const result = await Users.updateOne(
+      { _id, status: "active" },
+      { $set: { role: newStatus } },
+      {new:true}
+    );
+    return result;
+
+  } catch (error) {
+    if (error instanceof Error) {
+      console.error("Error creating seller:", error.message);
+      throw new Error(error.message);
+    } else {
+      console.error("An unknown error occurred");
+      throw new Error("An unknown error occurred");
+    }
+  }
 }
+
+
 const blockUserIntoDB = async ( _id: string) => {
     try {
       // Check the current status of the user

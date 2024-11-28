@@ -49,9 +49,8 @@ const changeRoleUserToSeller=catchAsync(async(req:Request,res:Response)=>{
     if(!token){
         throw new CustomError(httpStatus.UNAUTHORIZED,"Unauthorize access")
     }
-    const payload=req.body;
     const {userId}= tokenDecoded(token) as {userId:string}
-    const result=await userServices.updateMeFromDB(payload,userId)
+    const result=await userServices.changeRoleUserToSellerIntoDB(userId)
     sendResponse(res,{
         statusCode:httpStatus.OK,
         success:true,
