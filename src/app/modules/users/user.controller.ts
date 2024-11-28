@@ -44,6 +44,21 @@ const getAllUsers=catchAsync(async(req:Request,res:Response)=>{
     })
 })
 
+const changeRoleUserToSeller=catchAsync(async(req:Request,res:Response)=>{
+    const token=req.headers.authorization;
+    if(!token){
+        throw new CustomError(httpStatus.UNAUTHORIZED,"Unauthorize access")
+    }
+    const payload=req.body;
+    const {userId}= tokenDecoded(token) as {userId:string}
+    const result=await userServices.updateMeFromDB(payload,userId)
+    sendResponse(res,{
+        statusCode:httpStatus.OK,
+        success:true,
+        message:"Role Changed successfully",
+        data:result
+    })
+})
 const updateMe=catchAsync(async(req:Request,res:Response)=>{
     const token=req.headers.authorization;
     if(!token){
@@ -103,5 +118,6 @@ export const userController={
     updateMe,
     deleteUser,
     blockUser,
-    createAdmin
+    createAdmin,
+    changeRoleUserToSeller
 }
