@@ -4,18 +4,17 @@ import config from "../../config";
 const stripe = require('stripe')(config.stripe_secret)
 const createPaymentIntent=async(payload:any,Token:any):Promise<void>=>{
 
-    const booking = payload;
-    const price = booking.price;
-    const amount = price * 100;
+    const price = payload.amount;
+    const amountInCents = Math.round(price * 100);
+
     const paymentIntent = await stripe.paymentIntents.create({
         currency: 'usd',
-        amount: amount,
+        amount: amountInCents,
         "payment_method_types": [
             "card"
         ]
     })
-
-console.log(paymentIntent,payload,Token)
+return paymentIntent
 }
 
 

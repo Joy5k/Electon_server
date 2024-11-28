@@ -12,9 +12,11 @@ router.put('/create-admin',auth(USER_ROLE.SUPER_ADMIN), userController.createAdm
 router.get('/all-users',auth(USER_ROLE.ADMIN,USER_ROLE.SUPER_ADMIN),userController.getAllUsers)
 
 router.put('/update',auth(USER_ROLE.USER,USER_ROLE.SELLER,USER_ROLE.ADMIN,USER_ROLE.SUPER_ADMIN), 
-validateRequest(userValidation.updateUserValidationSchema),
+validateRequest(userValidation.updateUserValidationSchema),userController.updateMe)
+router.put('/userToSeller',auth(USER_ROLE.USER,USER_ROLE.SELLER), 
+validateRequest(userValidation.updateUserValidationSchema),userController.updateMe)
 
-userController.updateMe)
+
 router.get('/getMe',auth(USER_ROLE.USER,USER_ROLE.SELLER,USER_ROLE.ADMIN,USER_ROLE.SUPER_ADMIN),  userController.getMe)
 
 router.put('/block/:id', auth(USER_ROLE.ADMIN,USER_ROLE.SUPER_ADMIN), userController.blockUser)
