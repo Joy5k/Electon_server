@@ -60,6 +60,17 @@ const updateMeFromDB=async(payload:any,_id:string)=>{
     })
     return result
 }
+const changeRoleUserToSellerIntoDB=async(payload:any,_id:string)=>{
+    const isExist=await Users.findById({_id})
+    if(!isExist){
+        throw new CustomError(httpStatus.NOT_FOUND,"user not found")
+    }
+
+    const result=await Users.findByIdAndUpdate(new ObjectId(_id),payload,{
+        new:true
+    })
+    return result
+}
 const blockUserIntoDB = async ( _id: string) => {
     try {
       // Check the current status of the user
@@ -104,6 +115,7 @@ export const userServices={
     createAdminIntoDB,
     deleteUserFromDB,
     blockUserIntoDB,
+    changeRoleUserToSellerIntoDB
    
 }
 
