@@ -1,6 +1,8 @@
+import httpStatus from "http-status";
 import { ISellsHistory } from "./sellsHistory.interface";
 import { SellsHistory } from "./sellsHistory.model";
 import { Types } from "mongoose";
+import CustomError from "../../error/customError";
 
 const createSellHistoryIntoDB = async (payload: ISellsHistory[]) => {
   // Convert string IDs to ObjectIds
@@ -22,22 +24,13 @@ const createSellHistoryIntoDB = async (payload: ISellsHistory[]) => {
 
     // If a record exists, return a message indicating the duplicate
     if (existingRecord) {
-      return {
-        success: false,
-        message: "This record already exists. Duplicate entries are not allowed.",
-      };
+     throw new CustomError(httpStatus.BAD_REQUEST,"This record already exists. Duplicate entries are not allowed.")
     }
   }
 
-  // If no duplicate is found, create new records
   const result = await SellsHistory.insertMany(convertedPayload);
-  console.log(result);
 
-  return {
-    success: true,
-    message: "Records created successfully.",
-    data: result,
-  };
+  return result
 };
 
 export const sellsHistoryServices = {
