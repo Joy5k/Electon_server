@@ -14,5 +14,6 @@ router.post("/create-sold-history",
     validateRequest(sellsHistoryValidationSchema.createSellHistoryValidationSchema),
     sellsHistoryController.createSellHistory)
 router.get("/get-all-sold-history",auth(USER_ROLE.ADMIN,USER_ROLE.SUPER_ADMIN),sellsHistoryController.getAllSoldHistory)
-router.delete("/delete-single-sold-history",auth(USER_ROLE.SELLER,USER_ROLE.ADMIN,USER_ROLE.SUPER_ADMIN),sellsHistoryController.deleteSingSoldHistory)
+router.delete("/delete-single-sold-history/:id",auth(USER_ROLE.SELLER,USER_ROLE.ADMIN,USER_ROLE.SUPER_ADMIN),sellsHistoryController.deleteSingSoldHistory)
+
 export const sellsRoutes=router

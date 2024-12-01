@@ -63,7 +63,7 @@ const getAllSoldHistory = async (filters: { startDate?: string; endDate?: string
 
 
 const deleteSingleSoldHistory=async(id:string)=>{
-    const result=await SellsHistory.findByIdAndDelete(id)
+    const result=await SellsHistory.deleteOne({_id:id})
     return result
 }
 export const sellsHistoryServices = {
