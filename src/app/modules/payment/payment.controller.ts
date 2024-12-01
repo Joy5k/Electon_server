@@ -25,8 +25,6 @@ const createPayment=catchAsync(async(req,res)=>{
 })
 
 
-
-
 export const paymentController={
    
     createPayment,
