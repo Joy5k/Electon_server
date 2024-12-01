@@ -34,9 +34,24 @@ const createSellHistoryIntoDB = async (payload: ISellsHistory[]) => {
 };
 
 
-const getAllSoldHistory=async()=>{
-    const result =await SellsHistory.find()
-    return result
+const getAllSoldHistory=async(filters:any)=>{
+    const query: any = {};
+
+  // Filter by soldAt (startDate and endDate)
+  if (filters.startDate && filters.endDate) {
+    query.soldAt = {
+      $gte: new Date(filters.startDate), // Greater than or equal to startDate
+      $lte: new Date(filters.endDate),   // Less than or equal to endDate
+    };
+  } else if (filters.startDate) {
+    query.soldAt = { $gte: new Date(filters.startDate) }; // Greater than or equal to startDate
+  } else if (filters.endDate) {
+    query.soldAt = { $lte: new Date(filters.endDate) }; // Less than or equal to endDate
+  }
+
+  // Query the database with the filters
+  const result = await SellsHistory.find(query);
+  return result;
 }
 
 

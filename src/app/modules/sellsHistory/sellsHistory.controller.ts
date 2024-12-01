@@ -17,7 +17,7 @@ const createSellHistory=catchAsync(async(req,res)=>{
 
 
 
-const getAllSoldHistory=catchAsync(async(req,res)=>{+
+const getAllSoldHistory=catchAsync(async(req,res)=>{
     const result=await sellsHistoryServices.getAllSoldHistory()
     sendResponse(res, {
         statusCode: httpStatus.OK,
@@ -28,6 +28,6 @@ const getAllSoldHistory=catchAsync(async(req,res)=>{+
 })
 
 export const sellsHistoryController={
-
+    getAllSoldHistory,
     createSellHistory,
 }
