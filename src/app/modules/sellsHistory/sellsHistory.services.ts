@@ -34,24 +34,21 @@ const createSellHistoryIntoDB = async (payload: ISellsHistory[]) => {
 };
 
 
-const getAllSoldHistory=async(filters:any)=>{
-    const query: any = {};
+const getAllSoldHistory = async (filters: { startDate?: string; endDate?: string }) => {
+const parsedStartDate = new Date(filters.startDate as string);
+const parsedEndDate = new Date(filters.endDate as string);
 
-  // Filter by soldAt (startDate and endDate)
-  if (filters.startDate && filters.endDate) {
-    query.soldAt = {
-      $gte: new Date(filters.startDate), // Greater than or equal to startDate
-      $lte: new Date(filters.endDate),   // Less than or equal to endDate
-    };
-  } else if (filters.startDate) {
-    query.soldAt = { $gte: new Date(filters.startDate) }; // Greater than or equal to startDate
-  } else if (filters.endDate) {
-    query.soldAt = { $lte: new Date(filters.endDate) }; // Less than or equal to endDate
-  }
 
-  // Query the database with the filters
-  const result = await SellsHistory.find(query);
-  return result;
+// If your TypeScript is expecting a number, convert the Date to timestamp
+const startDateTimestamp = parsedStartDate.getTime();
+const endDateTimestamp = parsedEndDate.getTime();
+console.log(parsedStartDate,endDateTimestamp)
+// Query the database with the filters
+const result = await SellsHistory.find({
+    soldAt: { $gte: parsedStartDate, $lte: parsedEndDate }
+});
+
+return result
 }
 
 

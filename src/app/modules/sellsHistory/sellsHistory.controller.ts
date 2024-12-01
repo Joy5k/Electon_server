@@ -16,17 +16,24 @@ const createSellHistory=catchAsync(async(req,res)=>{
 })  
 
 
-
-const getAllSoldHistory=catchAsync(async(req,res)=>{
-    const result=await sellsHistoryServices.getAllSoldHistory()
+const getAllSoldHistory = catchAsync(async (req, res) => {
+    const { startDate, endDate } = req.query as { startDate?: string; endDate?: string };
+  
+    // Initialize filters object
+    let filters: any = {startDate,endDate};
+  
+    // Fetch data using the filters
+    const result = await sellsHistoryServices.getAllSoldHistory(filters);
+  
     sendResponse(res, {
-        statusCode: httpStatus.OK,
-        success: true,
-        message: "Sells history retrieved successfully!",
-        data: result
-    })
-})
-
+      statusCode: httpStatus.OK,
+      success: true,
+      message: "Sells history retrieved successfully!",
+      data: result,
+    });
+  });
+  
+  
 export const sellsHistoryController={
     getAllSoldHistory,
     createSellHistory,
