@@ -9,9 +9,9 @@ import { sellsHistoryValidationSchema } from "./sellsHistory.validation";
 
 const router = express.Router();
 
-router.post("/create-sells-history",
+router.post("/create-sold-history",
     auth(USER_ROLE.SELLER,USER_ROLE.USER,USER_ROLE.ADMIN,USER_ROLE.SUPER_ADMIN),
     validateRequest(sellsHistoryValidationSchema.createSellHistoryValidationSchema),
     sellsHistoryController.createSellHistory)
-
+router.get("/get-my-sold-history")
 export const sellsRoutes=router
