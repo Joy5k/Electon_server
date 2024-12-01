@@ -33,6 +33,15 @@ const createSellHistoryIntoDB = async (payload: ISellsHistory[]) => {
   return result
 };
 
+
+const getAllSoldHistory=async()=>{
+    const result =await SellsHistory.find()
+    return result
+}
+
+
+
 export const sellsHistoryServices = {
   createSellHistoryIntoDB,
+  getAllSoldHistory
 };
