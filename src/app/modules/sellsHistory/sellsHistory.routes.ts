@@ -2,11 +2,16 @@ import express, { NextFunction, Request, Response } from "express";
 import auth from "../../middlewares/auth";
 import { USER_ROLE } from "../../../shared/type";
 import { sellsHistoryController } from "./sellsHistory.controller";
+import validateRequest from "../../middlewares/validateRequest";
+import { sellsHistoryValidationSchema } from "./sellsHistory.validation";
 
 
 
 const router = express.Router();
 
-router.post("/create-sells-history",auth(USER_ROLE.ADMIN,USER_ROLE.SELLER,USER_ROLE.SUPER_ADMIN),sellsHistoryController.createSellHistory)
+router.post("/create-sells-history",
+    auth(USER_ROLE.SELLER,USER_ROLE.USER,USER_ROLE.ADMIN,USER_ROLE.SUPER_ADMIN),
+    validateRequest(sellsHistoryValidationSchema.createSellHistoryValidationSchema),
+    sellsHistoryController.createSellHistory)
 
 export const sellsRoutes=router
