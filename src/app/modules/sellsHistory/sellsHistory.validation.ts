@@ -19,15 +19,7 @@ const createSellHistoryValidationSchema = z.object({
       required_error: "Sold Subtotal is required",
     }),
     buyerId: objectIdValidation, // Custom validation for buyerId (ObjectId)
-    soldAt: z.string({
-      required_error: "Sold At is required",
-    }).transform((val) => {
-      const date = new Date(val);
-      if (isNaN(date.getTime())) {
-        throw new Error("Invalid date format");
-      }
-      return date;
-    }),
+
     paymentStatus: z.string({
       required_error: "Payment Status is required",
     }),

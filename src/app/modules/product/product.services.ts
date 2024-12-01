@@ -4,11 +4,12 @@ import { IProduct } from "./product.interface"
 import { Products } from "./product.model"
 import CustomError from "../../error/customError"
 
-
-const getProductsFromDB=async()=>{
-    const result= await Products.find().populate("sellerId")
-    return result
-}
+const getProductsFromDB = async () => {
+    const result = await Products.find()
+      .populate("sellerId", "-password -secret")  // Exclude password and secret in populated sellerId
+    return result;
+  };
+  
 const getAllMyProducts=async(userId:string)=>{
 const result=await Products.find({sellerId:userId})
 return result

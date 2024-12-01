@@ -1,10 +1,14 @@
 import { TBooking } from "./booking.interface"
 import { Booking } from "./booking.model"
 
-const getAllMyBookingListFromDB=async()=>{
-    const result=await Booking.find().populate(["userId","productId"])
-    return result
-}
+const getAllMyBookingListFromDB = async () => {
+    const result = await Booking.find()
+      .populate("userId", "-password -secret")  // Exclude password and secret in populated userId
+      .populate("productId")  // You can keep productId without exclusion if you don't need to exclude any field
+      .select("-password -secret");  // Exclude password and secret from the booking data itself
+    return result;
+  };
+  
 const postBookingIntoDB=async(productId:TBooking,userId:string)=>{
     const isExistProduct=await Booking.findOne({productId})
   

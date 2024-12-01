@@ -38,7 +38,7 @@ const createAdminIntoDB = async (_id: string) => {
   };
   
 const getAllUsersFromDB=async()=>{
-    const result=await Users.find()
+    const result=await Users.find().select(["-password","-secret"])
     return result
 }
 
