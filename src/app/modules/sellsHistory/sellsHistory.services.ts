@@ -33,21 +33,34 @@ const createSellHistoryIntoDB = async (payload: ISellsHistory[]) => {
   return result
 };
 
-
 const getAllSoldHistory = async (filters: { startDate?: string; endDate?: string }) => {
-const parsedStartDate = new Date(filters.startDate as string);
-const parsedEndDate = new Date(filters.endDate as string);
+    // Initialize query object
+    const query: any = {};
 
-// If your TypeScript is expecting a number, convert the Date to timestamp
-const startDateTimestamp = parsedStartDate.getTime();
-const endDateTimestamp = parsedEndDate.getTime();
-console.log(parsedStartDate,endDateTimestamp)
-// Query the database with the filters
-const result = await SellsHistory.find({
-    soldAt: { $gte: parsedStartDate, $lte: parsedEndDate }
-});
-return result
-}
+    // Check if startDate is provided and parse it
+    if (filters.startDate) {
+        const parsedStartDate = new Date(filters.startDate);
+        if (isNaN(parsedStartDate.getTime())) {
+            throw new Error('Invalid startDate format');
+        }
+        query.soldAt = { ...query.soldAt, $gte: parsedStartDate.getTime() };
+    }
+
+    // Check if endDate is provided and parse it
+    if (filters.endDate) {
+        const parsedEndDate = new Date(filters.endDate);
+        if (isNaN(parsedEndDate.getTime())) {
+            throw new Error('Invalid endDate format');
+        }
+        query.soldAt = { ...query.soldAt, $lte: parsedEndDate.getTime() };
+    }
+
+    // Query the database with the dynamic query object
+    const result = await SellsHistory.find(query);
+
+    return result;
+};
+
 
 const deleteSingleSoldHistory=async(id:string)=>{
     const result=await SellsHistory.findByIdAndDelete(id)
