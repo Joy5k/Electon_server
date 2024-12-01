@@ -38,7 +38,6 @@ const getAllSoldHistory = async (filters: { startDate?: string; endDate?: string
 const parsedStartDate = new Date(filters.startDate as string);
 const parsedEndDate = new Date(filters.endDate as string);
 
-
 // If your TypeScript is expecting a number, convert the Date to timestamp
 const startDateTimestamp = parsedStartDate.getTime();
 const endDateTimestamp = parsedEndDate.getTime();
@@ -47,12 +46,13 @@ console.log(parsedStartDate,endDateTimestamp)
 const result = await SellsHistory.find({
     soldAt: { $gte: parsedStartDate, $lte: parsedEndDate }
 });
-
 return result
 }
 
-
-
+const deleteSingleSoldHistory=async(id:string)=>{
+    const result=await SellsHistory.findByIdAndDelete(id)
+    return result
+}
 export const sellsHistoryServices = {
   createSellHistoryIntoDB,
   getAllSoldHistory
