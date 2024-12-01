@@ -15,6 +15,18 @@ const createSellHistory=catchAsync(async(req,res)=>{
     })
 })  
 
+
+
+const getAllSoldHistory=catchAsync(async(req,res)=>{+
+    const result=await sellsHistoryServices.getAllSoldHistory()
+    sendResponse(res, {
+        statusCode: httpStatus.OK,
+        success: true,
+        message: "Sells history retrieved successfully!",
+        data: result
+    })
+})
+
 export const sellsHistoryController={
 
     createSellHistory,
