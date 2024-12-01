@@ -6,7 +6,7 @@ import CustomError from "../../error/customError"
 
 const getProductsFromDB = async () => {
     const result = await Products.find()
-      .populate("sellerId", "-password -secret")  // Exclude password and secret in populated sellerId
+      .populate("sellerId", "-password -secret") 
     return result;
   };
   
