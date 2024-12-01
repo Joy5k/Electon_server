@@ -55,5 +55,6 @@ const deleteSingleSoldHistory=async(id:string)=>{
 }
 export const sellsHistoryServices = {
   createSellHistoryIntoDB,
-  getAllSoldHistory
+  getAllSoldHistory,
+  deleteSingleSoldHistory
 };

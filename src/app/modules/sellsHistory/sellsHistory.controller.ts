@@ -33,6 +33,16 @@ const getAllSoldHistory = catchAsync(async (req, res) => {
     });
   });
   
+  const deleteSingSoldHistory=catchAsync(async(req,res)=>{
+    const id=req.params;
+    const result=await sellsHistoryServices.deleteSingleSoldHistory(id)
+    sendResponse(res, {
+      statusCode: httpStatus.OK,
+      success: true,
+      message: "Sells history deleted successfully!",
+      data: result,
+    });
+  })
   
 export const sellsHistoryController={
     getAllSoldHistory,
