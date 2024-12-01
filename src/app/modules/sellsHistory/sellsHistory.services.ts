@@ -1,8 +1,8 @@
-import catchAsync from "../../../shared/catchAsync";
+import { ISellsHistory } from "./sellsHistory.interface"
 
 
-const createSellHistoryIntoDB=async(req,res)=>{
-
+const createSellHistoryIntoDB=async(payload: ISellsHistory):Promise<void>=>{
+    console.log(payload)
 }
 
 export const sellsHistoryServices={
