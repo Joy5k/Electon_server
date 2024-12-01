@@ -15,5 +15,5 @@ export interface ISellsHistory {
     refundedAmount?: number; // Amount refunded, if applicable
     sellerRevenue?: number; // Revenue earned by the seller
     platformFee?: number; // Fee charged by the platform
-    meta?: Record<string, any>; // Dynamic field for future use
+    meta?: any; // Dynamic field for future use
 }
