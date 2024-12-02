@@ -11,7 +11,7 @@ const getProductsFromDB = async () => {
   };
   
 const getAllMyProducts=async(userId:string)=>{
-const result=await Products.find({sellerId:userId})
+const result=await Products.find({sellerId:userId}).populate("sellerId")
 return result
 }
 const getSingleProductFromDB=async(id:string)=>{

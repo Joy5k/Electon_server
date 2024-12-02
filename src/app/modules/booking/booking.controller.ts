@@ -7,7 +7,7 @@ import { JwtPayload } from "jsonwebtoken";
 import CustomError from "../../error/customError";
 
 
-const getAllMybookingList=catchAsync(async(req,res)=>{
+const getAllMyBookingList=catchAsync(async(req,res)=>{
     const result=await bookingServices.getAllMyBookingListFromDB()
     sendResponse(res,{
         statusCode:httpStatus.OK,
@@ -19,12 +19,13 @@ const getAllMybookingList=catchAsync(async(req,res)=>{
 const postBooking=catchAsync(async(req,res)=>{
     const payload=req.body;
     const token=req.headers.authorization
+    console.log(payload)
     if(!token){
         throw new CustomError(httpStatus.UNAUTHORIZED,"You are not authorized")
     }
     const decoded=tokenDecoded(token)as JwtPayload
   
-    const result=await bookingServices.postBookingIntoDB(payload.productId,decoded.userId)
+    const result=await bookingServices.postBookingIntoDB(payload,decoded.userId)
     sendResponse(res,{
         statusCode:httpStatus.CREATED,
         success:true,
@@ -46,7 +47,7 @@ const deleteBooking=catchAsync(async(req,res)=>{
 
 
 export const bookingController={
-    getAllMybookingList,
+    getAllMybookingList: getAllMyBookingList,
     postBooking    ,
     deleteBooking
 }
