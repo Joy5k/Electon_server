@@ -19,7 +19,6 @@ const getAllMyBookingList=catchAsync(async(req,res)=>{
 const postBooking=catchAsync(async(req,res)=>{
     const payload=req.body;
     const token=req.headers.authorization
-    console.log(payload)
     if(!token){
         throw new CustomError(httpStatus.UNAUTHORIZED,"You are not authorized")
     }
