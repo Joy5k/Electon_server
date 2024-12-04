@@ -6,7 +6,6 @@ import { Request, Response } from "express"
 import { tokenDecoded } from "../../../shared/userAuth"
 import CustomError from "../../error/customError"
 import { JwtPayload } from "jsonwebtoken"
-import { Users } from "../users/user.model"
 
 
 

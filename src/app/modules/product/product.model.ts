@@ -29,6 +29,12 @@ const productSchema = new Schema<IProduct>({
     trim: true,
     required: [true, 'Product quantity is Required'],
   },
+  category: {
+    type: String,
+    enum: ["pc", "laptop", "box", "earphone", "others"], 
+    default:"others",
+    required: [true, 'Category is required'],
+  },
   price: {
     type: Number,
     trim: true,
