@@ -5,7 +5,9 @@ import { Types } from "mongoose";
 const objectIdValidation = z.custom((val) => Types.ObjectId.isValid(val), {
   message: "Invalid ObjectId",
 });
-
+const categoryValidation = z.custom((val) => Types.ObjectId.isValid(val), {
+  message: "Invalid ObjectId",
+});
 // Define the Zod validation schema for the request
 const createProductValidationSchema = z.object({
   body: z.object({
@@ -66,7 +68,7 @@ const updateProductValidationSchema=z.object({
         })
         .int("Quantity must be an integer")
         .min(1, "Quantity must be at least 1").optional(),
-        
+        category:categoryValidation,
         color: z.array(z.string(), {
           required_error: "Color is required",
         }).min(1, "At least one color must be provided").optional(),
