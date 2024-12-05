@@ -31,7 +31,7 @@ const productSchema = new Schema<IProduct>({
   },
   category: {
     type: String,
-    enum: ["pc", "laptop", "box", "earphone", "others"], 
+    enum: ["pc", "laptop", "box", "earphone","camera", "others"], 
     default:"others",
     required: [true, 'Category is required'],
   },

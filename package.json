@@ -23,6 +23,7 @@
   "dependencies": {
     "@types/jsonwebtoken": "^9.0.6",
     "@types/nodemailer": "^6.4.16",
+    "axios": "^1.7.9",
     "bcrypt": "^5.1.1",
     "body-parser": "^1.20.3",
     "cookie-parser": "^1.4.6",
@@ -38,6 +39,7 @@
     "qrcode": "^1.5.4",
     "socket.io": "^4.8.0",
     "speakeasy": "^2.0.0",
+    "sslcommerz-lts": "^1.1.0",
     "stripe": "^17.4.0",
     "ts-node-dev": "^2.0.0",
     "zod": "^3.23.8"

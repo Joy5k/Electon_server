@@ -23,10 +23,26 @@ const createPayment=catchAsync(async(req,res)=>{
         data:result
     })
 })
-
+const createSSLPaymentInit=catchAsync(async(req,res)=>{
+    const payload=req.body;
+    const token=req.headers.authorization
+    if(!token){
+        throw new CustomError(httpStatus.UNAUTHORIZED,"You are not authorized")
+    }
+    const decoded=tokenDecoded(token)as JwtPayload
+  
+    const result=await paymentServices.sslPaymentInit(payload)
+    sendResponse(res,{
+        statusCode:httpStatus.CREATED,
+        success:true,
+        message:"SSL Payment Intent created successfully",
+        data:result
+    })
+    
+})
 
 export const paymentController={
    
     createPayment,
-   
+    createSSLPaymentInit
 }

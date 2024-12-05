@@ -1,6 +1,6 @@
 import { Types } from "mongoose";
 
-export type CategoryType = "pc" | "laptop" | "box" | "earphone" | "others";
+export type CategoryType = "pc" | "laptop" | "box" | "earphone" | "camera" |"others";
 
 export interface IProduct {
   title: string;

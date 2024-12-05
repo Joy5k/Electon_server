@@ -18,5 +18,14 @@ export default {
       reset_pass_token_expires_in: process.env.RESET_PASS_TOKEN_EXPIRES_IN,
       reset_pass_link:process.env.RESET_PASS_LINK
     },
-    stripe_secret:process.env.STRIPE_SECRET
+    stripe_secret:process.env.STRIPE_SECRET,
+    ssl:{
+      storeId:process.env.STORE_ID,
+      storePass:process.env.STORE_PASS,
+      successURL:process.env.SUCCESS_URL,
+      failURL:process.env.FAIL_URL,
+      cancelURL:process.env.CANCEL_URL,
+      sslPaymentApi:process.env.SSL_PAYMENT_API,
+      sslValidationApi:process.env.SSL_VALIDATION_API,
+    }
   };
