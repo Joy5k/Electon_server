@@ -16,7 +16,7 @@ const createProductValidationSchema = z.object({
     }).min(1, "Title cannot be empty"),
     
     description: z.string()
-      .max(500, "Description can't exceed 500 characters"),
+      .max(1000, "Description can't exceed 1000 characters"),
       
     
     image: z.string({
@@ -52,7 +52,7 @@ const updateProductValidationSchema=z.object({
         }).min(1, "Title cannot be empty").optional(),
         
         description: z.string()
-          .max(500, "Description can't exceed 500 characters")
+          .max(1000, "Description can't exceed 10,000 characters")
           .optional(),
         
         image: z.string({

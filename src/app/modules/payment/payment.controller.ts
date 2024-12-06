@@ -40,9 +40,24 @@ const createSSLPaymentInit=catchAsync(async(req,res)=>{
     })
     
 })
+const validatedSSLPayment=catchAsync(async(req,res)=>{
+ 
+  
+    const result=await paymentServices.sslPaymentInit(req.query)
+    sendResponse(res,{
+        statusCode:httpStatus.OK,
+        success:true,
+        message:"SSL Payment Intent Validated successfully",
+        data:result
+    })
+    
+})
+
+
 
 export const paymentController={
    
     createPayment,
-    createSSLPaymentInit
+    createSSLPaymentInit,
+    validatedSSLPayment
 }

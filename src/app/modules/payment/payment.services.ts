@@ -5,7 +5,7 @@ import CustomError from "../../error/customError";
 import { Products } from "../product/product.model";
 import axios from "axios";
 import { ISSLPaymentData } from "./payment.interface";
-import { initPayment } from "../SSL/SSL.services";
+import { initPayment, validatePayment } from "../SSL/SSL.services";
 const stripe = require('stripe')(config.stripe_secret);
 
 const createPaymentIntent = async (payload: any, Token: any): Promise<any> => {
@@ -78,6 +78,38 @@ const sslPaymentInit = async (payload: any) => {
   return res.GatewayPageURL
 };
 
+const validatedSSLPayment=async(payload:any)=>{
+   if (!payload || !payload.status || !(payload.status === 'VALID')) {
+        return {
+            message: "Invalid Payment!"
+        }
+    }
+
+    const response = await validatePayment(payload);
+
+    if (response?.status !== 'VALID') {
+        return {
+            message: "Payment Failed!"
+        }
+    }
+
+    // const response = payload;
+   console.log(payload)
+
+   const res=await axios({
+    method:"POST",
+  url:`${config.ssl.sslValidationApi}?val_id=${payload.val_id}&store_id=${config.ssl.storeId}&store_passwd=${config.ssl.storePass}&format=json`
+   })
+
+   
+
+
+   return {
+    message: "Payment success!"
+}
+
+}
+
 
 
 
@@ -85,5 +117,6 @@ const sslPaymentInit = async (payload: any) => {
 
 export const paymentServices = {
   createPaymentIntent,
-  sslPaymentInit
+  sslPaymentInit,
+  
 };
