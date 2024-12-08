@@ -3,11 +3,29 @@ import { Users } from "../users/user.model"
 import { IProduct } from "./product.interface"
 import { Products } from "./product.model"
 import CustomError from "../../error/customError"
+import QueryBuilder from "../../builder/QueryBuilder"
 
-const getProductsFromDB = async () => {
-    const result = await Products.find()
-      .populate("sellerId", "-password -secret") 
-    return result;
+const getProductsFromDB = async (query:Record<string,any>) => {
+    const courseQuery = new QueryBuilder(
+        Products.find(),
+        // .populate('preRequisiteCourses.course'),
+        query,
+      )
+        .search(["title"])
+        .filter()
+        .sort()
+        .paginate()
+        .fields();
+    
+      const result = await courseQuery.modelQuery;
+      const meta=await courseQuery.countTotal()
+      return {
+        meta,
+        result
+      };
+    // const result = await Products.find()
+    //   .populate("sellerId", "-password -secret") 
+    // return result;
   };
   
 const getAllMyProducts=async(userId:string)=>{

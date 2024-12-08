@@ -6,22 +6,21 @@ import { Request, Response } from "express"
 import { tokenDecoded } from "../../../shared/userAuth"
 import CustomError from "../../error/customError"
 import { JwtPayload } from "jsonwebtoken"
+import { ParsedQs } from "qs"
+import QueryBuilder from "../../builder/QueryBuilder"
 
 
 
 
 const getAllProducts=catchAsync(async(req,res)=>{
-    const result= await productServices.getProductsFromDB()
+    const query=req.query
+    const result= await productServices.getProductsFromDB(query)
     sendResponse(res, {
         statusCode: httpStatus.OK,
         success: true,
         message: "Products Retrieved successfully!",
-        data: result,
-        meta:{
-            page:0,
-            limit:20,
-            total:result.length
-        }
+        data: result.result,
+        meta:result.meta
     })
 })
 const getAllMyProducts=catchAsync(async(req,res)=>{
@@ -99,4 +98,8 @@ export const productController={
     postProduct,
     updateProductIntoDB,
     deleteProduct
+}
+
+function toLowercase(query: ParsedQs): any {
+    throw new Error("Function not implemented.")
 }
