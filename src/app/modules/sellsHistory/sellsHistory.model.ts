@@ -12,6 +12,8 @@ const SellsHistorySchema = new Schema<ISellsHistory>({
     paymentMethod: { type: String },
     platformFee: { type: Number, default: 0 },
     sellerRevenue: { type: Number, default: 0 },
+},{
+    timestamps:true
 });
 
 export const SellsHistory = mongoose.model<ISellsHistory>("SellsHistory", SellsHistorySchema);
