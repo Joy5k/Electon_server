@@ -1,3 +1,5 @@
 import { Schema } from "mongoose";
 
-const createChattingSchema=new Schema ()
+const createChattingSchema=new Schema ({
+    
+})
