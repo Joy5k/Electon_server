@@ -1,7 +1,7 @@
-import { Schema } from "mongoose";
+import { model, Schema } from "mongoose";
 import { IChat } from "./chat.interface";
 
-const createChattingSchema=new Schema<IChat> ({
+const chattingSchema=new Schema<IChat> ({
     room:{
         type:String,
         required:[true,"Room unable to create! may have doesn't room email"]
@@ -17,3 +17,5 @@ const createChattingSchema=new Schema<IChat> ({
     },
 
 })
+export const Chat = model<IChat>('Chat', chattingSchema);
+
