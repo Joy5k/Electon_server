@@ -20,7 +20,7 @@ function initializeSocketIO(server: HTTPServer) {
         // Join a specific room
         socket.on('joinRoom', ({ username, room }) => {
             socket.join(room);
-            console.log(`${username} joined room: ${room}`);
+            console.log(`--------------${username} joined room: ${room}-----------------------`);
 
             // Notify other users in the room
             socket.to(room).emit('roomNotification', {

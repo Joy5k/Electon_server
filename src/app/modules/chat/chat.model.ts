@@ -15,6 +15,7 @@ const chattingSchema=new Schema<IChat> ({
         type:String,
         required:[true,"sender email is not available"]
     },
+    createdAt: { type: Date, default: Date.now },
 
 })
 export const Chat = model<IChat>('Chat', chattingSchema);
