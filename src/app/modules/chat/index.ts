@@ -20,7 +20,6 @@ function initializeSocketIO(server: HTTPServer) {
         // Join a specific room
         socket.on('joinRoom', ({ email, room }) => {
             socket.join(room);
-            console.log(`--------------${email} joined room: ${room}-----------------------`);
 
             // Notify other users in the room
             socket.to(room).emit('roomNotification', {
@@ -60,7 +59,7 @@ function initializeSocketIO(server: HTTPServer) {
                 console.error('Error fetching chat history:', err);
             }
         });
-        
+         
         // Handle client disconnection
         socket.on('disconnect', (reason) => {
             console.log(`Client disconnected: ${socket.id} (Reason: ${reason})`);
