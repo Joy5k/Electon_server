@@ -11,8 +11,8 @@ const app: Application = express();
 
 app.use(
   cors({
-    origin: ['http://localhost:5173'],
-    // origin: ['https://electon-one.vercel.app'],
+    // origin: ['http://localhost:5173'],
+    origin: ['https://electon-one.vercel.app'],
     credentials: true,
   }),
 );

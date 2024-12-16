@@ -10,11 +10,9 @@ async function main() {
     try {
         // Connect to MongoDB
         await mongoose.connect(config.database_url as string);
-        console.log('Connected to MongoDB');
 
         // Seed Super Admin (if needed)
         await seedSuperAdmin();
-        console.log('Super Admin Seeded');
 
         // Create HTTP server instance
         const server: HTTPServer = new HTTPServer(app);
