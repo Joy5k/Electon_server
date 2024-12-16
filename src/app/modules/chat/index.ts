@@ -18,29 +18,49 @@ function initializeSocketIO(server: HTTPServer) {
         console.log(`Client connected: ${socket.id}`);
 
         // Join a specific room
-        socket.on('joinRoom', ({ username, room }) => {
+        socket.on('joinRoom', ({ email, room }) => {
             socket.join(room);
-            console.log(`--------------${username} joined room: ${room}-----------------------`);
+            console.log(`--------------${email} joined room: ${room}-----------------------`);
 
             // Notify other users in the room
             socket.to(room).emit('roomNotification', {
-                message: `${username} has joined the room.`,
+                message: `${email} has joined the room.`,
             });
         });
 
-        // Listen for messages from clients
-        socket.on('message', async ({ username, room, text }) => {
-            console.log(`Received message from ${username} in room ${room}:`, text);
-
-            // Save the message to the database
-            const messageData = { username, room, text };
-            const res = await Chat.create(messageData);
-            console.log(res, "This is response after saving message in database");
-
-            // Broadcast the message to all users in the same room
-            io.to(room).emit('message', messageData);
+        socket.on('message', async ({ sender, room, text }) => {
+            try {
+                console.log(`Received message from ${sender} in room ${room}:`, text);
+        
+                // Save the message to the database
+                const messageData = { sender, room, text };
+                const savedMessage = await Chat.create(messageData);
+        
+                console.log(savedMessage, "Message saved successfully in the database");
+        
+                // Broadcast the message to all users in the same room
+                io.to(room).emit('message', {
+                    sender,
+                    room,
+                    text,
+                    timestamp: savedMessage.timestamp,
+                });
+            } catch (err) {
+                console.error('Error saving message:', err);
+            }
         });
-
+        
+        socket.on('fetchHistory', async ({ room }) => {
+            try {
+                // Fetch chat history from the database for the specified room
+                const chatHistory = await Chat.find({ room }).sort({ timestamp: 1 });
+                // Send the history back to the client
+                socket.emit('chatHistory', chatHistory);
+            } catch (err) {
+                console.error('Error fetching chat history:', err);
+            }
+        });
+        
         // Handle client disconnection
         socket.on('disconnect', (reason) => {
             console.log(`Client disconnected: ${socket.id} (Reason: ${reason})`);
