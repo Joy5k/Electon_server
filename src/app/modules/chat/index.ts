@@ -7,8 +7,8 @@ function initializeSocketIO(server: HTTPServer) {
     // Initialize Socket.IO
     const io = new SocketIOServer(server, {
         cors: {
-            origin: ['https://electon-one.vercel.app/'],
-            // origin: ['http://localhost:5173'],
+            // origin: ['https://electon-one.vercel.app/'],
+            origin: ['http://localhost:5173'],
             methods: ['GET', 'POST', 'PUT'],
             credentials: true,
         },
@@ -16,7 +16,6 @@ function initializeSocketIO(server: HTTPServer) {
 
     // Socket.IO connection handler
     io.on('connection', (socket) => {
-        console.log(`Client connected: ${socket.id}`);
 
         // Join a specific room
         socket.on('joinRoom', ({ email, room }) => {
@@ -30,13 +29,11 @@ function initializeSocketIO(server: HTTPServer) {
 
         socket.on('message', async ({ sender, room, text }) => {
             try {
-                console.log(`Received message from ${sender} in room ${room}:`, text);
         
                 // Save the message to the database
                 const messageData = { sender, room, text };
                 const savedMessage = await Chat.create(messageData);
         
-                console.log(savedMessage, "Message saved successfully in the database");
         
                 // Broadcast the message to all users in the same room
                 io.to(room).emit('message', {
