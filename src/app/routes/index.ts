@@ -5,6 +5,7 @@ import { bookingRoutes } from '../modules/booking/booking.routes';
 import { AuthRoutes } from '../modules/auth/auth.routes';
 import { paymentRoutes } from '../modules/payment/payment.routes';
 import { sellsRoutes } from '../modules/sellsHistory/sellsHistory.routes';
+import { chattingRoutes } from '../modules/chat/chat.routes';
 
 const router = express.Router();
 
@@ -23,7 +24,7 @@ const moduleRoutes = [
     },
     {
         path:'/chat',
-        route:bookingRoutes
+        route:chattingRoutes
     },
     {
         path:'/booking',
