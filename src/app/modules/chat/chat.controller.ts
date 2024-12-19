@@ -4,7 +4,8 @@ import { chatServices } from "./chat.services";
 import { Request, Response } from "express";
 
 const getAllRooms=catchAsync(async (req: Request, res: Response) => {
-    const rooms=await chatServices.getAllRoomsFromDB();
+    const {room} = req.body;
+    const rooms=await chatServices.getAllRoomsFromDB(room);
     sendResponse(res, {
         statusCode: 200,
         success: true,
