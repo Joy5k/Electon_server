@@ -8,7 +8,7 @@ import { productValidationSchema } from "./product.validation";
 const router = express.Router();
 
 router.get("/get-all-products",
-    auth(USER_ROLE.USER,USER_ROLE.SELLER,USER_ROLE.ADMIN,USER_ROLE.SUPER_ADMIN), 
+    // auth(USER_ROLE.USER,USER_ROLE.SELLER,USER_ROLE.ADMIN,USER_ROLE.SUPER_ADMIN), 
      productController.getAllProducts
     )
 
