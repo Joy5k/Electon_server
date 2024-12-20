@@ -4,9 +4,8 @@ import sendResponse from "../../../shared/sendResponse";
 import { subscribeServices } from "./subscribe.services";
 
 const createUserSubscription =catchAsync(async(req,res)=>{
-    const {email}=req.body;
-    console.log(email)
-    const result =await subscribeServices.createSubscriber(email);
+    const payload=req.body;
+    const result =await subscribeServices.createSubscriber(payload);
     sendResponse(res,{
         statusCode:httpStatus.CREATED,
         success:true,

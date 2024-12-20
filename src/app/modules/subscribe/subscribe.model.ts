@@ -21,6 +21,5 @@ const SubscriptionSchema = new Schema<IUserEmailSubscription>({
     timestamps: true,
   });
 
-const Subscription = model<IUserEmailSubscription>('Subscription', SubscriptionSchema);
+export const Subscription = model<IUserEmailSubscription>('Subscription', SubscriptionSchema);
 
-export default Subscription;
