@@ -5,3 +5,7 @@ const createSubscriber = async (subscriber: IUserEmailSubscription): Promise<IUs
     const result= await Subscription.create(subscriber);
     return result;
 }
+
+export const subscribeServices = {
+    createSubscriber
+}
