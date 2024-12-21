@@ -18,8 +18,13 @@ const getGeneralOfferProductFromDB = async () => {
     return result;
 }
 
+const getDealOfTheDayOfferProductFromDB = async () => {
+    const result = await OfferProduct.findOne({offerType:'DealOfTheDay'});
+    return result;
+}
 
 export const offerProductServices = {
     createOfferProduct,
-    getGeneralOfferProductFromDB
+    getGeneralOfferProductFromDB,
+    getDealOfTheDayOfferProductFromDB
 }
