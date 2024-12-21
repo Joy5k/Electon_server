@@ -1,5 +1,5 @@
 import { model, Schema } from "mongoose";
-import { IDealOfTheDay, IOfferProduct } from "./offerProducts.interface";
+import { IOfferProduct } from "./offerProducts.interface";
 
 const productSchema=new Schema<IOfferProduct>({
     productId:{
@@ -12,7 +12,6 @@ const productSchema=new Schema<IOfferProduct>({
     },
     offerPrice:{
         type:Number,
-        required:true
     },
     offerStartDate:{
         type:Date,
@@ -22,19 +21,13 @@ const productSchema=new Schema<IOfferProduct>({
         type:Date,
         required:true
     },
-    offerDescription:{
-        type:String
-    },
-    offerImage:{
-        type:String
-    },
+  
     offerStatus:{
         type:Boolean,
         required:true
     },
     offerPercentage:{
         type:Number,
-        required:true
     },
     offerQuantity:{
         type:Number

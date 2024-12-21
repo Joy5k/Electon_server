@@ -7,7 +7,10 @@ import { offerValidation } from './offerProducts.validation';
 
 const router=express.Router();
 
-router.post('/create',auth(USER_ROLE.ADMIN,USER_ROLE.SUPER_ADMIN),validateRequest(offerValidation.offerProductValidationSchema) ,offerProductController.createOfferProduct)
+router.post('/create',
+    auth(USER_ROLE.ADMIN,USER_ROLE.SUPER_ADMIN),
+    validateRequest(offerValidation.offerProductValidationSchema) ,
+    offerProductController.createOfferProduct)
 
 
 export const offerProductRoutes=router;

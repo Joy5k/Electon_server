@@ -13,7 +13,13 @@ const createOfferProduct = async (offerProduct:IOfferProduct) => {
         throw new CustomError(httpStatus.UNPROCESSABLE_ENTITY,'Failed to create offerProduct');
     }
 }
+const getGeneralOfferProductFromDB = async () => {
+    const result = await OfferProduct.findOne({offerType:'General'});
+    return result;
+}
+
 
 export const offerProductServices = {
-    createOfferProduct
+    createOfferProduct,
+    getGeneralOfferProductFromDB
 }
