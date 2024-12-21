@@ -1,5 +1,5 @@
 import { model, Schema } from "mongoose";
-import { IOfferProduct } from "./offerProducts.interface";
+import { IDealOfTheDay, IOfferProduct } from "./offerProducts.interface";
 
 const productSchema=new Schema<IOfferProduct>({
     productId:{
@@ -40,9 +40,10 @@ const productSchema=new Schema<IOfferProduct>({
         type:Number
     },
     offerType:{
-        type:String,
-        required:true
+        enum:['General','DealOfTheDay','Other'],
+        default:'DealOfTheDay'
     }
 },{timestamps:true});
 
 export const OfferProduct= model<IOfferProduct>('OfferProduct',productSchema);
+

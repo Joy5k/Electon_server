@@ -11,6 +11,6 @@ export interface IOfferProduct {
     offerStatus:boolean;
     offerPercentage:number;
     offerQuantity?:number;
-    offerType:string;
+    offerType:"General" | "DealOfTheDay"|"Other";
 
 }
