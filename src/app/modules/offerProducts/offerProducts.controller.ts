@@ -17,6 +17,16 @@ const createOfferProduct = catchAsync(async (req: Request, res: Response) => {
     })
 })
 
+const getGeneralOfferProductFromDB=catchAsync(async(req:Request,res:Response)=>{
+    const result=await offerProductServices.getGeneralOfferProductFromDB();
+    sendResponse(res,{
+        statusCode:200,
+        success:true,
+        message:"General Offer Product fetched successfully",
+        data:result
+    })
+})
 export const offerProductController = {
-    createOfferProduct
+    createOfferProduct,
+    getGeneralOfferProductFromDB
 }
