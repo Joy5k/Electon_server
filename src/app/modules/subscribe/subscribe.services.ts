@@ -22,7 +22,10 @@ const handleSubscriber = async (email:string)=>{
                 isActive:true ? false : true
             }
         );
-    } catch (error) {}
+    } catch (error) {
+        console.error('Error in updating subscriber:', error);
+        throw new CustomError(httpStatus.UNPROCESSABLE_ENTITY,'Failed to update subscriber');
+    }
 }
 
 export const subscribeServices = {
