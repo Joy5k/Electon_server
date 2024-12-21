@@ -26,7 +26,18 @@ const getGeneralOfferProductFromDB=catchAsync(async(req:Request,res:Response)=>{
         data:result
     })
 })
+
+const getDealOfTheDayOfferProductFromDB=catchAsync(async(req:Request,res:Response)=>{
+    const result=await offerProductServices.getDealOfTheDayOfferProductFromDB();
+    sendResponse(res,{
+        statusCode:200,
+        success:true,
+        message:"Deal of the day Offer Product fetched successfully",
+        data:result
+    })
+})
 export const offerProductController = {
     createOfferProduct,
-    getGeneralOfferProductFromDB
+    getGeneralOfferProductFromDB,
+    getDealOfTheDayOfferProductFromDB
 }

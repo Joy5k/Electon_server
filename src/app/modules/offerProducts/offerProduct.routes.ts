@@ -11,6 +11,8 @@ router.post('/create',
     auth(USER_ROLE.ADMIN,USER_ROLE.SUPER_ADMIN),
     validateRequest(offerValidation.offerProductValidationSchema) ,
     offerProductController.createOfferProduct)
+router.get('/generaleOffer',offerProductController.getGeneralOfferProductFromDB)
+router.get('/dealOfTheDayOffer',offerProductController.getDealOfTheDayOfferProductFromDB)
 
 
 export const offerProductRoutes=router;
