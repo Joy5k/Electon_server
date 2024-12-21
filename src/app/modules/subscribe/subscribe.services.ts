@@ -1,3 +1,5 @@
+import httpStatus from 'http-status';
+import CustomError from '../../error/customError';
 import { IUserEmailSubscription } from './subscribe.interface';
 import { Subscription } from './subscribe.model';
 
@@ -5,16 +7,25 @@ const createSubscriber = async (
   subscriber: IUserEmailSubscription
 ): Promise<IUserEmailSubscription> => {
   try {
-    console.log('Payload before saving:', subscriber);
     const result = await Subscription.create(subscriber);
-    console.log('Saved Document:', result);
     return result;
   } catch (error) {
     console.error('Error in creating subscriber:', error);
-    throw new Error('Failed to create subscriber');
+    throw new CustomError(httpStatus.UNPROCESSABLE_ENTITY,'Failed to create subscriber');
   }
 };
 
+const handleSubscriber = async (email:string)=>{
+    try {
+        const result=await Subscription.findOneAndUpdate({email},
+            {
+                isActive:true ? false : true
+            }
+        );
+    } catch (error) {}
+}
+
 export const subscribeServices = {
   createSubscriber,
+  handleSubscriber
 };
