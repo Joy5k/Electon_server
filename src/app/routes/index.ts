@@ -7,6 +7,7 @@ import { paymentRoutes } from '../modules/payment/payment.routes';
 import { sellsRoutes } from '../modules/sellsHistory/sellsHistory.routes';
 import { chattingRoutes } from '../modules/chat/chat.routes';
 import { subscribeRoutes } from '../modules/subscribe/subscribe.routes';
+import { offerProductRoutes } from '../modules/offerProducts/offerProduct.routes';
 
 const router = express.Router();
 
@@ -42,6 +43,10 @@ const moduleRoutes = [
     {
         path:'/subscription',
         route:subscribeRoutes
+    },
+    {
+        path:"/offerProduct",
+        route:offerProductRoutes
     }
   
 ];

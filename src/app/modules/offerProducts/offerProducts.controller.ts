@@ -8,7 +8,6 @@ const createOfferProduct = catchAsync(async (req: Request, res: Response) => {
 
     const payload = req.body as IOfferProduct;
 
-
     const result = await offerProductServices.createOfferProduct(payload); 
     sendResponse(res,{
         statusCode:200,
@@ -17,3 +16,7 @@ const createOfferProduct = catchAsync(async (req: Request, res: Response) => {
         data:result
     })
 })
+
+export const offerProductController = {
+    createOfferProduct
+}
