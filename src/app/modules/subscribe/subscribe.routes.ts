@@ -1,10 +1,12 @@
 import { Router } from 'express';
 import { subscribeController } from './subscribe.controller';
+import validateRequest from '../../middlewares/validateRequest';
+import { subscriptionValidationSchema } from './subscribe.validation';
 
 const router = Router();
 
 // Route to handle new email subscription
-router.post('/subscribe', subscribeController.createUserSubscription);
+router.post('/subscribe',validateRequest(subscriptionValidationSchema.UserEmailSubscriptionSchema), subscribeController.createUserSubscription);
 
 // // Route to handle unsubscription
 // router.post('/unsubscribe', subscribeController.unsubscribe);

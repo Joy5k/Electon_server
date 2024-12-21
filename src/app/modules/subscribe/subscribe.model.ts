@@ -1,18 +1,9 @@
-import mongoose, { Schema, Document } from 'mongoose';
+import  { Schema, model } from 'mongoose';
 import { IUserEmailSubscription } from './subscribe.interface';
 
-interface ISubscription extends Document {
-    id?: string;
-    email: string;
-    subscribedAt: Date;
-    isActive: boolean;
-}
 
-const SubscriptionSchema: Schema = new Schema<IUserEmailSubscription>({
-    id: {
-        type: String,
+const SubscriptionSchema = new Schema<IUserEmailSubscription>({
 
-    },
     email: {
         type: String,
         required: true,
@@ -21,16 +12,15 @@ const SubscriptionSchema: Schema = new Schema<IUserEmailSubscription>({
         lowercase: true,
         match: [/.+\@.+\..+/, 'Please fill a valid email address']
     },
-    subscribedAt: {
-        type: Date,
-        default: Date.now
-    },
+   
     isActive: {
         type: Boolean,
         default: true
     }
-});
+},{
+    timestamps: true,
+  });
 
-const Subscription = mongoose.model<ISubscription>('Subscription', SubscriptionSchema);
+const Subscription = model<IUserEmailSubscription>('Subscription', SubscriptionSchema);
 
 export default Subscription;

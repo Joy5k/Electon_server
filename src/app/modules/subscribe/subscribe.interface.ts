@@ -1,6 +1,5 @@
 export interface IUserEmailSubscription {
-    id?: string;
     email: string;
-    subscribedAt: Date;
+    subscribedAt: string;
     isActive: boolean;
 }
