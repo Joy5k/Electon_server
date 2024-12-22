@@ -34,7 +34,6 @@ const productSchema=new Schema<IOfferProduct>({
     },
     offerType:{
         enum:['General','DealOfTheDay','Other'],
-        default:'DealOfTheDay'
     }
 },{timestamps:true});
 

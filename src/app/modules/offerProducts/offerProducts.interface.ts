@@ -3,13 +3,13 @@ import { Types } from "mongoose";
 export interface IOfferProduct {
     productId:Types.ObjectId;
     offerProvider:Types.ObjectId;
-    offerPrice:number;
+    offerPrice?:number;
     offerStartDate:Date;
     offerEndDate:Date;
     offerDescription?:string;
     offerImage?:string;
     offerStatus:boolean;
-    offerPercentage:number;
+    offerPercentage?:number;
     offerQuantity?:number;
     offerType:"General" | "DealOfTheDay"|"Other";
 

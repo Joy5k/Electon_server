@@ -4,11 +4,23 @@ import { offerProductServices } from "./offerProducts.services";
 import { Request, Response } from 'express';
 import { IOfferProduct } from './offerProducts.interface';
 import sendResponse from "../../../shared/sendResponse";
+import CustomError from "../../error/customError";
+import httpStatus from "http-status";
+import { jwtHelpers } from "../../helpers/jwtHelpers";
+import config from "../../config";
 const createOfferProduct = catchAsync(async (req: Request, res: Response) => {
-
+    const token=req.headers.authorization
+    
+    if(!token){
+        throw new CustomError(httpStatus.UNAUTHORIZED,"Your are not authorized to perform this action")
+    }
+    const decoded= jwtHelpers.verifyToken(token,config.jwt.jwt_access_secret as string)
+    if(!decoded){
+        throw new CustomError(httpStatus.UNAUTHORIZED,"Your are not authorized to perform this action")
+    }
     const payload = req.body as IOfferProduct;
 
-    const result = await offerProductServices.createOfferProduct(payload); 
+    const result = await offerProductServices.createOfferProduct({...payload,offerProvider:decoded.userId}); 
     sendResponse(res,{
         statusCode:200,
         success:true,

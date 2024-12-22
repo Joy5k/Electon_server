@@ -5,6 +5,7 @@ import { IOfferProduct } from "./offerProducts.interface";
 
 
 const createOfferProduct = async (offerProduct:IOfferProduct) => {
+    console.log(offerProduct,"----------------------------")
     try {
         const result = await OfferProduct.create(offerProduct);
         return result;

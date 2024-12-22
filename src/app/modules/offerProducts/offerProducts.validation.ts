@@ -3,7 +3,6 @@ import { z } from "zod";
 const offerProductValidationSchema=z.object({
     body:z.object({
         productId:z.string(),
-        offerProvider:z.string(),
         offerPrice:z.number().optional(),
         offerStartDate:z.string(),
         offerEndDate:z.string(),
