@@ -5,7 +5,6 @@ import { IOfferProduct } from "./offerProducts.interface";
 
 
 const createOfferProduct = async (offerProduct:IOfferProduct) => {
-    console.log(offerProduct,"----------------------------")
     try {
         const result = await OfferProduct.create(offerProduct);
         return result;
@@ -15,8 +14,8 @@ const createOfferProduct = async (offerProduct:IOfferProduct) => {
     }
 }
 const getGeneralOfferProductFromDB = async () => {
-    const result = await OfferProduct.findOne({offerType:'General'});
-    return result;
+    const result = await OfferProduct.find();
+    return result
 }
 
 const getDealOfTheDayOfferProductFromDB = async () => {
