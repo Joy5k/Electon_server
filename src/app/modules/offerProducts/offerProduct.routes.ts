@@ -12,8 +12,8 @@ router.post('/create',
     validateRequest(offerValidation.offerProductValidationSchema) ,
     offerProductController.createOfferProduct)
     
-router.get('/generaleOffer',offerProductController.getGeneralOfferProductFromDB)
+router.get('/allOffers',offerProductController.getGeneralOfferProductFromDB)
 router.get('/dealOfTheDayOffer',offerProductController.getDealOfTheDayOfferProductFromDB)
-
+router.delete('/delete/:id',auth(USER_ROLE.ADMIN,USER_ROLE.SUPER_ADMIN),offerProductController.deleteOfferProduct)
 
 export const offerProductRoutes=router;

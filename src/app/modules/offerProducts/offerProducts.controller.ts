@@ -34,7 +34,7 @@ const getGeneralOfferProductFromDB=catchAsync(async(req:Request,res:Response)=>{
     sendResponse(res,{
         statusCode:200,
         success:true,
-        message:"General Offer Product fetched successfully",
+        message:"All Offer Product fetched successfully",
         data:result
     })
 })

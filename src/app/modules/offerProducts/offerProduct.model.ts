@@ -4,10 +4,12 @@ import { IOfferProduct } from "./offerProducts.interface";
 const productSchema=new Schema<IOfferProduct>({
     productId:{
         type:Schema.Types.ObjectId,
+        ref:'Products',
         required:true
     },
     offerProvider:{
         type:Schema.Types.ObjectId,
+        ref:'Users',
         required:true
     },
     offerPrice:{
@@ -33,7 +35,7 @@ const productSchema=new Schema<IOfferProduct>({
         type:Number
     },
     offerType:{
-        enum:['General','DealOfTheDay','Other'],
+        enum:['general','dealOfTheDay','Other'],
         type:String,
         required:true
     }

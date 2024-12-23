@@ -14,7 +14,7 @@ const createOfferProduct = async (offerProduct:IOfferProduct) => {
     }
 }
 const getGeneralOfferProductFromDB = async () => {
-    const result = await OfferProduct.find();
+    const result = await OfferProduct.find().populate(['productId','offerProvider']);
     return result
 }
 
