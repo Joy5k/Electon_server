@@ -23,8 +23,13 @@ const getDealOfTheDayOfferProductFromDB = async () => {
     return result;
 }
 
+const deleteOfferProduct = async (id:string) => {
+    const result = await OfferProduct.findByIdAndDelete(id);
+    return result;
+}
 export const offerProductServices = {
     createOfferProduct,
     getGeneralOfferProductFromDB,
-    getDealOfTheDayOfferProductFromDB
+    getDealOfTheDayOfferProductFromDB,
+    deleteOfferProduct
 }

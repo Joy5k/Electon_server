@@ -48,8 +48,22 @@ const getDealOfTheDayOfferProductFromDB=catchAsync(async(req:Request,res:Respons
         data:result
     })
 })
+
+const deleteOfferProduct=catchAsync(async(req:Request,res:Response)=>{
+    const id=req.params.id;
+    const result=await offerProductServices.deleteOfferProduct(id);
+    sendResponse(res,{
+        statusCode:200,
+        success:true,
+        message:"Offer Product deleted successfully",
+        data:result
+    })
+})
+
+
 export const offerProductController = {
     createOfferProduct,
     getGeneralOfferProductFromDB,
-    getDealOfTheDayOfferProductFromDB
+    getDealOfTheDayOfferProductFromDB,
+    deleteOfferProduct
 }
