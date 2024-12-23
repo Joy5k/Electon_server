@@ -14,6 +14,10 @@ router.post('/create',
     
 router.get('/allOffers',offerProductController.getGeneralOfferProductFromDB)
 router.get('/dealOfTheDayOffer',offerProductController.getDealOfTheDayOfferProductFromDB)
+router.put('/update/:id',
+    auth(USER_ROLE.ADMIN,USER_ROLE.SUPER_ADMIN),
+    validateRequest(offerValidation.updateOfferProductValidationSchema),
+    offerProductController.updateOfferProduct)
 router.delete('/delete/:id',auth(USER_ROLE.ADMIN,USER_ROLE.SUPER_ADMIN),offerProductController.deleteOfferProduct)
 
 export const offerProductRoutes=router;
