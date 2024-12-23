@@ -23,6 +23,12 @@ const getDealOfTheDayOfferProductFromDB = async () => {
     return result;
 }
 
+const updateOfferProduct= async (_id:string,offerProduct:IOfferProduct) => {
+    const result = await OfferProduct.findByIdAndUpdate(_id,offerProduct,{new:true});
+    return result;
+}
+
+
 const deleteOfferProduct = async (id:string) => {
     const result = await OfferProduct.findByIdAndDelete(id);
     return result;
@@ -31,5 +37,6 @@ export const offerProductServices = {
     createOfferProduct,
     getGeneralOfferProductFromDB,
     getDealOfTheDayOfferProductFromDB,
-    deleteOfferProduct
+    deleteOfferProduct,
+    updateOfferProduct
 }
