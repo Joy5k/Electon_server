@@ -20,4 +20,5 @@ router.put('/update/:id',
     offerProductController.updateOfferProduct)
 router.delete('/delete/:id',auth(USER_ROLE.ADMIN,USER_ROLE.SUPER_ADMIN),offerProductController.deleteOfferProduct)
 
+
 export const offerProductRoutes=router;
