@@ -28,11 +28,28 @@ const updateOfferProduct= async (_id:string,offerProduct:IOfferProduct) => {
     return result;
 }
 
-const updateOfferProductStatus=async()=>{
-    const result = await OfferProduct.updateMany({offerEndDate:{$lt:new Date()}},{offerStatus: true ? false:true});
-    return result;
-}
-
+const updateOfferProductStatus = async (_id: string) => {
+    try {
+      // Retrieve the current product
+      const currentProduct = await OfferProduct.findById(_id);
+      if (!currentProduct) {
+        throw new Error("Product not found");
+      }
+  
+      // Toggle the current offerStatus
+      const updatedProduct = await OfferProduct.findByIdAndUpdate(
+        _id,
+        { $set: { offerStatus: !currentProduct.offerStatus } }, // Toggle offerStatus
+        { new: true } // Return the updated document
+      );
+  
+      return updatedProduct;
+    } catch (error) {
+      console.error("Error updating offer status:", error);
+      throw error;
+    }
+  };
+  
 const deleteOfferProduct = async (id:string) => {
     const result = await OfferProduct.findByIdAndDelete(id);
     return result;

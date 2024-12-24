@@ -18,6 +18,7 @@ router.put('/update/:id',
     auth(USER_ROLE.ADMIN,USER_ROLE.SUPER_ADMIN),
     validateRequest(offerValidation.updateOfferProductValidationSchema),
     offerProductController.updateOfferProduct)
+router.put('/updateStatus/:id',auth(USER_ROLE.ADMIN,USER_ROLE.SUPER_ADMIN),offerProductController.updateOfferProductStatus)
 router.delete('/delete/:id',auth(USER_ROLE.ADMIN,USER_ROLE.SUPER_ADMIN),offerProductController.deleteOfferProduct)
 
 

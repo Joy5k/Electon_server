@@ -59,7 +59,15 @@ const updateOfferProduct=catchAsync(async(req:Request,res:Response)=>{
         data:result
     })
 })
-
+const updateOfferProductStatus=catchAsync(async(req:Request,res:Response)=>{
+    const result=await offerProductServices.updateOfferProductStatus(req.params.id);
+    sendResponse(res,{
+        statusCode:200,
+        success:true,
+        message:"Offer Product status updated successfully",
+        data:result
+    })
+})
 
 const deleteOfferProduct=catchAsync(async(req:Request,res:Response)=>{
     const id=req.params.id;
@@ -78,5 +86,6 @@ export const offerProductController = {
     getGeneralOfferProductFromDB,
     getDealOfTheDayOfferProductFromDB,
     deleteOfferProduct,
+    updateOfferProductStatus,
     updateOfferProduct
 }
