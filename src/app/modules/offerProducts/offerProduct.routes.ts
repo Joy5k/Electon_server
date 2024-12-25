@@ -13,6 +13,7 @@ router.post('/create',
     offerProductController.createOfferProduct)
     
 router.get('/allOffers',offerProductController.getGeneralOfferProductFromDB)
+router.get('/getDiscount',offerProductController.getDiscount)
 router.get('/dealOfTheDayOffer',offerProductController.getDealOfTheDayOfferProductFromDB)
 router.put('/update/:id',
     auth(USER_ROLE.ADMIN,USER_ROLE.SUPER_ADMIN),

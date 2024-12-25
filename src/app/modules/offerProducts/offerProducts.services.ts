@@ -18,6 +18,10 @@ const getGeneralOfferProductFromDB = async () => {
     return result
 }
 
+const getDiscount = async () => {
+    const result = await OfferProduct.findOne({offerType:'general',offerStatus:true}).populate(['productId','offerProvider']);
+    return result;
+}
 const getDealOfTheDayOfferProductFromDB = async () => {
     const result = await OfferProduct.findOne({offerType:'DealOfTheDay'});
     return result;
@@ -57,6 +61,7 @@ const deleteOfferProduct = async (id:string) => {
 export const offerProductServices = {
     createOfferProduct,
     getGeneralOfferProductFromDB,
+    getDiscount,
     getDealOfTheDayOfferProductFromDB,
     deleteOfferProduct,
     updateOfferProductStatus,   

@@ -38,6 +38,15 @@ const getGeneralOfferProductFromDB=catchAsync(async(req:Request,res:Response)=>{
         data:result
     })
 })
+const getDiscount=catchAsync(async(req:Request,res:Response)=>{
+    const result=await offerProductServices.getDiscount();
+    sendResponse(res,{
+        statusCode:200,
+        success:true,
+        message:"Discount Offer Product fetched successfully",
+        data:result
+    })
+})
 
 const getDealOfTheDayOfferProductFromDB=catchAsync(async(req:Request,res:Response)=>{
     const result=await offerProductServices.getDealOfTheDayOfferProductFromDB();
@@ -84,6 +93,7 @@ const deleteOfferProduct=catchAsync(async(req:Request,res:Response)=>{
 export const offerProductController = {
     createOfferProduct,
     getGeneralOfferProductFromDB,
+    getDiscount,
     getDealOfTheDayOfferProductFromDB,
     deleteOfferProduct,
     updateOfferProductStatus,
