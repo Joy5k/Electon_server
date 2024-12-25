@@ -23,7 +23,7 @@ const getDiscount = async () => {
     return result;
 }
 const getDealOfTheDayOfferProductFromDB = async () => {
-    const result = await OfferProduct.findOne({offerType:'DealOfTheDay'});
+    const result = await OfferProduct.find({offerType:'dealOfTheDay'}).populate(['productId','offerProvider']);
     return result;
 }
 
