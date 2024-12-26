@@ -23,7 +23,7 @@ const getDiscount = async () => {
     return result;
 }
 const getDealOfTheDayOfferProductFromDB = async () => {
-    const result = await OfferProduct.find({offerType:'dealOfTheDay'}).populate(['productId','offerProvider']);
+    const result = await OfferProduct.find ({offerType:'dealOfTheDay',offerStatus:true}).populate(['productId','offerProvider']);
     return result;
 }
 
@@ -54,6 +54,24 @@ const updateOfferProductStatus = async (_id: string) => {
     }
   };
   
+  const resetDealOfTheDayOffer = async () => {
+    try {
+      const result = await OfferProduct.updateMany(
+        { offerType: "dealOfTheDay" }, // Match documents with `offerType: "dealOfTheDay"`
+        {
+          $set: {
+            offerEndDate: 0,
+            offerStartDate: 0,
+            offerStatus: false, // Reset dates and status
+          },
+        }
+      );
+      console.log("Offers reset successfully:", result);
+    } catch (error) {
+      console.error("Error resetting offers:", error);
+    }
+  };
+  
 const deleteOfferProduct = async (id:string) => {
     const result = await OfferProduct.findByIdAndDelete(id);
     return result;
@@ -64,6 +82,6 @@ export const offerProductServices = {
     getDiscount,
     getDealOfTheDayOfferProductFromDB,
     deleteOfferProduct,
-    updateOfferProductStatus,   
+    updateOfferProductStatus,  
     updateOfferProduct
 }
