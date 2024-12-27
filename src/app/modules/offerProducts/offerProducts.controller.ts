@@ -78,6 +78,16 @@ const updateOfferProductStatus=catchAsync(async(req:Request,res:Response)=>{
     })
 })
 
+const resetOfferProductDateAndStatus=catchAsync(async(req:Request,res:Response)=>{
+    const result=await offerProductServices.resetDealOfTheDayOffer()
+    sendResponse(res,{
+        statusCode:httpStatus.OK,
+        success:true,
+        message:"Product data and status changed successfully",
+        data:result
+    })
+})
+
 const deleteOfferProduct=catchAsync(async(req:Request,res:Response)=>{
     const id=req.params.id;
     const result=await offerProductServices.deleteOfferProduct(id);
@@ -97,5 +107,6 @@ export const offerProductController = {
     getDealOfTheDayOfferProductFromDB,
     deleteOfferProduct,
     updateOfferProductStatus,
+    resetOfferProductDateAndStatus,
     updateOfferProduct
 }

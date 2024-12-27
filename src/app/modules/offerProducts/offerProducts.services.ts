@@ -82,6 +82,7 @@ export const offerProductServices = {
     getDiscount,
     getDealOfTheDayOfferProductFromDB,
     deleteOfferProduct,
-    updateOfferProductStatus,  
+    updateOfferProductStatus, 
+    resetDealOfTheDayOffer, 
     updateOfferProduct
 }
