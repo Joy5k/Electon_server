@@ -7,8 +7,8 @@ function initializeSocketIO(server: HTTPServer) {
     // Initialize Socket.IO
     const io = new SocketIOServer(server, {
         cors: {
-            // origin: ['https://electon-one.vercel.app/'],
-            origin: ['http://localhost:5173'],
+            origin: ['https://electon-one.vercel.app/'],
+            // origin: ['http://localhost:5173'],
             methods: ['GET', 'POST', 'PUT'],
             credentials: true,
         },
