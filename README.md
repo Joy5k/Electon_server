@@ -34,16 +34,20 @@ require('crypto').randomBytes(64).toString('hex')
 ##Authentication 
 ### **1. User Registration**
 
-- **Endpoint:** **`POST /user/create-user`**
+- **Endpoint:** **`POST /auth/register`**
 - **Request Body:**
 
 ```json
 {
-  "password": "123456",
-  "user": {
-    "email": "abir@gmail.com",
-    "username": "abir"
-  }
+  "firstName": "Mehedi",
+  "lastName": "Hasan",
+  "age": 25,
+  "password":"123456",
+  "email": "mehedihasan@gmail.com",
+  "gender":"male",
+  "phoneNumber": "01234567890",
+  "image": "https://example.com/profile.jpg"
+
 }
 
 ```
@@ -53,22 +57,32 @@ require('crypto').randomBytes(64).toString('hex')
 ```json
 {
     "success": true,
-    "statusCode": 200,
-    "message": "User Created successfully!",
+    "message": "User Registered successfully!",
     "data": {
-        "id": "153bc206-166d-4509-89b4-03992dadaafb",
-        "username": "abir",
-        "email": "abir2@gmail.com",
-        "password": "$2b$12$JS21qEIUMbSKKjSDaudpUeSAiIuUuyJaTkcBLCvEukxCn6ToQWxCu",
-        "profilePhoto": null,
-        "role": "USER",
-        "needPasswordChange": true,
-        "status": "ACTIVE",
-        "createdAt": "2024-06-23T19:17:39.266Z",
-        "updatedAt": "2024-06-23T19:17:39.266Z"
+        "data": {
+            "firstName": "Mehedi",
+            "lastName": "Hasan",
+            "image": "https://example.com/profile.jpg",
+            "gender": "male",
+            "password": "",
+            "age": 25,
+            "email": "mehedihasan@gmail.com",
+            "phoneNumber": "01234567890",
+            "description": "Describe your self...",
+            "role": "user",
+            "auth2": false,
+            "friends": [],
+            "status": "active",
+            "_id": "677411ee49d605e7ce420f98",
+            "createdAt": "2024-12-31T15:46:55.024Z",
+            "updatedAt": "2024-12-31T15:46:55.024Z",
+            "__v": 0
+        },
+        "accessToken": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6Im1laGVkaWhhc2FuQGdtYWlsLmNvbSIsInJvbGUiOiJ1c2VyIiwidXNlcklkIjoiNjc3NDExZWU0OWQ2MDVlN2NlNDIwZjk4IiwiaWF0IjoxNzM1NjYwMDE1LCJleHAiOjE3MzY5NTYwMTV9.AZ6G6KOkJgRpg1jG5CK5n4RNBTxKZbH_HaCvJ78E3DI",
+        "refreshToken": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6Im1laGVkaWhhc2FuQGdtYWlsLmNvbSIsInJvbGUiOiJ1c2VyIiwidXNlcklkIjoiNjc3NDExZWU0OWQ2MDVlN2NlNDIwZjk4IiwiaWF0IjoxNzM1NjYwMDE1LCJleHAiOjE3MzgyNTIwMTV9.tOtLsBmEml_B1YRS_H-zUyTy6w8MLURG_FWQNZpwUeo"
     }
 }
-}
+
 ```
 
 ### **2. User Login**
@@ -77,9 +91,9 @@ require('crypto').randomBytes(64).toString('hex')
 - **Request Body:**
 
 ```json
- {
-  "email": "abir2@gmail.com",
-  "password": "123456"
+{
+"password":"123456",
+  "email": "mehedihasan@gmail.com"
 }
 
 ```
@@ -89,24 +103,33 @@ require('crypto').randomBytes(64).toString('hex')
 ```json
 {
     "success": true,
-   "statuscode":200,
     "message": "Logged in successfully!",
     "data": {
-        "accessToken": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImFiaXIyQGdtYWlsLmNvbSIsInJvbGUiOiJVU0VSIiwidXNlcklkIjoiMTUzYmMyMDYtMTY2ZC00NTA5LTg5YjQtMDM5OTJkYWRhYWZiIiwiaWF0IjoxNzE5MTcwMzc5LCJleHAiOjE3MjA0NjYzNzl9.3GJrDLp6f8Hl1MwL2TshOAi7Q8ZU0-m-O0Gvwvs1P2A",
-        "needPasswordChange": true
+        "accessToken": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6Im1laGVkaWhhc2FuQGdtYWlsLmNvbSIsInJvbGUiOiJ1c2VyIiwidXNlcklkIjoiNjc3NDExZWU0OWQ2MDVlN2NlNDIwZjk4IiwiaWF0IjoxNzM1NjYwMDcxLCJleHAiOjE3MzY5NTYwNzF9.3vQX5BB35Se1sLl0fruifsWCGDkCIRVIHOWy8LAt_ec"
     }
 }
+
 ```
 - **If password mismatch**
 - **Response**
+
 ```json
+
 {
     "success": false,
     "message": "Password incorrect!",
-    "error": {
+    "errorSources": [
+        {
+            "path": "",
+            "message": "Password incorrect!"
+        }
+    ],
+    "err": {
         "statusCode": 401
-    }
+    },
+    "stack": "Error: Password incorrect!\n    at D:\\Programming\\Projects\\Electon_server\\src\\app\\modules\\auth\\auth.services.ts:29:10\n    at Generator.next (<anonymous>)\n    at fulfilled (D:\\Programming\\Projects\\Electon_server\\src\\app\\modules\\auth\\auth.services.ts:28:58)"
 }
+
 ```
 
 ### **1. Forgot-Password
@@ -166,38 +189,7 @@ after entering the email, the email will get a verification URL
 
 ```
 
-### **User Managment**
-- **Endpoint:** **GET `/user?page=1&limit=4`**
-- **Request Headers:**
-    - `Authorization: <JWT_TOKEN>`
 
-
-- **Response:**
- ```json
-  {
-    "success": true,
-    "message": "Users data fetched!",
-    "meta": {
-        "page": 1,
-        "limit": 4,
-        "total": 10
-    },
-    "data": [
-        {
-            "id": "153bc206-166d-4509-89b4-03992dadaafb",
-            "email": "abir2@gmail.com",
-            "username": "abir",
-            "role": "USER",
-            "needPasswordChange": true,
-            "status": "ACTIVE",
-            "createdAt": "2024-06-23T19:17:39.266Z",
-            "updatedAt": "2024-06-23T19:17:39.266Z",
-            "admin": null
-        }
-        .......
-    ]
-}
-```
 
 ### **3. Block  User**
 
