@@ -34,7 +34,7 @@ require('crypto').randomBytes(64).toString('hex')
 ##Authentication 
 ### **1. User Registration**
 
-- **Endpoint:** **`POST /auth/register`**
+- **Endpoint:** **` POST /auth/register**
 - **Request Body:**
 
 ```json
@@ -42,9 +42,9 @@ require('crypto').randomBytes(64).toString('hex')
   "firstName": "Mehedi",
   "lastName": "Hasan",
   "age": 25,
-  "password":"123456",
+  "password": "123456",
   "email": "mehedihasan@gmail.com",
-  "gender":"male",
+  "gender": "male",
   "phoneNumber": "01234567890",
   "image": "https://example.com/profile.jpg"
 
@@ -140,7 +140,7 @@ require('crypto').randomBytes(64).toString('hex')
 ```json
 
 {
-  "email": "mmehedihasanjoyv@gmail.com"
+  "email": "mehedihasan@gmail.com"
 }
 
 ```
