@@ -164,7 +164,7 @@ after entering the email, the email will get a verification URL
 
 ```json
 {
-    "name":"Mehedi Hasan"
+    "firstName":"Mehedi"
 }
 ```
 
@@ -173,56 +173,43 @@ after entering the email, the email will get a verification URL
 ```json
 {
     "success": true,
-    "message": "profile updated!",
+    "message": "Users update successfully",
     "data": {
-        "id": "153bc206-166d-4509-89b4-03992dadaafb",
-        "username": "abir",
-        "email": "abir2@gmail.com",
-        "profilePhoto": null,
-        "role": "USER",
-        "needPasswordChange": true,
-        "status": "ACTIVE",
-        "createdAt": "2024-06-23T19:17:39.266Z",
-        "updatedAt": "2024-06-23T19:17:39.266Z"
+        "secret": {
+            "ascii": "ue3lZ({vqn.zU3l*20TU:oq1Igd>nv9!",
+            "hex": "7565336c5a287b76716e2e7a55336c2a323054553a6f71314967643e6e763921",
+            "base32": "OVSTG3C2FB5XM4LOFZ5FKM3MFIZDAVCVHJXXCMKJM5SD43TWHEQQ",
+            "otpauth_url": "otpauth://totp/Electon%3A%20673d763cc092d2c93364d43e?secret=OVSTG3C2FB5XM4LOFZ5FKM3MFIZDAVCVHJXXCMKJM5SD43TWHEQQ"
+        },
+        "_id": "673d763cc092d2c93364d43e",
+        "firstName": "Mehedi",
+        "lastName": "Hasan",
+        "gender": "male",
+        "email": "mehedihasan@gmail.com",
+        "description": "Describe your self...",
+        "role": "super_admin",
+        "auth2": false,
+        "friends": [],
+        "status": "active",
+        "createdAt": "2024-11-20T05:40:12.512Z",
+        "updatedAt": "2024-12-31T16:00:14.994Z",
+        "__v": 0,
+        "image": "https://i.ibb.co/k05htkr/Mehedi-Hasan.png",
+        "address": {
+            "district": "Patuakhali",
+            "division": "Barishal",
+            "subDistrict": "Patuakhali Sadar",
+            "roadNo": "Tuskhali",
+            "postCode": 8888,
+            "_id": "67506877c3d78cd8e5557c6a"
+        },
+        "phoneNumber": "01601588531"
     }
 }
 
 ```
 
 
-
-### **3. Block  User**
-
-- **Endpoint:** **`POST /user/<userId>/status`**
-- **Request Headers:**
-    - `Authorization: <JWT_TOKEN>`
-- **Request Body:**
-
-```json
-{
-    "status":"BLOCKED"
-}
-```
-- **Response**
-
-```json
-{
-    "success": true,
-    "message": "Users profile status changed!",
-    "data": {
-        "id": "0d85b042-da8a-4356-9a0d-1bd001e01375",
-        "username": "ariana",
-        "email": "ariana@gmail.com",
-        "password": "$2b$12$zrMjZ4phkYFg8d7vhB0fFeapNGTr441jVXU2Ux5l4RXvLZpG3C/ba",
-        "profilePhoto": null,
-        "role": "USER",
-        "needPasswordChange": true,
-        "status": "BLOCKED",
-        "createdAt": "2024-05-24T22:33:23.585Z",
-        "updatedAt": "2024-06-23T19:53:31.539Z"
-    }
-}
-```
 
 ### **3. Convert  User to Admin**
 
