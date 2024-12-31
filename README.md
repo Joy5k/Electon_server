@@ -85,6 +85,74 @@ require('crypto').randomBytes(64).toString('hex')
 
 ```
 
+### Two-step authentication 
+- **Endpoint:** **` POST /auth/2fa/setup`**
+- **Request Headers:**
+    - `Authorization: <JWT_TOKEN>`
+- **Request Body:**
+
+```json
+N/A
+```
+
+- **Response**
+- 
+```json
+{
+    "success": true,
+    "message": "Scan this QR code with your authenticator app",
+    "data": {
+        "message": "Scan this QR code with your authenticator app",
+        "qrCode": "data:image/png;base64,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",
+        "secret": "MNUDA6ZQIY4WMY2VIVCVEY3SMJETS7LUGYZGCQRGPJADWM3PKFXQ"
+    }
+}
+
+```
+
+### ** Verify two-step authentication
+- **Endpoint:** **` POST /auth/2fa/verify`**
+- **Request Headers:**
+    - `Authorization: <JWT_TOKEN>`
+- **Request Body:**
+
+```json
+{
+    "token":"973650"
+}
+
+```
+
+- **Response**
+- 
+```json
+{
+    "success": true,
+    "message": "Users update successfully",
+    "data": {
+        "secret": {
+            "ascii": "ue3lZ({vqn.zU3l*20TU:oq1Igd>nv9!",
+            "hex": "7565336c5a287b76716e2e7a55336c2a323054553a6f71314967643e6e763921",
+            "base32": "OVSTG3C2FB5XM4LOFZ5FKM3MFIZDAVCVHJXXCMKJM5SD43TWHEQQ",
+            "otpauth_url": "otpauth://totp/Electon%3A%20673d763cc092d2c93364d43e?secret=OVSTG3C2FB5XM4LOFZ5FKM3MFIZDAVCVHJXXCMKJM5SD43TWHEQQ"
+        }
+}
+
+```
+
+### Verify Error
+```json
+
+{
+    "data": {
+        "verified": false,
+        "message": "Invalid token",
+        "statusCode": 400
+    }
+}
+```
+
+
 ### **2. User Login**
 
 - **Endpoint:** **`POST /auth/login`**
@@ -155,9 +223,58 @@ after entering the email, the email will get a verification URL
 }
 
 ```
+## User-Management
+- **Endpoint:** **` POST /user/update`**
+- **Request Headers:**
+    - `Authorization: <Admin/superAdmin JWT_TOKEN>`
+- **Request Body:**
+
+
+
+- **Response**
+- 
+```json
+{
+    "success": true,
+    "message": "Users update successfully",
+    "data": [
+        "secret": {
+            "ascii": "ue3lZ({vqn.zU3l*20TU:oq1Igd>nv9!",
+            "hex": "7565336c5a287b76716e2e7a55336c2a323054553a6f71314967643e6e763921",
+            "base32": "OVSTG3C2FB5XM4LOFZ5FKM3MFIZDAVCVHJXXCMKJM5SD43TWHEQQ",
+            "otpauth_url": "otpauth://totp/Electon%3A%20673d763cc092d2c93364d43e?secret=OVSTG3C2FB5XM4LOFZ5FKM3MFIZDAVCVHJXXCMKJM5SD43TWHEQQ"
+        },
+        "_id": "673d763cc092d2c93364d43e",
+        "firstName": "Mehedi",
+        "lastName": "Hasan",
+        "gender": "male",
+        "email": "mehedihasan@gmail.com",
+        "description": "Describe your self...",
+        "role": "super_admin",
+        "auth2": false,
+        "friends": [],
+        "status": "active",
+        "createdAt": "2024-11-20T05:40:12.512Z",
+        "updatedAt": "2024-12-31T16:00:14.994Z",
+        "__v": 0,
+        "image": "https://i.ibb.co/k05htkr/Mehedi-Hasan.png",
+        "address": {
+            "district": "Patuakhali",
+            "division": "Barishal",
+            "subDistrict": "Patuakhali Sadar",
+            "roadNo": "Tuskhali",
+            "postCode": 8888,
+            "_id": "67506877c3d78cd8e5557c6a"
+        },
+        "phoneNumber": "01601588531"
+    },........
+]
+
+```
+
 ### **1. Edit-Profile
 
-- **Endpoint:** **`POST /user/editProfile`**
+- **Endpoint:** **` POST /user/update`**
 - **Request Headers:**
     - `Authorization: <JWT_TOKEN>`
 - **Request Body:**
@@ -220,7 +337,7 @@ after entering the email, the email will get a verification URL
 
 ```json
 {
-    "role":"ADMIN"
+    "_id":"670ccf078f20dfc3********"
 }
 ```
 - **Response:**
@@ -228,91 +345,44 @@ after entering the email, the email will get a verification URL
 ```json
 {
     "success": true,
-    "message": "Users profile role changed!",
+    "message": "Admin created Successfully",
     "data": {
-        "id": "0d85b042-da8a-4356-9a0d-1bd001e01375",
-        "username": "ariana",
-        "email": "ariana@gmail.com",
-        "profilePhoto": null,
-        "role": "ADMIN",
-        "needPasswordChange": true,
-        "status": "ACTIVE",
-        "createdAt": "2024-05-24T22:33:23.585Z",
-        "updatedAt": "2024-06-23T19:57:13.898Z"
+        "acknowledged": true,
+        "modifiedCount": 1,
+        "upsertedId": null,
+        "upsertedCount": 0,
+        "matchedCount": 1
     }
 }
 ```
 
-### **3. Add a Flat**
+### **3. Convert User Role **
 
-- **Endpoint:** **`POST /api/create-flat`**
+- **Endpoint:** **`POST /user/userToSeller`**
 - **Request Headers:**
     - `Authorization: <JWT_TOKEN>`
 - **Request Body:**
+N/A
 
-```json
-{
-  "location": "123 Main St, Springfield",
-  "description": "A cozy two-bedroom apartment in the city center.",
-  "rentAmount": 1200.0,
-  "bedrooms": 2,
-  "amenities": ["Wi-Fi", "Air Conditioning", "Heating", "Washer/Dryer"],
-  
-    "photos": [
-      {
-        "id": "c1d1e1f1-1111-1111-1111-111111111111",
-        "imageUrl": "https://example.com/photo1.jpg"
-      },
-      {
-        "id": "d2e2f2g2-2222-2222-2222-222222222222",
-        "imageUrl": "https://example.com/photo2.jpg"
-      }
-    ]
-  
-}
-
-```
 
 - **Response:**
 
 ```json
 {
     "success": true,
-   "statuscode":200,
-    "message": "Flat created successfully",
+    "message": "Role Changed successfully",
     "data": {
-        "id": "ab19159a-5af5-45d1-ad41-49b033454942",
-        "location": "123 Main St, Springfield",
-        "description": "A cozy two-bedroom apartment in the city center.",
-        "rentAmount": 1200,
-        "bedrooms": 2,
-        "amenities": [
-            "Wi-Fi",
-            "Air Conditioning",
-            "Heating",
-            "Washer/Dryer"
-        ],
-        "createdAt": "2024-06-23T19:29:05.097Z",
-        "updatedAt": "2024-06-23T19:29:05.097Z",
-        "userId": "153bc206-166d-4509-89b4-03992dadaafb",
-        "photos": [
-            {
-                "id": "b0ed987e-aede-4eb2-9912-cd5eb876d3a9",
-                "imageUrl": "https://example.com/photo1.jpg",
-                "flatId": "ab19159a-5af5-45d1-ad41-49b033454942"
-            },
-            {
-                "id": "ffce852a-cffd-4f48-bf8d-626b5fe3d5eb",
-                "imageUrl": "https://example.com/photo2.jpg",
-                "flatId": "ab19159a-5af5-45d1-ad41-49b033454942"
-            }
-        ]
+        "acknowledged": true,
+        "modifiedCount": 1,
+        "upsertedId": null,
+        "upsertedCount": 0,
+        "matchedCount": 1
     }
 }
 ```
 
 
-### **3. Update any Flat as a Admin**
+### **3. Block user**
 
 - **Endpoint:** **`POST /flat/updateFLat/anyFlatID`**
 - **Request Headers:**
@@ -321,7 +391,7 @@ after entering the email, the email will get a verification URL
 
 ```json
 {
-  "location": "1230 Main St, Patuakhali"
+    "status":"block"
 }
 
 ```
@@ -331,24 +401,32 @@ after entering the email, the email will get a verification URL
 ```json
 {
     "success": true,
-    "statuscode":200,
-    "message": "FLat data updated!",
+    "message": "user status has been changed",
     "data": {
-        "id": "155edef1-f393-4a17-befe-ab9c418889cb",
-        "location": "1230 Main St, Patuakhali",
-        "description": "A lovely two-bedroom flat in the heart of the city. It offers a spacious living area, modern kitchen, and a beautiful view of the park.",
-        "rentAmount": 10,
-        "bedrooms": 3,
-        "amenities": [
-            "wifi",
-            "parking",
-            "pool",
-            "gym",
-            "air conditioning"
-        ],
-        "createdAt": "2024-06-04T09:00:13.074Z",
-        "updatedAt": "2024-06-23T19:59:12.402Z",
-        "userId": "05c9f3ca-f9a0-4541-ad9b-e648dac0c796"
+        "gender": "male",
+        "auth2": false,
+        "_id": "67016c3b3ed9fe196110d309",
+        "firstName": "Mehedi",
+        "lastName": "Hasan",
+        "age": 25,
+        "email": "mehedi@gmail.com",
+        "phoneNumber": "01601588531",
+        "role": "super_admin",
+        "address": {
+            "district": "Barisal",
+            "division": "Barisal",
+            "subDistrict": "",
+            "roadNo": "",
+            "postCode": 8600,
+            "_id": "674808dcfeeef9ec2c53698b"
+        },
+        "friends": [],
+        "status": "blocked",
+        "createdAt": "2024-10-05T16:41:31.169Z",
+        "updatedAt": "2024-12-31T16:50:54.771Z",
+        "__v": 0,
+        "image": "https://i.ibb.co/0tzD6XY/men2.jpg",
+        "description": "Describe your self..."
     }
 }
 ```
