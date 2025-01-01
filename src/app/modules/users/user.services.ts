@@ -23,7 +23,7 @@ const createAdminIntoDB = async (_id: string) => {
         { _id, status: "active" },
         { $set: { role: newStatus } },
         {new:true}
-      );
+      ).select('-password');
       return result;
   
     } catch (error) {
@@ -54,7 +54,7 @@ const updateMeFromDB=async(payload:any,_id:string)=>{
 
     const result=await Users.findByIdAndUpdate(new ObjectId(_id),payload,{
         new:true
-    })
+    }).select('-password')
     return result
 }
 const changeRoleUserToSellerIntoDB=async(_id:string)=>{
@@ -77,7 +77,7 @@ const changeRoleUserToSellerIntoDB=async(_id:string)=>{
       { _id, status: "active" },
       { $set: { role: newStatus } },
       {new:true}
-    );
+    ).select('-password');
     return result;
 
   } catch (error) {
@@ -109,7 +109,7 @@ const blockUserIntoDB = async ( _id: string) => {
         _id,
         { status: newStatus },
         { new: true } // Return the updated document
-      );
+      ).select(['-password','-secret']);
   
       return result;
     } catch (error:any) {
