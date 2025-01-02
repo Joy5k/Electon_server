@@ -393,7 +393,7 @@ N/A
 
 ### **3. Block user**
 
-- **Endpoint:** **`POST /flat/updateFLat/anyFlatID`**
+- **Endpoint:** **`POST /user/block/userId`**
 - **Request Headers:**
     - `Authorization: <JWT_TOKEN>`
 - **Request Body:**
@@ -439,6 +439,7 @@ N/A
     }
 }
 ```
+
 ### **3. Update your Flat**
 
 - **Endpoint:** **`POST /flat/updateMyFLat/anyFlatID`**
