@@ -88,11 +88,13 @@ require('crypto').randomBytes(64).toString('hex')
 ### Two-step authentication 
 - **Endpoint:** **` POST /auth/2fa/setup`**
 - **Request Headers:**
-    - `Authorization: <JWT_TOKEN>`
+      - `Authorization: <JWT_TOKEN>`
 - **Request Body:**
 
 ```json
+
 N/A
+  
 ```
 
 - **Response**
@@ -136,6 +138,7 @@ N/A
             "base32": "OVSTG3C2FB5XM4LOFZ5FKM3MFIZDAVCVHJXXCMKJM5SD43TWHEQQ",
             "otpauth_url": "otpauth://totp/Electon%3A%20673d763cc092d2c93364d43e?secret=OVSTG3C2FB5XM4LOFZ5FKM3MFIZDAVCVHJXXCMKJM5SD43TWHEQQ"
         }
+}
 }
 
 ```
@@ -215,7 +218,7 @@ N/A
 after entering the email, the email will get a verification URL
 
 - **Response**
-- 
+
 ```json
 {
     "success": true,
@@ -223,21 +226,26 @@ after entering the email, the email will get a verification URL
 }
 
 ```
+
 ## User-Management
-- **Endpoint:** **` POST /user/update`**
+
+- **Endpoint:** **`POST /user/update`**
+
 - **Request Headers:**
-    - `Authorization: <Admin/superAdmin JWT_TOKEN>`
+
+- `Authorization: <Admin/superAdmin JWT_TOKEN>`
+
 - **Request Body:**
 
 
 
 - **Response**
-- 
+
 ```json
 {
     "success": true,
     "message": "Users update successfully",
-    "data": [
+    "data": [{
         "secret": {
             "ascii": "ue3lZ({vqn.zU3l*20TU:oq1Igd>nv9!",
             "hex": "7565336c5a287b76716e2e7a55336c2a323054553a6f71314967643e6e763921",
@@ -269,6 +277,7 @@ after entering the email, the email will get a verification URL
         "phoneNumber": "01601588531"
     },........
 ]
+}
 
 ```
 
@@ -330,7 +339,7 @@ after entering the email, the email will get a verification URL
 
 ### **3. Convert  User to Admin**
 
-- **Endpoint:** **`POST /user/<userId>/role`**
+- **Endpoint:** **`POST /user/create-admin`**
 - **Request Headers:**
     - `Authorization: <JWT_TOKEN>`
 - **Request Body:**
@@ -356,7 +365,7 @@ after entering the email, the email will get a verification URL
 }
 ```
 
-### **3. Convert User Role **
+### **3. Convert User Role**
 
 - **Endpoint:** **`POST /user/userToSeller`**
 - **Request Headers:**
