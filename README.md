@@ -440,17 +440,29 @@ N/A
 }
 ```
 
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+
 ### **3. Update your Flat**
 
-- **Endpoint:** **`POST /flat/updateMyFLat/anyFlatID`**
+- **Endpoint:** **`POST /product/create-product`**
 - **Request Headers:**
     - `Authorization: <JWT_TOKEN>`
 - **Request Body:**
 
 ```json
-{
-  "location": "1230 Main St, Patuakhali"
-}
+ {
+    "title": "Desktop",
+    "description": "A powerful Desktop for both work and gaming.",
+    "image": "https://example.com/images/laptop.jpg",
+    "price": 1299.99,
+    "quantity": 5,
+    "color": ["Silver"],
+    "category":"pc",
+    "rating": 4.5,
+    "sellerId":"67016c3b3ed9fe196110d309"
+  }
 
 ```
 
@@ -459,24 +471,23 @@ N/A
 ```json
 {
     "success": true,
-    "statuscode":200,
-    "message": "FLat data updated!",
+    "message": "The Product created successfully!",
     "data": {
-        "id": "155edef1-f393-4a17-befe-ab9c418889cb",
-        "location": "1230 Main St, Patuakhali",
-        "description": "A lovely two-bedroom flat in the heart of the city. It offers a spacious living area, modern kitchen, and a beautiful view of the park.",
-        "rentAmount": 10,
-        "bedrooms": 3,
-        "amenities": [
-            "wifi",
-            "parking",
-            "pool",
-            "gym",
-            "air conditioning"
+        "title": "Desktop",
+        "description": "A powerful Desktop for both work and gaming.",
+        "image": "https://example.com/images/laptop.jpg",
+        "color": [
+            "Silver"
         ],
-        "createdAt": "2024-06-04T09:00:13.074Z",
-        "updatedAt": "2024-06-23T19:59:12.402Z",
-        "userId": "05c9f3ca-f9a0-4541-ad9b-e648dac0c796"
+        "quantity": 5,
+        "category": "pc",
+        "price": 1299.99,
+        "rating": 4.5,
+        "sellerId": "67016c3b3ed9fe196110d309",
+        "_id": "677a468eeb969f85fa5934f6",
+        "createdAt": "2025-01-05T08:45:02.589Z",
+        "updatedAt": "2025-01-05T08:45:02.589Z",
+        "__v": 0
     }
 }
 ```
