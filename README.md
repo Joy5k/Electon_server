@@ -444,7 +444,7 @@ N/A
 
 
 
-### **3. Update your Flat**
+### **3. Create your Product**
 
 - **Endpoint:** **`POST /product/create-product`**
 - **Request Headers:**
@@ -494,25 +494,25 @@ N/A
 
 ### **3. Delete your Flat**
 
-- **Endpoint:** **`POST /flat/deleteFlat/anyFlatID`**
+- **Endpoint:** **`POST /product/delete-product/:product_id`**
 - **Request Headers:**
     - `Authorization: <JWT_TOKEN>`
 
 - **Response:**
 
-```json
 {
     "success": true,
-    "statuscode":200,
-    "message": "FLat Deleted successfully!",
+    "message": "The Product deleted successfully!",
     "data": {
-        "count": 3
+        "acknowledged": true,
+        "deletedCount": 0
     }
 }
+
 ```
-### **3. get single  Flat**
+### **3. get single  Product**
 
-- **Endpoint:** **`POST /flat/getSingleFlat/anyFlatID`**
+- **Endpoint:** **`POST /product/single-product/673f481a477caee0df21c04e`**
 - **Request Headers:**
     - `Authorization: <JWT_TOKEN>`
 
@@ -521,44 +521,31 @@ N/A
 ```json
 {
     "success": true,
-    "statuscode":200,
-    "message": "Flat retrieval successfully",
+    "message": "The Product Retrieved successfully!",
     "data": {
-        "id": "1a78360f-d67e-4a0f-827b-a74f59fe4ffb",
-        "location": "Dhaka",
-        "description": "A modern 2-bedroom apartment located in the heart of the city. This spacious flat offers an open-plan living area with large windows that provide plenty of natural light. The fully equipped kitchen includes state-of-the-art appliances, perfect for those who love to cook. Both bedrooms feature built-in wardrobes and en-suite bathrooms. Additional amenities include a private balcony, secure underground parking, and access to a communal gym and pool.",
-        "photos": [
-            {
-                "id": "2e678441-4094-4999-95b6-5eeaf1537282",
-                "imageUrl": "https://i.ibb.co/fD1ssgJ/istockphoto-488120139-612x612.jpg",
-                "flatId": "1a78360f-d67e-4a0f-827b-a74f59fe4ffb"
-            },
-            {
-                "id": "9bec1b6a-fd2f-4896-8287-1a11b0f95dcf",
-                "imageUrl": "https://i.ibb.co/HCx0Vkz/istockphoto-522540838-612x612.jpg",
-                "flatId": "1a78360f-d67e-4a0f-827b-a74f59fe4ffb"
-            },
-            {
-                "id": "250a0f61-8fcd-46fd-8599-b99c4bd05fa1",
-                "imageUrl": "https://i.ibb.co/dMrLr0N/istockphoto-879931076-612x612.jpg",
-                "flatId": "1a78360f-d67e-4a0f-827b-a74f59fe4ffb"
-            }
+        "_id": "673f481a477caee0df21c04e",
+        "title": "Mobile",
+        "description": "A powerful Desktop for both work and gaming.",
+        "image": "https://i.ibb.co/yR9bnXv/3-1.jpg",
+        "color": [
+            "Silver"
         ],
-        "rentAmount": 5000,
-        "bedrooms": 5,
-        "amenities": [
-            "gym"
-        ],
-        "userId": "05c9f3ca-f9a0-4541-ad9b-e648dac0c796",
-        "createdAt": "2024-06-04T20:01:02.015Z",
-        "updatedAt": "2024-06-04T20:01:02.015Z"
+        "quantity": 4,
+        "price": 1299.99,
+        "rating": 4.5,
+        "sellerId": "67016c3b3ed9fe196110d309",
+        "createdAt": "2024-11-21T14:47:54.693Z",
+        "updatedAt": "2024-12-04T15:01:01.133Z",
+        "__v": 0,
+        "category": "others"
     }
 }
+
 ```
 
 ### **3. get All  Flats as an Admin with search query**
 
-- **Endpoint:** **`POST /flat/get-all-flats?bedrooms=20&location=&priceMin=0&priceMax=1000000`**
+- **Endpoint:** **`POST /product/get-all-products`**
 - **Request Headers:**
     - `Authorization: <JWT_TOKEN>`
 
@@ -567,68 +554,66 @@ N/A
 ```json
 {
     "success": true,
-    "message": "Flats retrieval successfully",
+    "message": "Products Retrieved successfully!",
     "meta": {
-        "total": 15,
         "page": 1,
-        "limit": 10
+        "limit": 10,
+        "total": 13,
+        "totalPage": 2
     },
     "data": [
         {
-            "id": "ab19159a-5af5-45d1-ad41-49b033454942",
-            "location": "123 Main St, Springfield",
-            "description": "A cozy two-bedroom apartment in the city center.",
-            "rentAmount": 1200,
-            "bedrooms": 2,
-            "amenities": [
-                "Wi-Fi",
-                "Air Conditioning",
-                "Heating",
-                "Washer/Dryer"
+            "_id": "677a468eeb969f85fa5934f6",
+            "title": "Desktop",
+            "description": "A powerful Desktop for both work and gaming.",
+            "image": "https://example.com/images/laptop.jpg",
+            "color": [
+                "Silver"
             ],
-            "createdAt": "2024-06-23T19:29:05.097Z",
-            "updatedAt": "2024-06-23T19:29:05.097Z",
-            "userId": "153bc206-166d-4509-89b4-03992dadaafb",
-            "photos": [
-                {
-                    "id": "b0ed987e-aede-4eb2-9912-cd5eb876d3a9",
-                    "imageUrl": "https://example.com/photo1.jpg",
-                    "flatId": "ab19159a-5af5-45d1-ad41-49b033454942"
-                },
-                {
-                    "id": "ffce852a-cffd-4f48-bf8d-626b5fe3d5eb",
-                    "imageUrl": "https://example.com/photo2.jpg",
-                    "flatId": "ab19159a-5af5-45d1-ad41-49b033454942"
-                }
+            "quantity": 5,
+            "category": "pc",
+            "price": 1299.99,
+            "rating": 4.5,
+            "sellerId": "67016c3b3ed9fe196110d309",
+            "createdAt": "2025-01-05T08:45:02.589Z",
+            "updatedAt": "2025-01-05T08:45:02.589Z"
+        },
+        {
+            "_id": "677a4613eb969f85fa5934ef",
+            "title": "Desktop",
+            "description": "A powerful Desktop for both work and gaming.",
+            "image": "https://example.com/images/laptop.jpg",
+            "color": [
+                "Silver"
             ],
-            "user": {
-                "id": "153bc206-166d-4509-89b4-03992dadaafb",
-                "username": "abir",
-                "email": "abir2@gmail.com",
-                "profilePhoto": null,
-                "role": "USER",
-                "needPasswordChange": true,
-                "status": "ACTIVE"
-            }
-        }.....
+            "quantity": 5,
+            "category": "others",
+            "price": 1299.99,
+            "rating": 4.5,
+            "sellerId": "67016c3b3ed9fe196110d309",
+            "createdAt": "2025-01-05T08:43:00.004Z",
+            "updatedAt": "2025-01-05T08:43:00.004Z"
+        },
+        {
+            "_id": "67526311cd73361733204aa7",
+            "title": "Sony 42' TV",
+            "description": "The Sony 42-Inch Smart TV offers a stunning visual experience with its Full HD resolution and X-Reality PRO technology, ensuring vibrant colors and sharp details in every scene. Its sleek and modern design complements any living space, making it an ideal centerpiece for your entertainment needs. With built-in smart features, you can seamlessly stream your favorite shows and movies on platforms like Netflix, YouTube, and Prime Video. The TV also boasts ClearAudio+ technology, delivering immersive and dynamic sound for a captivating viewing experience. Energy-efficient and user-friendly, the Sony 42-Inch Smart TV combines style, performance, and sustainability in one exceptional package.",
+            "image": "https://i.ibb.co/hXc7vxz/tv.png",
+            "color": [
+                "Black",
+                "White"
+            ],
+            "quantity": 56,
+            "category": "others",
+            "price": 360,
+            "sellerId": "673d763cc092d2c93364d43e",
+            "createdAt": "2024-12-06T02:36:01.168Z",
+            "updatedAt": "2024-12-06T02:36:01.168Z"
+        },........
+        
+    ]
+}
 ```
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
