@@ -492,7 +492,7 @@ N/A
 }
 ```
 
-### **3. Delete your Flat**
+### **3. Delete your Product**
 
 - **Endpoint:** **`POST /product/delete-product/:product_id`**
 - **Request Headers:**
@@ -543,7 +543,7 @@ N/A
 
 ```
 
-### **3. get All  Flats as an Admin with search query**
+### **3. get All  Products as an Admin with search query**
 
 - **Endpoint:** **`POST /product/get-all-products`**
 - **Request Headers:**
@@ -615,7 +615,7 @@ N/A
 }
 ```
 
-### **3. get All  Flats as an Admin with search query**
+### **3. get All  Products as an Admin with search query**
 
 - **Endpoint:** **`POST /product/my-products`**
 - **Request Headers:**
