@@ -615,24 +615,101 @@ N/A
 }
 ```
 
+### **3. get All  Flats as an Admin with search query**
 
+- **Endpoint:** **`POST /product/my-products`**
+- **Request Headers:**
+    - `Authorization: <JWT_TOKEN>`
 
+- **Response:**
 
-
-If you want to use my API then you might be got the error 
 ```json
+
 {
-    "success": false,
-    "message": "Can't reach database server at `aws-0-ap-southeast-1.pooler.supabase.com`:`5432`\n\nPlease make sure your database server is running at `aws-0-ap-southeast-1.pooler.supabase.com`:`5432`.",
-    "error": {
-        "name": "PrismaClientInitializationError",
-        "clientVersion": "5.11.0",
-        "errorCode": "P1001"
+    "success": true,
+    "message": "The Product Retrieved successfully!",
+    "data": [
+        {
+            "_id": "67506b0bb9b573eea2d36e85",
+            "title": "Box",
+            "description": "The sony box has multiple function as well as Bluetooth method too",
+            "image": "https://i.ibb.co/3h4v7xg/img-p4.webp",
+            "color": [
+                "Black",
+                "Gray"
+            ],
+            "quantity": 280,
+            "price": 80,
+            "sellerId": {
+                "_id": "673d763cc092d2c93364d43e",
+                "firstName": "Mehedi",
+                "lastName": "Hasan",
+                "gender": "male",
+                "email": "mmehedihasanjoyv@gmail.com",
+                "description": "Describe your self...",
+                "role": "super_admin",
+                "auth2": false,
+                "friends": [],
+                "status": "active",
+                "createdAt": "2024-11-20T05:40:12.512Z",
+                "updatedAt": "2024-12-31T16:58:52.288Z",
+                "__v": 0,
+                "image": "https://i.ibb.co/k05htkr/Mehedi-Hasan.png",
+                "address": {
+                    "district": "Patuakhali",
+                    "division": "Barishal",
+                    "subDistrict": "Patuakhali Sadar",
+                    "roadNo": "Tuskhali",
+                    "postCode": 8888,
+                    "_id": "67506877c3d78cd8e5557c6a"
+                },
+                "phoneNumber": "01601588531"
+            },
+            "createdAt": "2024-12-04T14:45:31.817Z",
+            "updatedAt": "2024-12-04T15:01:01.133Z",
+            "__v": 0,
+            "category": "others"
+        },........
+       
+       
+    ]
+}
+
+```
+
+
+
+### **3. Update product**
+
+- **Endpoint:** **`POST /product/update-product/6702d3aa9d67555985d280bf`**
+- **Request Headers:**
+    - `Authorization: <JWT_TOKEN>`
+
+- ** Request body:**
+
+ ```json
+ {
+    "title":"Desktop"
+}
+ ```
+
+- **Response:**
+
+```json
+
+{
+    "success": true,
+    "message": "The Product updated successfully!",
+    "data": {
+        "acknowledged": true,
+        "modifiedCount": 0,
+        "upsertedId": null,
+        "upsertedCount": 0,
+        "matchedCount": 0
     }
 }
 ```
-Because the project has deployed supabase in a free version that's why the database will be closed after 15 days. If you fetch the problem then send me an email in mmehedihasanjov@gmail.com
-subject: Turn on your spare room on supabase
+
 
 
 

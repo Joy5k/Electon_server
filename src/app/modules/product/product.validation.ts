@@ -68,7 +68,7 @@ const updateProductValidationSchema=z.object({
         })
         .int("Quantity must be an integer")
         .min(1, "Quantity must be at least 1").optional(),
-        category:categoryValidation,
+        category:categoryValidation.optional(),
         color: z.array(z.string(), {
           required_error: "Color is required",
         }).min(1, "At least one color must be provided").optional(),
