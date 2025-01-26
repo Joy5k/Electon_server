@@ -15,7 +15,7 @@
         {
           "source": "/socket.io/(.*)",
           "headers": [
-            { "key": "Access-Control-Allow-Origin", "value": "https://electon-one.vercel.app" },
+            { "key": "Access-Control-Allow-Origin", "value": "*" },
             { "key": "Access-Control-Allow-Methods", "value": "GET, POST, PUT, DELETE" },
             { "key": "Access-Control-Allow-Credentials", "value": "true" }
           ]

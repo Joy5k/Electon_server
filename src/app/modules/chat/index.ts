@@ -7,13 +7,12 @@ function initializeSocketIO(server: HTTPServer) {
     // Initialize Socket.IO
     const io = new SocketIOServer(server, {
         cors: {
-            // origin: ['https://electon-one.vercel.app','http://localhost:5173','http://localhost:5174'],
-            origin: ['https://electon-one.vercel.app'],
+            origin: "*",
             methods: ['GET', 'POST', 'PUT','DELETE'],
             
             credentials: true,
         },
-        transports: ['websocket', 'polling'], // Explicitly set the transports
+        transports: ['websocket', 'polling'], 
 
     });
 
