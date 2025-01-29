@@ -5,7 +5,8 @@ import app from './app';
 import mongoose from 'mongoose';
 import seedSuperAdmin from './app/DB';
 import initializeSocketIO from './app/modules/chat';
-
+import dotenv from 'dotenv';
+dotenv.config(); 
 async function main() {
     try {
         // Connect to MongoDB

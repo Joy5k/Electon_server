@@ -2,6 +2,8 @@
 import { Server as HTTPServer } from 'http';
 import { Server as SocketIOServer } from 'socket.io';
 import { Chat } from './chat.model';
+import dotenv from 'dotenv';
+dotenv.config(); 
 
 function initializeSocketIO(server: HTTPServer) {
     // Initialize Socket.IO
