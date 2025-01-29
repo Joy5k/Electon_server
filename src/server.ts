@@ -6,7 +6,10 @@ import mongoose from 'mongoose';
 import seedSuperAdmin from './app/DB';
 import initializeSocketIO from './app/modules/chat';
 import dotenv from 'dotenv';
+import Stripe from 'stripe';
 dotenv.config(); 
+
+const stripe = new Stripe(process.env.STRIPE_SECRET_KEY as string);
 
 async function main() {
     try {
