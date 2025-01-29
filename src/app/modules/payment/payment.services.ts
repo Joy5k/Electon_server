@@ -4,9 +4,8 @@ import config from "../../config";
 import CustomError from "../../error/customError";
 import { Products } from "../product/product.model";
 import axios from "axios";
-import { ISSLPaymentData } from "./payment.interface";
 import { initPayment, validatePayment } from "../SSL/SSL.services";
-const stripe = require('stripe')(config.stripe_secret);
+const stripe = require('stripe')(process.env.STRIPE_SECRET);
 
 const createPaymentIntent = async (payload: any, Token: any): Promise<any> => {
   // Create a Mongoose session for transaction handling
