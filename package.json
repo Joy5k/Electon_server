@@ -21,6 +21,7 @@
     "typescript": "^5.5.4"
   },
   "dependencies": {
+    "@supabase/supabase-js": "^2.48.1",
     "@types/jsonwebtoken": "^9.0.6",
     "@types/nodemailer": "^6.4.16",
     "axios": "^1.7.9",
@@ -31,6 +32,7 @@
     "dotenv": "^16.4.5",
     "env": "^0.0.2",
     "express": "^4.21.1",
+    "firebase": "^11.2.0",
     "http-status": "^1.7.4",
     "jsonwebtoken": "^9.0.2",
     "mongodb": "^6.8.0",
