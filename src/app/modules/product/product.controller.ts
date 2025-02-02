@@ -12,6 +12,15 @@ import QueryBuilder from "../../builder/QueryBuilder"
 
 
 
+const getCategory=catchAsync(async(req,res)=>{
+    const result= await productServices.getCategories()
+    sendResponse(res, {
+        statusCode: httpStatus.OK,
+        success: true,
+        message: "Products Retrieved successfully!",
+        data: result,
+    })
+})
 const getAllProducts=catchAsync(async(req,res)=>{
     const query=req.query
     const result= await productServices.getProductsFromDB(query)
@@ -93,6 +102,7 @@ const deleteProduct=catchAsync(async(req,res)=>{
 
 export const productController={
     getAllProducts,
+    getCategory,
     getSingleProducts,
     getAllMyProducts,
     postProduct,

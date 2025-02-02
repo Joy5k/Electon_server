@@ -5,6 +5,21 @@ import { Products } from "./product.model"
 import CustomError from "../../error/customError"
 import QueryBuilder from "../../builder/QueryBuilder"
 
+
+const getCategories = async () => {
+  const result = await Products.aggregate([
+    {
+      $group: {
+        _id: "$category",
+        totalProducts: { $count: {} },// count the total number of products in each category
+        products: { $push: "$$ROOT" } // Push the entire product document into an array
+      }
+    }
+  ]);
+  return result;
+}
+
+
 const getProductsFromDB = async (query:Record<string,any>) => {
     const courseQuery = new QueryBuilder(
         Products.find(),
@@ -62,6 +77,7 @@ const deleteProductFromDB=async(id:string)=>{
 
 export const productServices={
     getProductsFromDB,
+    getCategories,
     getSingleProductFromDB,
     getAllMyProducts,
     postProductIntoDB,

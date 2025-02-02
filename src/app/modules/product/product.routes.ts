@@ -11,7 +11,7 @@ router.get("/get-all-products",
     // auth(USER_ROLE.USER,USER_ROLE.SELLER,USER_ROLE.ADMIN,USER_ROLE.SUPER_ADMIN), 
      productController.getAllProducts
     )
-
+router.get('/category',auth(USER_ROLE.USER,USER_ROLE.SELLER,USER_ROLE.ADMIN,USER_ROLE.SUPER_ADMIN),productController.getCategory)
 router.get('/single-product/:id', 
     auth(USER_ROLE.USER,USER_ROLE.SELLER,USER_ROLE.ADMIN,USER_ROLE.SUPER_ADMIN), 
      productController.getSingleProducts
