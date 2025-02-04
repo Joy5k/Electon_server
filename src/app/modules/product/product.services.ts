@@ -11,6 +11,7 @@ const getCategories = async () => {
     {
       $group: {
         _id: "$category",
+        category: { $first: "$category" }, // Get the category name
         totalProducts: { $count: {} },// count the total number of products in each category
         products: { $push: "$$ROOT" } // Push the entire product document into an array
       }

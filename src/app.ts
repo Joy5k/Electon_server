@@ -4,10 +4,14 @@ import router from './app/routes';
 import httpStatus from 'http-status';
 import cookieParser from 'cookie-parser';
 import globalErrorHandler from './app/middlewares/globalError';
+import compression from "compression";
+
+
 
 const app: Application = express();
 
-
+// handle large scale data for increase better performance
+app.use(compression());
 
 app.use(
   cors({
